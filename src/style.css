@@ -1,0 +1,35 @@
+@import url('./css/main.css');
+@import url('./css/header.css');
+@import url('./css/sidebar.css');
+@import url('./css/project-navigation.css');
+@import url('./css/button-with-icon.css');
+@import url('./css/project.css');
+@import url('./css/theme.css');
+@import url('./css/task-editor.css');
+@import url('./css/pressed-button.css');
+
+/* some reset styles */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* general styles */
+
+body {
+  font-family: system-ui, 'Segoe UI', Roboto, Noto, Oxygen-Sans, Ubuntu, Cantrell, 'Helvetica Neue',
+    sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  background-color: transparent;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
