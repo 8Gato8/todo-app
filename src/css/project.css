@@ -1,0 +1,23 @@
+.project-container {
+  grid-area: project;
+}
+
+.project {
+  margin: auto;
+  padding: 50px;
+  max-width: 800px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: flex-start;
+}
+
+.project__title {
+  font-size: 26px;
+  padding: 0 10px;
+}
+
+.project__open-task-editor {
+  padding: 0;
+}

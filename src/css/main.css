@@ -1,0 +1,7 @@
+.main {
+  display: grid;
+  grid-template:
+    'sidebar header' auto
+    'sidebar project' 1fr
+    / 15% 1fr;
+}

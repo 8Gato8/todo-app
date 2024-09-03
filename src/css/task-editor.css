@@ -1,0 +1,121 @@
+@import url('./variables.css');
+
+.task-editor-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.task-editor-container_hidden {
+  display: none;
+}
+
+.task-editor {
+  margin-top: 150px;
+  width: min(580px, 50%);
+  box-shadow: 0 15px 50px 0 rgba(0, 0, 0, 0.35);
+  border-radius: 6px;
+}
+
+.task-editor__editing-area {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-bottom: 1px solid var(--task-editor-border-idle-tint);
+  padding: 15px;
+}
+
+.editing-area__title {
+  min-height: 30px;
+}
+
+.editing-area__title::placeholder {
+  font-size: 20px;
+}
+
+.editing-area__description {
+  resize: vertical;
+}
+
+.editing-area__description::placeholder,
+.editing-area__due-time::placeholder {
+  font-size: 13px;
+}
+
+.editing-area__title,
+.editing-area__description,
+.editing-area__due-time {
+  border: none;
+  outline: none;
+}
+
+.task-editor__popup-button {
+  color: var(--task-editor-button-color);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 12px;
+  border-radius: 6px;
+  transition: all ease-out 0.2s;
+}
+
+/* .task-editor__popup-button:active {
+  transform: scale(0.97);
+  transition: transform 0.2s cubic-bezier(0.02, 1.505, 0.745, 1.235);
+} */
+
+.task-editor-footer__priority {
+}
+
+.task-editor-footer__project {
+}
+
+.task-editor__footer {
+  display: flex;
+  padding: 15px;
+  justify-content: space-between;
+}
+
+.task-editor-footer__selects {
+  display: flex;
+  gap: 10px;
+}
+
+.task-editor-footer__buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.popup-button__project-icon {
+  position: relative;
+  top: 3px;
+}
+
+.popup-button__arrow-down {
+  position: relative;
+  top: 2px;
+}
+
+.popup-button:hover {
+  background-color: var(--task-editor-cancel-button-background-color);
+}
+
+.cancel-task-edition-button {
+  background-color: var(--task-editor-cancel-button-background-color);
+}
+
+.cancel-task-edition-button:hover {
+  background-color: var(--task-editor-cancel-button-background-color-hover);
+  color: var(--task-editor-cancel-button-color-hover);
+}
+
+.add-task-button {
+  background-color: var(--task-editor-add-button-background-color);
+  color: var(--white);
+}
+
+.add-task-button:hover {
+  background-color: var(--task-editor-add-button-background-color-hover);
+}

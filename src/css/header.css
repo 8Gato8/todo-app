@@ -1,0 +1,9 @@
+.header {
+  grid-area: header;
+  order: 2;
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  justify-self: end;
+  padding: 10px 20px;
+}

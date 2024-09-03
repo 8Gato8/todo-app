@@ -1,0 +1,19 @@
+@import url('./variables.css');
+
+.button-with-icon {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+
+  padding: 10px;
+  border-radius: 6px;
+  transition: all ease-out 0.2s;
+}
+
+.button-with-icon__text {
+  position: relative;
+}
+
+.button-with-icon:hover {
+  background-color: var(--sidebar-button-background-color);
+}

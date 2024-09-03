@@ -1,0 +1,17 @@
+@import url('./variables.css');
+
+.sidebar {
+  grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: var(--sidebar-background);
+  min-height: 100vh;
+  padding: 10px;
+}
+
+.sidebar__open-task-editor {
+  align-self: flex-start;
+  font-weight: 600;
+  width: 100%;
+}

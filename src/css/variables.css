@@ -1,0 +1,13 @@
+:root {
+  --white: #ffffff;
+  --sidebar-background: #f3f4f6;
+  --sidebar-button-background-color: #f2efed;
+
+  --task-editor-border-idle-tint: #e6e6e6;
+  --task-editor-button-color: #444;
+  --task-editor-cancel-button-background-color: #f5f5f5;
+  --task-editor-cancel-button-color-hover: #1a1a1a;
+  --task-editor-cancel-button-background-color-hover: #e5e5e5;
+  --task-editor-add-button-background-color: #3882f1;
+  --task-editor-add-button-background-color-hover: #154a9a;
+}

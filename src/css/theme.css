@@ -1,0 +1,7 @@
+.theme {
+  display: none;
+}
+
+.theme_active {
+  display: block;
+}

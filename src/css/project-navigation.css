@@ -1,0 +1,15 @@
+.project-navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.project-navigation__list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.project-navigation__button {
+  width: 100%;
+}
