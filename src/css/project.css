@@ -4,7 +4,6 @@
 
 .project {
   margin: auto;
-  padding: 50px;
   max-width: 800px;
 
   display: flex;
@@ -16,8 +15,4 @@
 .project__title {
   font-size: 26px;
   padding: 0 10px;
-}
-
-.project__open-task-editor {
-  padding: 0;
 }
