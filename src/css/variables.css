@@ -10,4 +10,8 @@
   --task-editor-cancel-button-background-color-hover: #e5e5e5;
   --task-editor-add-button-background-color: #3882f1;
   --task-editor-add-button-background-color-hover: #154a9a;
+
+  --popup-button-popup-list__item: #f3f3f3;
+
+  --popup-button-popup-list__item-tick: #dc4c3e;
 }

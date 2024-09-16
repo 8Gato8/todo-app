@@ -79,8 +79,8 @@
 
       <div class="project-container"></div>
 
-      <div class="task-editor-container task-editor-container_hidden">
-        <div class="task-editor">
+      <div class="task-editor-container task-editor-container_visible">
+        <form class="task-editor">
           <div class="task-editor__editing-area editing-area">
             <input class="editing-area__title" type="text" placeholder="Название задачи" />
             <textarea class="editing-area__description" placeholder="Описание" rows="1"></textarea>
@@ -88,7 +88,10 @@
           </div>
           <div class="task-editor__footer task-editor-footer">
             <div class="task-editor-footer__selects">
-              <button id="project" class="task-editor__popup-button popup-button pressed-button">
+              <button
+                type="button"
+                id="project"
+                class="task-editor__popup-button task-editor__select-button task-editor__select-button_active pressed-button">
                 <svg
                   class="popup-button__project-icon inbox"
                   xmlns="http://www.w3.org/2000/svg"
@@ -109,8 +112,75 @@
                   fill="#000">
                   <path d="M480-360 280-560h400L480-360Z" />
                 </svg>
+                <div class="popup-button__popup popup-button__popup_visible">
+                  <ul class="popup-button-popup popup-button-popup__list popup-button-popup-list">
+                    <div class="popup-button-popup-list-item-container">
+                      <li class="popup-button-popup-list__item">Входящие</li>
+                      <svg
+                        class="popup-button-popup-list__item-tick popup-button-popup-list__item-tick_active"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 12 12"
+                        width="12"
+                        height="12"
+                        class="kvs4oaF">
+                        <path
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                          d="M4.902 6.975l4.182-4.244a.74.74 0 0 1 1.06 0 .775.775 0 0 1 0 1.081L5.432 8.597a.74.74 0 0 1-1.06 0L1.78 5.975a.775.775 0 0 1 0-1.081.74.74 0 0 1 1.061 0l2.06 2.081z"></path>
+                      </svg>
+                    </div>
+                    <div class="popup-button-popup-list-item-container">
+                      <li class="popup-button-popup-list__item">Дом</li>
+                      <svg
+                        class="popup-button-popup-list__item-tick"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 12 12"
+                        width="12"
+                        height="12"
+                        class="kvs4oaF">
+                        <path
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                          d="M4.902 6.975l4.182-4.244a.74.74 0 0 1 1.06 0 .775.775 0 0 1 0 1.081L5.432 8.597a.74.74 0 0 1-1.06 0L1.78 5.975a.775.775 0 0 1 0-1.081.74.74 0 0 1 1.061 0l2.06 2.081z"></path>
+                      </svg>
+                    </div>
+                    <div class="popup-button-popup-list-item-container">
+                      <li class="popup-button-popup-list__item">Учёба</li>
+                      <svg
+                        class="popup-button-popup-list__item-tick"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 12 12"
+                        width="12"
+                        height="12"
+                        class="kvs4oaF">
+                        <path
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                          d="M4.902 6.975l4.182-4.244a.74.74 0 0 1 1.06 0 .775.775 0 0 1 0 1.081L5.432 8.597a.74.74 0 0 1-1.06 0L1.78 5.975a.775.775 0 0 1 0-1.081.74.74 0 0 1 1.061 0l2.06 2.081z"></path>
+                      </svg>
+                    </div>
+                    <div class="popup-button-popup-list-item-container">
+                      <li class="popup-button-popup-list__item">Здоровье</li>
+                      <svg
+                        class="popup-button-popup-list__item-tick"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 12 12"
+                        width="12"
+                        height="12"
+                        class="kvs4oaF">
+                        <path
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                          d="M4.902 6.975l4.182-4.244a.74.74 0 0 1 1.06 0 .775.775 0 0 1 0 1.081L5.432 8.597a.74.74 0 0 1-1.06 0L1.78 5.975a.775.775 0 0 1 0-1.081.74.74 0 0 1 1.061 0l2.06 2.081z"></path>
+                      </svg>
+                    </div>
+                  </ul>
+                </div>
               </button>
-              <button id="priority" class="task-editor__popup-button popup-button pressed-button">
+              <button
+                type="button"
+                id="priority"
+                class="task-editor__popup-button task-editor__select-button pressed-button">
                 <svg
                   class="popup-button__project-icon"
                   xmlns="http://www.w3.org/2000/svg"
@@ -131,18 +201,86 @@
                   fill="#000">
                   <path d="M480-360 280-560h400L480-360Z" />
                 </svg>
+                <div class="popup-button__popup">
+                  <ul class="popup-button-popup popup-button-popup__list">
+                    <div class="popup-button-popup-list-item-container">
+                      <li class="popup-button-popup-list__item">Приоритет 1</li>
+                      <svg
+                        class="popup-button-popup-list__item-tick popup-button-popup-list__item-tick_active"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 12 12"
+                        width="12"
+                        height="12"
+                        class="kvs4oaF">
+                        <path
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                          d="M4.902 6.975l4.182-4.244a.74.74 0 0 1 1.06 0 .775.775 0 0 1 0 1.081L5.432 8.597a.74.74 0 0 1-1.06 0L1.78 5.975a.775.775 0 0 1 0-1.081.74.74 0 0 1 1.061 0l2.06 2.081z"></path>
+                      </svg>
+                    </div>
+                    <div class="popup-button-popup-list-item-container">
+                      <li class="popup-button-popup-list__item">Приоритет 2</li>
+                      <svg
+                        class="popup-button-popup-list__item-tick"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 12 12"
+                        width="12"
+                        height="12"
+                        class="kvs4oaF">
+                        <path
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                          d="M4.902 6.975l4.182-4.244a.74.74 0 0 1 1.06 0 .775.775 0 0 1 0 1.081L5.432 8.597a.74.74 0 0 1-1.06 0L1.78 5.975a.775.775 0 0 1 0-1.081.74.74 0 0 1 1.061 0l2.06 2.081z"></path>
+                      </svg>
+                    </div>
+                    <div class="popup-button-popup-list-item-container">
+                      <li class="popup-button-popup-list__item">Приоритет 3</li>
+                      <svg
+                        class="popup-button-popup-list__item-tick"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 12 12"
+                        width="12"
+                        height="12"
+                        class="kvs4oaF">
+                        <path
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                          d="M4.902 6.975l4.182-4.244a.74.74 0 0 1 1.06 0 .775.775 0 0 1 0 1.081L5.432 8.597a.74.74 0 0 1-1.06 0L1.78 5.975a.775.775 0 0 1 0-1.081.74.74 0 0 1 1.061 0l2.06 2.081z"></path>
+                      </svg>
+                    </div>
+                    <div class="popup-button-popup-list-item-container">
+                      <li class="popup-button-popup-list__item">Приоритет 4</li>
+                      <svg
+                        class="popup-button-popup-list__item-tick"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 12 12"
+                        width="12"
+                        height="12"
+                        class="kvs4oaF">
+                        <path
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                          d="M4.902 6.975l4.182-4.244a.74.74 0 0 1 1.06 0 .775.775 0 0 1 0 1.081L5.432 8.597a.74.74 0 0 1-1.06 0L1.78 5.975a.775.775 0 0 1 0-1.081.74.74 0 0 1 1.061 0l2.06 2.081z"></path>
+                      </svg>
+                    </div>
+                  </ul>
+                </div>
               </button>
             </div>
             <div class="task-editor-footer__buttons">
-              <button class="task-editor__popup-button cancel-task-edition-button pressed-button">
+              <button
+                type="button"
+                class="task-editor__popup-button cancel-task-edition-button pressed-button">
                 Отмена
               </button>
-              <button class="task-editor__popup-button add-task-button pressed-button">
+              <button
+                type="button"
+                class="task-editor__popup-button add-task-button pressed-button">
                 Добавить задачу
               </button>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </main>
 
