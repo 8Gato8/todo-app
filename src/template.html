@@ -45,7 +45,7 @@
       </header>
 
       <div class="sidebar">
-        <button class="sidebar__open-task-editor button-with-icon">
+        <button class="sidebar__open-task-editor-button button-with-icon">
           <svg
             class="add"
             xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +59,8 @@
         </button>
 
         <nav class="project-navigation">
-          <button class="project-navigation__button button-with-icon">
+          <button
+            class="project-navigation__button project-navigation__button_active button-with-icon">
             <svg
               class="inbox"
               xmlns="http://www.w3.org/2000/svg"
@@ -77,9 +78,25 @@
         </nav>
       </div>
 
-      <div class="project-container"></div>
+      <div class="project-container">
+        <section class="project">
+          <h2 class="project__title">Входящие</h2>
+          <button class="project__open-task-editor-button button-with-icon pressed-button">
+            <svg
+              class="add"
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="#000">
+              <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
+            </svg>
+            <span class="button-with-icon__text">Добавить задачу</span>
+          </button>
+        </section>
+      </div>
 
-      <div class="task-editor-container task-editor-container_visible">
+      <div class="task-editor-container">
         <form class="task-editor">
           <div class="task-editor__editing-area editing-area">
             <input class="editing-area__title" type="text" placeholder="Название задачи" />
@@ -88,32 +105,34 @@
           </div>
           <div class="task-editor__footer task-editor-footer">
             <div class="task-editor-footer__selects">
-              <button
-                type="button"
-                id="project"
-                class="task-editor__popup-button task-editor__select-button task-editor__select-button_active pressed-button">
-                <svg
-                  class="popup-button__project-icon inbox"
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="15px"
-                  viewBox="0 -960 960 960"
-                  width="15px"
-                  fill="#000">
-                  <path
-                    d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-120H640q-30 38-71.5 59T480-240q-47 0-88.5-21T320-320H200v120Zm280-120q38 0 69-22t43-58h168v-360H200v360h168q12 36 43 58t69 22ZM200-200h560-560Z" />
-                </svg>
-                <span class="popup-button__text">Входящие</span>
-                <svg
-                  class="popup-button__arrow-down arrow-down"
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="15px"
-                  viewBox="0 -960 960 960"
-                  width="15px"
-                  fill="#000">
-                  <path d="M480-360 280-560h400L480-360Z" />
-                </svg>
-                <div class="popup-button__popup popup-button__popup_visible">
-                  <ul class="popup-button-popup popup-button-popup__list popup-button-popup-list">
+              <div id="project-choice-container" class="choice-container">
+                <button
+                  type="button"
+                  id="choose-project-button"
+                  class="task-editor__popup-button task-editor__select-button pressed-button">
+                  <svg
+                    class="popup-button__project-icon inbox"
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="15px"
+                    viewBox="0 -960 960 960"
+                    width="15px"
+                    fill="#000">
+                    <path
+                      d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-120H640q-30 38-71.5 59T480-240q-47 0-88.5-21T320-320H200v120Zm280-120q38 0 69-22t43-58h168v-360H200v360h168q12 36 43 58t69 22ZM200-200h560-560Z" />
+                  </svg>
+                  <span class="popup-button__text">Входящие</span>
+                  <svg
+                    class="popup-button__arrow-down arrow-down"
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="15px"
+                    viewBox="0 -960 960 960"
+                    width="15px"
+                    fill="#000">
+                    <path d="M480-360 280-560h400L480-360Z" />
+                  </svg>
+                </button>
+                <div id="project-choice-popup" class="popup-button__popup">
+                  <ul class="popup-button-popup__list popup-button-popup-list">
                     <div class="popup-button-popup-list-item-container">
                       <li class="popup-button-popup-list__item">Входящие</li>
                       <svg
@@ -176,33 +195,35 @@
                     </div>
                   </ul>
                 </div>
-              </button>
-              <button
-                type="button"
-                id="priority"
-                class="task-editor__popup-button task-editor__select-button pressed-button">
-                <svg
-                  class="popup-button__project-icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="15px"
-                  viewBox="0 -960 960 960"
-                  width="15px"
-                  fill="#000">
-                  <path
-                    d="m437-249 183-231H471l26-221-173 269h146l-33 183ZM336-96l48-264H192l324-504h72l-36 312h216L408-96h-72Zm136-379Z" />
-                </svg>
-                <span class="popup-button__text">Приоритет</span>
-                <svg
-                  class="popup-button__arrow-down arrow-down"
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="15px"
-                  viewBox="0 -960 960 960"
-                  width="15px"
-                  fill="#000">
-                  <path d="M480-360 280-560h400L480-360Z" />
-                </svg>
-                <div class="popup-button__popup">
-                  <ul class="popup-button-popup popup-button-popup__list">
+              </div>
+              <div id="priority-choice-container" class="choice-container">
+                <button
+                  type="button"
+                  id="choose-priority-button"
+                  class="task-editor__popup-button task-editor__select-button pressed-button">
+                  <svg
+                    class="popup-button__project-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="15px"
+                    viewBox="0 -960 960 960"
+                    width="15px"
+                    fill="#000">
+                    <path
+                      d="m437-249 183-231H471l26-221-173 269h146l-33 183ZM336-96l48-264H192l324-504h72l-36 312h216L408-96h-72Zm136-379Z" />
+                  </svg>
+                  <span class="popup-button__text">Приоритет</span>
+                  <svg
+                    class="popup-button__arrow-down arrow-down"
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="15px"
+                    viewBox="0 -960 960 960"
+                    width="15px"
+                    fill="#000">
+                    <path d="M480-360 280-560h400L480-360Z" />
+                  </svg>
+                </button>
+                <div id="priority-choice-popup" class="popup-button__popup">
+                  <ul class="popup-button-popup-list popup-button-popup__list">
                     <div class="popup-button-popup-list-item-container">
                       <li class="popup-button-popup-list__item">Приоритет 1</li>
                       <svg
@@ -265,15 +286,17 @@
                     </div>
                   </ul>
                 </div>
-              </button>
+              </div>
             </div>
             <div class="task-editor-footer__buttons">
               <button
+                id="cancel-button"
                 type="button"
                 class="task-editor__popup-button cancel-task-edition-button pressed-button">
                 Отмена
               </button>
               <button
+                id="add-task-button"
                 type="button"
                 class="task-editor__popup-button add-task-button pressed-button">
                 Добавить задачу
@@ -291,7 +314,7 @@
 
     <template id="project-template">
       <section class="project">
-        <h2 class="project__title">Дом</h2>
+        <h2 class="project__title">Входящие</h2>
         <button class="project__open-task-editor button-with-icon pressed-button">
           <svg
             class="add"
