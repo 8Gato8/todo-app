@@ -56,18 +56,6 @@ const priorityPopupContainerChildrenList = makeElementChildrenList(priorityChoic
 
 /* handlers */
 
-function handelSidebarOpenTaskEditorButtonClick() {
-  openPopup(taskEditorOverlay, TASK_EDITOR_CLASS_FOR_VISIBLE_STATE);
-}
-
-function handleProjectChoicePopupButtonClick() {
-  openPopup(projectChoicePopup, CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE);
-}
-
-function handlePriorityChoicePopupButtonClick() {
-  openPopup(priorityChoicePopup, CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE);
-}
-
 function handleTaskEditorOverlayClick(
   e,
   taskEditorClassForVisibleState,
@@ -94,13 +82,11 @@ function handleClickOutsideChoicePopup(e, popup, popupContainerChildrenList, cla
   closePopup(popup, classForVisibleState);
 }
 
-function handleCancelButtonClick() {
-  closePopup(taskEditorOverlay, TASK_EDITOR_CLASS_FOR_VISIBLE_STATE);
-}
-
 /* event listeners */
 
-sidebarOpenTaskEditorButton.addEventListener('click', handelSidebarOpenTaskEditorButtonClick);
+sidebarOpenTaskEditorButton.addEventListener('click', () =>
+  openPopup(taskEditorOverlay, TASK_EDITOR_CLASS_FOR_VISIBLE_STATE),
+);
 
 taskEditorOverlay.addEventListener('click', (e) =>
   handleTaskEditorOverlayClick(
@@ -128,10 +114,14 @@ document.addEventListener('click', (e) =>
   ),
 );
 
-chooseProjectButton.addEventListener('click', handleProjectChoicePopupButtonClick);
+chooseProjectButton.addEventListener('click', () =>
+  openPopup(projectChoicePopup, CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE),
+);
 
-choosePriorityButton.addEventListener('click', handlePriorityChoicePopupButtonClick);
+choosePriorityButton.addEventListener('click', () =>
+  openPopup(priorityChoicePopup, CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE),
+);
 
-cancelButton.addEventListener('click', handleCancelButtonClick);
-
-/* addTaskButton.addEventListener('click', addNewTask); */
+cancelButton.addEventListener('click', () =>
+  closePopup(taskEditorOverlay, TASK_EDITOR_CLASS_FOR_VISIBLE_STATE),
+);
