@@ -94,7 +94,7 @@ function handleClickOutsideChoicePopup(e, popup, popupContainerChildrenList, cla
   closePopup(popup, classForVisibleState);
 }
 
-function handleCancleButtonClick() {
+function handleCancelButtonClick() {
   closePopup(taskEditorOverlay, TASK_EDITOR_CLASS_FOR_VISIBLE_STATE);
 }
 
@@ -132,5 +132,6 @@ chooseProjectButton.addEventListener('click', handleProjectChoicePopupButtonClic
 
 choosePriorityButton.addEventListener('click', handlePriorityChoicePopupButtonClick);
 
-cancelButton.addEventListener('click', handleCancleButtonClick);
+cancelButton.addEventListener('click', handleCancelButtonClick);
+
 /* addTaskButton.addEventListener('click', addNewTask); */
