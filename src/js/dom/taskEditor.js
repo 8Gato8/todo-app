@@ -3,6 +3,12 @@ import {
   CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE,
 } from '../variables';
 
+import createTask from '../task';
+
+import generateUniqueId from '../utils/generateUniqueId';
+
+import { incomeProject } from '../..';
+
 /* query selectors */
 
 const sidebarOpenTaskEditorButton = document.querySelector('.sidebar__open-task-editor-button');
@@ -20,7 +26,14 @@ const priorityChoicePopup = document.querySelector('#priority-choice-popup');
 const choicePopupsNodeList = document.querySelectorAll('.popup-button__popup');
 
 const cancelButton = document.querySelector('#cancel-button');
-/* const addTaskButton = document.querySelector('#add-task-button'); */
+const addTaskButton = document.querySelector('#add-task-button');
+
+const editingAreaTitle = document.querySelector('.editing-area__title');
+const editingAreaDescription = document.querySelector('.editing-area__description');
+const editingAreaDueTime = document.querySelector('.editing-area__due-time');
+
+const chosenProject = document.querySelector('#chosen-project');
+const chosenPriority = document.querySelector('#chosen-priority');
 
 /* utils */
 
@@ -51,6 +64,8 @@ function makeElementChildrenList(elementNode) {
   return listOfChildren.flat(Infinity);
 }
 
+/* variables */
+
 const projectPopupContainerChildrenList = makeElementChildrenList(projectChoiceContainer);
 const priorityPopupContainerChildrenList = makeElementChildrenList(priorityChoiceContainer);
 
@@ -80,6 +95,18 @@ function handleClickOutsideChoicePopup(e, popup, popupContainerChildrenList, cla
   if (popupContainerChildrenList.some((child) => child === target)) return;
 
   closePopup(popup, classForVisibleState);
+}
+
+function addNewTaskFromTaskEditor(
+  title,
+  description,
+  dueTime,
+  project = incomeProject,
+  priority = 4,
+) {
+  const id = generateUniqueId();
+  const newTask = createTask(title, description, dueTime, project, priority, id);
+  project.addTask(newTask);
 }
 
 /* event listeners */
@@ -125,3 +152,11 @@ choosePriorityButton.addEventListener('click', () =>
 cancelButton.addEventListener('click', () =>
   closePopup(taskEditorOverlay, TASK_EDITOR_CLASS_FOR_VISIBLE_STATE),
 );
+
+/* addTaskButton.addEventListener('click', () =>
+  addNewTaskFromTaskEditor(
+    editingAreaTitle.value,
+    editingAreaDescription.value,
+    editingAreaDueTime.value,
+  ),
+); */
