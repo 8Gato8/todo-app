@@ -1,6 +1,6 @@
 @import url('./variables.css');
 
-.task-editor-container {
+.task-editor-overlay {
   display: none;
   position: absolute;
   width: 100%;
@@ -9,7 +9,7 @@
   align-items: flex-start;
 }
 
-.task-editor-container_visible {
+.task-editor-overlay_visible {
   display: flex;
 }
 
@@ -29,11 +29,8 @@
 }
 
 .editing-area__title {
-  min-height: 30px;
-}
-
-.editing-area__title::placeholder {
   font-size: 20px;
+  min-height: 30px;
 }
 
 .editing-area__description {
@@ -95,10 +92,14 @@
   gap: 10px;
 }
 
+.choice-container {
+  position: relative;
+}
+
 .popup-button__popup {
   display: none;
   position: absolute;
-  top: 40px;
+  top: 36px;
   left: 0;
   width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -116,6 +117,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
   padding: 10px 15px;
 }
 
@@ -124,7 +126,10 @@
 }
 
 .popup-button-popup-list__item {
+  color: var(--task-editor-button-color);
+  font-size: 13px;
   font-weight: 400;
+  flex: 1;
 }
 
 .popup-button-popup-list__item-tick {
@@ -132,7 +137,7 @@
   color: var(--popup-button-popup-list__item-tick);
 }
 
-.popup-button-popup-list__item-tick_active {
+.popup-button-popup-list__item-tick_visible {
   display: inline;
 }
 
