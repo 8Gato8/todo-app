@@ -3,11 +3,7 @@ import {
   CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE,
 } from '../variables';
 
-import createTask from '../task';
-
-import generateUniqueId from '../utils/generateUniqueId';
-
-import { incomeProject } from '../..';
+import { addNewTask } from '../../';
 
 /* query selectors */
 
@@ -32,8 +28,8 @@ const editingAreaTitle = document.querySelector('.editing-area__title');
 const editingAreaDescription = document.querySelector('.editing-area__description');
 const editingAreaDueTime = document.querySelector('.editing-area__due-time');
 
-const chosenProject = document.querySelector('#chosen-project');
-const chosenPriority = document.querySelector('#chosen-priority');
+const chosenProjectButtonText = document.querySelector('#chosen-project');
+const chosenPriorityButtonText = document.querySelector('#chosen-priority');
 
 /* utils */
 
@@ -69,6 +65,9 @@ function makeElementChildrenList(elementNode) {
 const projectPopupContainerChildrenList = makeElementChildrenList(projectChoiceContainer);
 const priorityPopupContainerChildrenList = makeElementChildrenList(priorityChoiceContainer);
 
+let chosenProject = null;
+let chosenPriority = null;
+
 /* handlers */
 
 function handleTaskEditorOverlayClick(
@@ -97,17 +96,11 @@ function handleClickOutsideChoicePopup(e, popup, popupContainerChildrenList, cla
   closePopup(popup, classForVisibleState);
 }
 
-function addNewTaskFromTaskEditor(
-  title,
-  description,
-  dueTime,
-  project = incomeProject,
-  priority = 4,
-) {
+/* function addNewTaskFromTaskEditor(title, description, dueTime, project, priority) {
   const id = generateUniqueId();
-  const newTask = createTask(title, description, dueTime, project, priority, id);
+  const newTask = createTask({ title, description, dueTime, project, priority, id });
   project.addTask(newTask);
-}
+} */
 
 /* event listeners */
 
@@ -152,11 +145,13 @@ choosePriorityButton.addEventListener('click', () =>
 cancelButton.addEventListener('click', () =>
   closePopup(taskEditorOverlay, TASK_EDITOR_CLASS_FOR_VISIBLE_STATE),
 );
-
-/* addTaskButton.addEventListener('click', () =>
+/* 
+addTaskButton.addEventListener('click', () =>
   addNewTaskFromTaskEditor(
     editingAreaTitle.value,
     editingAreaDescription.value,
     editingAreaDueTime.value,
+    chosenProject,
+    chosenPriority,
   ),
 ); */
