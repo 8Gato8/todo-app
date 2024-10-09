@@ -13,3 +13,11 @@
 .project-navigation__button {
   width: 100%;
 }
+
+.project-navigation__button_active {
+  background-color: var(--task-editor-cancel-button-background-color-hover);
+}
+
+.project-navigation__button_active:hover {
+  background-color: var(--task-editor-cancel-button-background-color-hover);
+}
