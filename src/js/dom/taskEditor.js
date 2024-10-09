@@ -3,7 +3,7 @@ import {
   CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE,
 } from '../variables';
 
-import { addNewTask } from '../../';
+/* import { addNewTask } from '../../'; */
 /* import { projects, priorities } from '../../'; */
 
 /* query selectors */
@@ -25,7 +25,7 @@ const priorityChoicePopup = document.querySelector('#priority-choice-popup');
 const projectChoicePopupList = document.querySelector('#project-choice-popup-list');
 const priorityChoicePopupList = document.querySelector('#priority-choice-popup-list');
 
-const choicePopupsNodeList = document.querySelectorAll('.choice__popup');
+const choicePopupsNodeList = document.querySelectorAll('.choice-popup');
 
 const cancelButton = document.querySelector('#cancel-button');
 const addTaskButton = document.querySelector('#add-task-button');
@@ -97,7 +97,6 @@ function renderChoicePopupElements(
       const choicePopupName = choicePopupListElement.dataset.name;
       const capitalizedChoicePopupName =
         choicePopupName[0].toUpperCase() + choicePopupName.slice(1);
-
       chosenValues[`chosen${capitalizedChoicePopupName}`] = item;
     });
 
@@ -132,12 +131,6 @@ function handleClickOutsideChoicePopup(e, popup, popupContainerChildrenList, cla
 
   closePopup(popup, classForVisibleState);
 }
-
-/* function addNewTaskFromTaskEditor(title, description, dueTime, project, priority) {
-  const id = generateUniqueId();
-  const newTask = createTask({ title, description, dueTime, project, priority, id });
-  project.addTask(newTask);
-} */
 
 /* event listeners */
 
