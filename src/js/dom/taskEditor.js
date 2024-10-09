@@ -4,12 +4,15 @@ import {
 } from '../variables';
 
 import { addNewTask } from '../../';
+/* import { projects, priorities } from '../../'; */
 
 /* query selectors */
 
 const sidebarOpenTaskEditorButton = document.querySelector('.sidebar__open-task-editor-button');
 
 const taskEditorOverlay = document.querySelector('.task-editor-overlay');
+
+const choicePopupItemTemplate = document.querySelector('#choice-popup-item-template');
 
 const projectChoiceContainer = document.querySelector('#project-choice-container');
 const chooseProjectButton = document.querySelector('#choose-project-button');
@@ -19,7 +22,10 @@ const priorityChoiceContainer = document.querySelector('#priority-choice-contain
 const choosePriorityButton = document.querySelector('#choose-priority-button');
 const priorityChoicePopup = document.querySelector('#priority-choice-popup');
 
-const choicePopupsNodeList = document.querySelectorAll('.popup-button__popup');
+const projectChoicePopupList = document.querySelector('#project-choice-popup-list');
+const priorityChoicePopupList = document.querySelector('#priority-choice-popup-list');
+
+const choicePopupsNodeList = document.querySelectorAll('.choice__popup');
 
 const cancelButton = document.querySelector('#cancel-button');
 const addTaskButton = document.querySelector('#add-task-button');
@@ -28,8 +34,18 @@ const editingAreaTitle = document.querySelector('.editing-area__title');
 const editingAreaDescription = document.querySelector('.editing-area__description');
 const editingAreaDueTime = document.querySelector('.editing-area__due-time');
 
-const chosenProjectButtonText = document.querySelector('#chosen-project');
-const chosenPriorityButtonText = document.querySelector('#chosen-priority');
+/* const chosenProjectButtonText = document.querySelector('#chosen-project');
+const chosenPriorityButtonText = document.querySelector('#chosen-priority'); */
+
+/* variables */
+
+const projectPopupContainerChildrenList = makeElementChildrenList(projectChoiceContainer);
+const priorityPopupContainerChildrenList = makeElementChildrenList(priorityChoiceContainer);
+
+const chosenValues = {
+  chosenProject: null,
+  chosenPriority: null,
+};
 
 /* utils */
 
@@ -60,13 +76,34 @@ function makeElementChildrenList(elementNode) {
   return listOfChildren.flat(Infinity);
 }
 
-/* variables */
+function renderChoicePopupElements(
+  choicePopupListElement,
+  choicePopupItemTemplate,
+  arrayOfItemsToAdd,
+) {
+  arrayOfItemsToAdd.forEach((item) => {
+    const choicePopupItemElementTemplateClone = choicePopupItemTemplate.content.cloneNode(true);
 
-const projectPopupContainerChildrenList = makeElementChildrenList(projectChoiceContainer);
-const priorityPopupContainerChildrenList = makeElementChildrenList(priorityChoiceContainer);
+    const choicePopupItemContainerElement = choicePopupItemElementTemplateClone.querySelector(
+      '.choice-popup-list__item-container',
+    );
 
-let chosenProject = null;
-let chosenPriority = null;
+    const choicePopupItemElement = choicePopupItemContainerElement.querySelector(
+      '.choice-popup-list__item',
+    );
+    choicePopupItemElement.textContent = item.title;
+
+    choicePopupItemContainerElement.addEventListener('click', () => {
+      const choicePopupName = choicePopupListElement.dataset.name;
+      const capitalizedChoicePopupName =
+        choicePopupName[0].toUpperCase() + choicePopupName.slice(1);
+
+      chosenValues[`chosen${capitalizedChoicePopupName}`] = item;
+    });
+
+    choicePopupListElement.append(choicePopupItemContainerElement);
+  });
+}
 
 /* handlers */
 
@@ -145,6 +182,7 @@ choosePriorityButton.addEventListener('click', () =>
 cancelButton.addEventListener('click', () =>
   closePopup(taskEditorOverlay, TASK_EDITOR_CLASS_FOR_VISIBLE_STATE),
 );
+
 /* 
 addTaskButton.addEventListener('click', () =>
   addNewTaskFromTaskEditor(
@@ -155,3 +193,14 @@ addTaskButton.addEventListener('click', () =>
     chosenPriority,
   ),
 ); */
+
+renderChoicePopupElements(projectChoicePopupList, choicePopupItemTemplate, [
+  { title: 'Входящие' },
+  { title: 'Учёба' },
+  { title: 'Дом' },
+]);
+renderChoicePopupElements(priorityChoicePopupList, choicePopupItemTemplate, [
+  { title: 'Приоритет 1' },
+  { title: 'Приоритет 2' },
+  { title: 'Приоритет 3' },
+]);
