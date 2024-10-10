@@ -30,9 +30,7 @@ export default function taskEditor() {
   const cancelButton = document.querySelector('#cancel-button');
   const addTaskButton = document.querySelector('#add-task-button');
 
-  const editingAreaTitle = document.querySelector('.editing-area__title');
-  const editingAreaDescription = document.querySelector('.editing-area__description');
-  const editingAreaDueTime = document.querySelector('.editing-area__due-time');
+  const editingAreaInputs = document.querySelectorAll('.editing-area-input');
 
   /* variables */
 
@@ -40,9 +38,9 @@ export default function taskEditor() {
   const priorityPopupContainerChildrenList = makeElementChildrenList(priorityChoiceContainer);
 
   const newTaskDataValues = {
-    title: editingAreaTitle.value,
-    description: editingAreaDescription.value,
-    dueTime: editingAreaDueTime.value,
+    title: '',
+    description: '',
+    dueTime: '',
     chosenProject: inboxProject,
     chosenPriority: priorities.find((priority) => priority.number === 1),
   };
@@ -99,7 +97,6 @@ export default function taskEditor() {
         const capitalizedChoicePopupName =
           choicePopupName[0].toUpperCase() + choicePopupName.slice(1);
         newTaskDataValues[`chosen${capitalizedChoicePopupName}`] = item;
-        console.log(newTaskDataValues);
       });
 
       choicePopupListElement.append(choicePopupItemContainerElement);
@@ -137,6 +134,12 @@ export default function taskEditor() {
     if (popupContainerChildrenList.some((child) => child === target)) return;
 
     closePopup(popup, classForVisibleState);
+  }
+
+  function handleEditingAreaInputChange(e) {
+    const input = e.currentTarget;
+    const valueName = input.dataset.value;
+    newTaskDataValues[valueName] = input.value;
   }
 
   /* event listeners */
@@ -183,15 +186,11 @@ export default function taskEditor() {
     closePopup(taskEditorOverlay, TASK_EDITOR_CLASS_FOR_VISIBLE_STATE),
   );
 
-  addTaskButton.addEventListener('click', () =>
-    addNewTaskFromTaskEditor(
-      editingAreaTitle.value,
-      editingAreaDescription.value,
-      editingAreaDueTime.value,
-      chosenProject,
-      chosenPriority,
-    ),
+  editingAreaInputs.forEach((editingAreaInput) =>
+    editingAreaInput.addEventListener('change', (e) => handleEditingAreaInputChange(e)),
   );
+
+  addTaskButton.addEventListener('click', () => addNewTaskFromTaskEditor(newTaskDataValues));
 
   renderChoicePopupElements(projectChoicePopupList, choicePopupItemTemplate, projects);
   renderChoicePopupElements(priorityChoicePopupList, choicePopupItemTemplate, priorities);
