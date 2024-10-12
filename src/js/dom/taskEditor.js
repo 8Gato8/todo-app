@@ -16,11 +16,15 @@ export default function taskEditor() {
 
   const projectChoiceContainer = document.querySelector('#project-choice-container');
   const chooseProjectButton = document.querySelector('#choose-project-popup-button');
+  const chosenProjectButtonText = document.querySelector('#chosen-project-button-text');
   const projectChoicePopup = document.querySelector('#project-choice-popup');
 
   const priorityChoiceContainer = document.querySelector('#priority-choice-container');
   const choosePriorityButton = document.querySelector('#choose-priority-popup-button');
+  const chosenPriorityButtonText = document.querySelector('#chosen-priority-button-text');
   const priorityChoicePopup = document.querySelector('#priority-choice-popup');
+
+  const choicePopupButtonsTextsObject = { chosenProjectButtonText, chosenPriorityButtonText };
 
   const projectChoicePopupList = document.querySelector('#project-choice-popup-list');
   const priorityChoicePopupList = document.querySelector('#priority-choice-popup-list');
@@ -75,12 +79,29 @@ export default function taskEditor() {
     return listOfChildren.flat(Infinity);
   }
 
-  function renderChoicePopupElements(
-    choicePopupListElement,
-    choicePopupItemTemplate,
-    arrayOfItemsToAdd,
+  function updateChoicePopupButtonTextElement(
+    choicePopupButtonTextElement,
+    capitalizedChoicePopupName,
   ) {
-    arrayOfItemsToAdd.forEach((item) => {
+    choicePopupButtonTextElement.textContent =
+      newTaskDataValues[`chosen${capitalizedChoicePopupName}`].title;
+  }
+
+  function updateNewTaskDataValues(capitalizedChoicePopupName, taskDataValue) {
+    newTaskDataValues[`chosen${capitalizedChoicePopupName}`] = taskDataValue;
+  }
+
+  function handleChoicePopupItemContainerElementClick(taskDataValue, capitalizedChoicePopupName) {
+    updateNewTaskDataValues(capitalizedChoicePopupName, taskDataValue);
+    const choicePopupButtonTextElement =
+      choicePopupButtonsTextsObject[`chosen${capitalizedChoicePopupName}ButtonText`];
+    console.log(choicePopupButtonTextElement);
+
+    updateChoicePopupButtonTextElement(choicePopupButtonTextElement, capitalizedChoicePopupName);
+  }
+
+  function renderChoicePopupElements(choicePopupListElement, choicePopupItemTemplate, tasksData) {
+    tasksData.forEach((taskDataValue) => {
       const choicePopupItemElementTemplateClone = choicePopupItemTemplate.content.cloneNode(true);
 
       const choicePopupItemContainerElement = choicePopupItemElementTemplateClone.querySelector(
@@ -90,14 +111,16 @@ export default function taskEditor() {
       const choicePopupItemElement = choicePopupItemContainerElement.querySelector(
         '.choice-popup-list__item',
       );
-      choicePopupItemElement.textContent = item.title;
 
-      choicePopupItemContainerElement.addEventListener('click', () => {
-        const choicePopupName = choicePopupListElement.dataset.name;
-        const capitalizedChoicePopupName =
-          choicePopupName[0].toUpperCase() + choicePopupName.slice(1);
-        newTaskDataValues[`chosen${capitalizedChoicePopupName}`] = item;
-      });
+      const choicePopupName = choicePopupListElement.dataset.name;
+      const capitalizedChoicePopupName =
+        choicePopupName[0].toUpperCase() + choicePopupName.slice(1);
+
+      choicePopupItemElement.textContent = taskDataValue.title;
+
+      choicePopupItemContainerElement.addEventListener('click', (_) =>
+        handleChoicePopupItemContainerElementClick(taskDataValue, capitalizedChoicePopupName),
+      );
 
       choicePopupListElement.append(choicePopupItemContainerElement);
     });
