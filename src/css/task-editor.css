@@ -49,7 +49,7 @@
   outline: none;
 }
 
-.task-editor__popup-button {
+.task-editor__choice-popup-button {
   color: var(--task-editor-button-color);
   font-size: 13px;
   font-weight: 600;
@@ -135,12 +135,12 @@
   display: inline;
 }
 
-.popup-button__project-icon {
+.choice-popup-button__project-icon {
   position: relative;
   top: 3px;
 }
 
-.popup-button__arrow-down {
+.choice-popup-button__arrow-down {
   position: relative;
   top: 2px;
 }

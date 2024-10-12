@@ -15,11 +15,11 @@ export default function taskEditor() {
   const choicePopupItemTemplate = document.querySelector('#choice-popup-item-template');
 
   const projectChoiceContainer = document.querySelector('#project-choice-container');
-  const chooseProjectButton = document.querySelector('#choose-project-button');
+  const chooseProjectButton = document.querySelector('#choose-project-popup-button');
   const projectChoicePopup = document.querySelector('#project-choice-popup');
 
   const priorityChoiceContainer = document.querySelector('#priority-choice-container');
-  const choosePriorityButton = document.querySelector('#choose-priority-button');
+  const choosePriorityButton = document.querySelector('#choose-priority-popup-button');
   const priorityChoicePopup = document.querySelector('#priority-choice-popup');
 
   const projectChoicePopupList = document.querySelector('#project-choice-popup-list');

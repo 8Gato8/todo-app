@@ -99,19 +99,31 @@
       <div class="task-editor-overlay">
         <form class="task-editor">
           <div class="task-editor__editing-area editing-area">
-            <input class="editing-area__title" type="text" placeholder="Название задачи" />
-            <textarea class="editing-area__description" placeholder="Описание" rows="1"></textarea>
-            <input class="editing-area__due-time" type="text" placeholder="Срок выполнения" />
+            <input
+              data-value="title"
+              class="editing-area__title editing-area-input"
+              type="text"
+              placeholder="Название задачи" />
+            <textarea
+              data-value="description"
+              class="editing-area__description editing-area-input"
+              placeholder="Описание"
+              rows="1"></textarea>
+            <input
+              data-value="dueTime"
+              class="editing-area__due-time editing-area-input"
+              type="text"
+              placeholder="Срок выполнения" />
           </div>
           <div class="task-editor__footer task-editor-footer">
             <div class="task-editor-footer__selects">
               <div id="project-choice-container" class="choice-container">
                 <button
                   type="button"
-                  id="choose-project-button"
-                  class="task-editor__popup-button task-editor__select-button pressed-button">
+                  id="choose-project-popup-button"
+                  class="task-editor__choice-popup-button choice-popup-button task-editor__select-button pressed-button">
                   <svg
-                    class="popup-button__project-icon"
+                    class="choice-popup-button__project-icon"
                     xmlns="http://www.w3.org/2000/svg"
                     height="15px"
                     viewBox="0 -960 960 960"
@@ -120,9 +132,11 @@
                     <path
                       d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-120H640q-30 38-71.5 59T480-240q-47 0-88.5-21T320-320H200v120Zm280-120q38 0 69-22t43-58h168v-360H200v360h168q12 36 43 58t69 22ZM200-200h560-560Z" />
                   </svg>
-                  <span id="chosen-project" class="popup-button__text">Входящие</span>
+                  <span id="chosen-project-button-text" class="choice-popup-button__text"
+                    >Входящие</span
+                  >
                   <svg
-                    class="popup-button__arrow-down arrow-down"
+                    class="choice-popup-button__arrow-down arrow-down"
                     xmlns="http://www.w3.org/2000/svg"
                     height="15px"
                     viewBox="0 -960 960 960"
@@ -141,10 +155,10 @@
               <div id="priority-choice-container" class="choice-container">
                 <button
                   type="button"
-                  id="choose-priority-button"
-                  class="task-editor__popup-button task-editor__select-button pressed-button">
+                  id="choose-priority-popup-button"
+                  class="task-editor__choice-popup-button choice-popup-button task-editor__select-button pressed-button">
                   <svg
-                    class="popup-button__project-icon"
+                    class="choice-popup-button__project-icon"
                     xmlns="http://www.w3.org/2000/svg"
                     height="15px"
                     viewBox="0 -960 960 960"
@@ -153,9 +167,11 @@
                     <path
                       d="m437-249 183-231H471l26-221-173 269h146l-33 183ZM336-96l48-264H192l324-504h72l-36 312h216L408-96h-72Zm136-379Z" />
                   </svg>
-                  <span id="chosen-priority" class="popup-button__text">Приоритет 1</span>
+                  <span id="chosen-priority-button-text" class="choice-popup-button__text"
+                    >Приоритет 1</span
+                  >
                   <svg
-                    class="popup-button__arrow-down arrow-down"
+                    class="choice-popup-button__arrow-down arrow-down"
                     xmlns="http://www.w3.org/2000/svg"
                     height="15px"
                     viewBox="0 -960 960 960"
