@@ -107,6 +107,10 @@
   flex-direction: column;
 }
 
+.choice-popup-button {
+  min-width: 120px;
+}
+
 .choice-popup-list__item-container {
   display: flex;
   justify-content: space-between;
