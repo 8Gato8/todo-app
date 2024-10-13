@@ -1,6 +1,7 @@
 import {
   TASK_EDITOR_CLASS_FOR_VISIBLE_STATE,
   CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE,
+  CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
 } from '../variables';
 
 import { projects, inboxProject, priorities, addNewTask } from '../../';
@@ -79,6 +80,31 @@ export default function taskEditor() {
     return listOfChildren.flat(Infinity);
   }
 
+  function markInitialChosenTaskPropertyWithTick(
+    capitalizedChoicePopupName,
+    taskDataValueTitle,
+    choicePopupItemTick,
+  ) {
+    const newTaskDataValueProperty = newTaskDataValues[`chosen${capitalizedChoicePopupName}`];
+    if (newTaskDataValueProperty.title === taskDataValueTitle) {
+      choicePopupItemTick.classList.add(CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+    }
+  }
+
+  function markChosenTaskPropertyWithTick(choicePopupItemTick) {
+    choicePopupItemTick.classList.add(CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+  }
+
+  function removeTickMarkFromPrevioslySelectedPopupItem(choicePopupItemTicks) {
+    choicePopupItemTicks.forEach((choicePopupItemTick) => {
+      if (
+        choicePopupItemTick.classList.contains(CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE)
+      ) {
+        choicePopupItemTick.classList.remove(CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+      }
+    });
+  }
+
   function updateChoicePopupButtonTextElement(
     choicePopupButtonTextElement,
     capitalizedChoicePopupName,
@@ -91,16 +117,26 @@ export default function taskEditor() {
     newTaskDataValues[`chosen${capitalizedChoicePopupName}`] = taskDataValue;
   }
 
-  function handleChoicePopupItemContainerElementClick(taskDataValue, capitalizedChoicePopupName) {
+  function handleChoicePopupItemContainerElementClick(
+    taskDataValue,
+    capitalizedChoicePopupName,
+    choicePopupItemTicks,
+    choicePopupItemTick,
+  ) {
     updateNewTaskDataValues(capitalizedChoicePopupName, taskDataValue);
+
     const choicePopupButtonTextElement =
       choicePopupButtonsTextsObject[`chosen${capitalizedChoicePopupName}ButtonText`];
-    console.log(choicePopupButtonTextElement);
 
     updateChoicePopupButtonTextElement(choicePopupButtonTextElement, capitalizedChoicePopupName);
+
+    removeTickMarkFromPrevioslySelectedPopupItem(choicePopupItemTicks);
+    markChosenTaskPropertyWithTick(choicePopupItemTick);
   }
 
   function renderChoicePopupElements(choicePopupListElement, choicePopupItemTemplate, tasksData) {
+    const choicePopupItemTicks = [];
+
     tasksData.forEach((taskDataValue) => {
       const choicePopupItemElementTemplateClone = choicePopupItemTemplate.content.cloneNode(true);
 
@@ -112,21 +148,38 @@ export default function taskEditor() {
         '.choice-popup-list__item',
       );
 
+      const choicePopupItemTick = choicePopupItemContainerElement.querySelector(
+        '.choice-popup-list__item-tick',
+      );
+
+      choicePopupItemTicks.push(choicePopupItemTick);
+
+      choicePopupItemElement.textContent = taskDataValue.title;
+
       const choicePopupName = choicePopupListElement.dataset.name;
       const capitalizedChoicePopupName =
         choicePopupName[0].toUpperCase() + choicePopupName.slice(1);
 
-      choicePopupItemElement.textContent = taskDataValue.title;
+      markInitialChosenTaskPropertyWithTick(
+        capitalizedChoicePopupName,
+        taskDataValue.title,
+        choicePopupItemTick,
+      );
 
       choicePopupItemContainerElement.addEventListener('click', (_) =>
-        handleChoicePopupItemContainerElementClick(taskDataValue, capitalizedChoicePopupName),
+        handleChoicePopupItemContainerElementClick(
+          taskDataValue,
+          capitalizedChoicePopupName,
+          choicePopupItemTicks,
+          choicePopupItemTick,
+        ),
       );
 
       choicePopupListElement.append(choicePopupItemContainerElement);
     });
   }
 
-  /* handlers */
+  /* event listener handlers */
 
   function handleTaskEditorOverlayClick(
     e,
