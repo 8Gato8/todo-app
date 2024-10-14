@@ -42,7 +42,7 @@ export default function taskEditor() {
   const projectPopupContainerChildrenList = makeElementChildrenList(projectChoiceContainer);
   const priorityPopupContainerChildrenList = makeElementChildrenList(priorityChoiceContainer);
 
-  const newTaskDataValues = {
+  let newTaskDataValues = {
     title: '',
     description: '',
     dueTime: '',
@@ -82,11 +82,11 @@ export default function taskEditor() {
 
   function markInitialChosenTaskPropertyWithTick(
     capitalizedChoicePopupName,
-    taskDataValueTitle,
+    choicePopupDataItemTitle,
     choicePopupItemTick,
   ) {
     const newTaskDataValueProperty = newTaskDataValues[`chosen${capitalizedChoicePopupName}`];
-    if (newTaskDataValueProperty.title === taskDataValueTitle) {
+    if (newTaskDataValueProperty.title === choicePopupDataItemTitle) {
       choicePopupItemTick.classList.add(CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
     }
   }
@@ -117,6 +117,44 @@ export default function taskEditor() {
     newTaskDataValues[`chosen${capitalizedChoicePopupName}`] = taskDataValue;
   }
 
+  function resetNewTaskDataValues() {
+    newTaskDataValues = {
+      title: '',
+      description: '',
+      dueTime: '',
+      chosenProject: inboxProject,
+      chosenPriority: priorities.find((priority) => priority.number === 1),
+    };
+  }
+
+  function clearAllEditingAreaParams() {
+    editingAreaInputs.forEach((editingAreaInput) => {
+      editingAreaInput.value = '';
+    });
+  }
+
+  function clearChosenValuesInPopup(choicePopupList, choicePopupData) {
+    const choicePopupName = choicePopupList.dataset.name;
+    const capitalizedChoicePopupName = choicePopupName[0].toUpperCase() + choicePopupName.slice(1);
+
+    const choicePopupItemTicks = choicePopupList.querySelectorAll('.choice-popup-list__item-tick');
+
+    removeTickMarkFromPrevioslySelectedPopupItem(choicePopupItemTicks);
+
+    choicePopupData.forEach((choicePopupDataItem, index) => {
+      markInitialChosenTaskPropertyWithTick(
+        capitalizedChoicePopupName,
+        choicePopupDataItem.title,
+        choicePopupItemTicks[index],
+      );
+    });
+
+    const choicePopupButtonTextElement =
+      choicePopupButtonsTextsObject[`chosen${capitalizedChoicePopupName}ButtonText`];
+
+    updateChoicePopupButtonTextElement(choicePopupButtonTextElement, capitalizedChoicePopupName);
+  }
+
   function handleChoicePopupItemContainerElementClick(
     taskDataValue,
     capitalizedChoicePopupName,
@@ -134,10 +172,14 @@ export default function taskEditor() {
     markChosenTaskPropertyWithTick(choicePopupItemTick);
   }
 
-  function renderChoicePopupElements(choicePopupListElement, choicePopupItemTemplate, tasksData) {
+  function renderChoicePopupElements(
+    choicePopupListElement,
+    choicePopupItemTemplate,
+    choicePopupData,
+  ) {
     const choicePopupItemTicks = [];
 
-    tasksData.forEach((taskDataValue) => {
+    choicePopupData.forEach((choicePopupDataItem) => {
       const choicePopupItemElementTemplateClone = choicePopupItemTemplate.content.cloneNode(true);
 
       const choicePopupItemContainerElement = choicePopupItemElementTemplateClone.querySelector(
@@ -154,7 +196,7 @@ export default function taskEditor() {
 
       choicePopupItemTicks.push(choicePopupItemTick);
 
-      choicePopupItemElement.textContent = taskDataValue.title;
+      choicePopupItemElement.textContent = choicePopupDataItem.title;
 
       const choicePopupName = choicePopupListElement.dataset.name;
       const capitalizedChoicePopupName =
@@ -162,13 +204,13 @@ export default function taskEditor() {
 
       markInitialChosenTaskPropertyWithTick(
         capitalizedChoicePopupName,
-        taskDataValue.title,
+        choicePopupDataItem.title,
         choicePopupItemTick,
       );
 
       choicePopupItemContainerElement.addEventListener('click', (_) =>
         handleChoicePopupItemContainerElementClick(
-          taskDataValue,
+          choicePopupDataItem,
           capitalizedChoicePopupName,
           choicePopupItemTicks,
           choicePopupItemTick,
@@ -210,6 +252,16 @@ export default function taskEditor() {
     if (popupContainerChildrenList.some((child) => child === target)) return;
 
     closePopup(popup, classForVisibleState);
+  }
+
+  function handleCancelButtonClick(taskEditorOverlay, classForVisibleState) {
+    clearAllEditingAreaParams();
+    resetNewTaskDataValues();
+
+    clearChosenValuesInPopup(projectChoicePopupList, projects);
+    clearChosenValuesInPopup(priorityChoicePopupList, priorities);
+
+    closePopup(taskEditorOverlay, classForVisibleState);
   }
 
   function handleEditingAreaInputChange(e) {
@@ -259,14 +311,14 @@ export default function taskEditor() {
   );
 
   cancelButton.addEventListener('click', () =>
-    closePopup(taskEditorOverlay, TASK_EDITOR_CLASS_FOR_VISIBLE_STATE),
+    handleCancelButtonClick(taskEditorOverlay, TASK_EDITOR_CLASS_FOR_VISIBLE_STATE),
   );
 
   editingAreaInputs.forEach((editingAreaInput) =>
     editingAreaInput.addEventListener('change', (e) => handleEditingAreaInputChange(e)),
   );
 
-  addTaskButton.addEventListener('click', () => addNewTaskFromTaskEditor(newTaskDataValues));
+  addTaskButton.addEventListener('click', () => addNewTaskFromTaskEditor());
 
   renderChoicePopupElements(projectChoicePopupList, choicePopupItemTemplate, projects);
   renderChoicePopupElements(priorityChoicePopupList, choicePopupItemTemplate, priorities);
