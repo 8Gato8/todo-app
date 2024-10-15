@@ -82,13 +82,16 @@ export default function taskEditor() {
 
   function markInitialChosenTaskPropertyWithTick(
     capitalizedChoicePopupName,
-    choicePopupDataItemTitle,
-    choicePopupItemTick,
+    choicePopupData,
+    choicePopupItemTicks,
   ) {
     const newTaskDataValueProperty = newTaskDataValues[`chosen${capitalizedChoicePopupName}`];
-    if (newTaskDataValueProperty.title === choicePopupDataItemTitle) {
-      choicePopupItemTick.classList.add(CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
-    }
+
+    choicePopupItemTicks.forEach((choicePopupItemTick, i) => {
+      if (newTaskDataValueProperty.title === choicePopupData[i].title) {
+        choicePopupItemTick.classList.add(CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+      }
+    });
   }
 
   function markChosenTaskPropertyWithTick(choicePopupItemTick) {
@@ -141,13 +144,11 @@ export default function taskEditor() {
 
     removeTickMarkFromPrevioslySelectedPopupItem(choicePopupItemTicks);
 
-    choicePopupData.forEach((choicePopupDataItem, index) => {
-      markInitialChosenTaskPropertyWithTick(
-        capitalizedChoicePopupName,
-        choicePopupDataItem.title,
-        choicePopupItemTicks[index],
-      );
-    });
+    markInitialChosenTaskPropertyWithTick(
+      capitalizedChoicePopupName,
+      choicePopupData,
+      choicePopupItemTicks,
+    );
 
     const choicePopupButtonTextElement =
       choicePopupButtonsTextsObject[`chosen${capitalizedChoicePopupName}ButtonText`];
@@ -179,6 +180,9 @@ export default function taskEditor() {
   ) {
     const choicePopupItemTicks = [];
 
+    const choicePopupName = choicePopupListElement.dataset.name;
+    const capitalizedChoicePopupName = choicePopupName[0].toUpperCase() + choicePopupName.slice(1);
+
     choicePopupData.forEach((choicePopupDataItem) => {
       const choicePopupItemElementTemplateClone = choicePopupItemTemplate.content.cloneNode(true);
 
@@ -198,16 +202,6 @@ export default function taskEditor() {
 
       choicePopupItemElement.textContent = choicePopupDataItem.title;
 
-      const choicePopupName = choicePopupListElement.dataset.name;
-      const capitalizedChoicePopupName =
-        choicePopupName[0].toUpperCase() + choicePopupName.slice(1);
-
-      markInitialChosenTaskPropertyWithTick(
-        capitalizedChoicePopupName,
-        choicePopupDataItem.title,
-        choicePopupItemTick,
-      );
-
       choicePopupItemContainerElement.addEventListener('click', (_) =>
         handleChoicePopupItemContainerElementClick(
           choicePopupDataItem,
@@ -219,6 +213,12 @@ export default function taskEditor() {
 
       choicePopupListElement.append(choicePopupItemContainerElement);
     });
+
+    markInitialChosenTaskPropertyWithTick(
+      capitalizedChoicePopupName,
+      choicePopupData,
+      choicePopupItemTicks,
+    );
   }
 
   /* event listener handlers */
