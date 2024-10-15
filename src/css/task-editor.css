@@ -164,6 +164,19 @@
   color: var(--white);
 }
 
+.add-task-button:disabled {
+  background-color: var(--task-editor-add-button-background-color-disabled);
+  cursor: not-allowed;
+}
+
+.add-task-button:disabled:active {
+  transform: none;
+}
+
+.add-task-button:disabled:hover {
+  background-color: var(--task-editor-add-button-background-color-disabled);
+}
+
 .add-task-button:hover {
   background-color: var(--task-editor-add-button-background-color-hover);
 }
