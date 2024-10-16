@@ -12,9 +12,9 @@ import {
   addTaskToProject,
 } from '../../';
 
-/* query selectors */
-
 export default function taskEditor() {
+  /* query selectors */
+
   const sidebarOpenTaskEditorButton = document.querySelector('.sidebar__open-task-editor-button');
 
   const taskEditorOverlay = document.querySelector('.task-editor-overlay');
