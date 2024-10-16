@@ -1,6 +1,7 @@
 import './style.css';
 
-import taskEditor from './js/dom/taskEditor';
+import projectNavigation from './js/dom/projectNavigation/projectNavigation';
+import taskEditor from './js/dom/taskEditor/taskEditor';
 
 import createTask from './js/task';
 import createProject from './js/project';
@@ -35,8 +36,11 @@ export function addTaskToProject(newTask) {
 }
 
 export const inboxProject = createProjectWithUniqueId({ title: 'Входящие' });
+const homeProject = createProjectWithUniqueId({ title: 'Дом' });
+const jobProject = createProjectWithUniqueId({ title: 'Работа' });
 
 projects.push(inboxProject);
 
 /* adds all sorts of event listeners related to task editor */
+projectNavigation();
 taskEditor();
