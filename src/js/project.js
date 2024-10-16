@@ -1,9 +1,11 @@
 class Project {
   #title;
+  #id;
   #tasks = [];
 
-  constructor({ title }) {
+  constructor({ title, id }) {
     this.#title = title;
+    this.#id = id;
   }
 
   get title() {
@@ -15,6 +17,10 @@ class Project {
 
   get tasks() {
     return this.#tasks;
+  }
+
+  get id() {
+    return this.#id;
   }
 
   addTask(newTask) {
