@@ -4,6 +4,10 @@
   gap: 20px;
 }
 
+.project-navigation__list-title {
+  font-size: 16px;
+}
+
 .project-navigation__list {
   display: flex;
   flex-direction: column;
