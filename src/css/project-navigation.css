@@ -17,6 +17,7 @@
 
 .project-navigation__button {
   width: 100%;
+  padding: 15px 10px;
 }
 
 .project-navigation__button_active {
