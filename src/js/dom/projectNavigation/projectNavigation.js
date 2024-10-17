@@ -1,11 +1,23 @@
-import { PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE } from './variables';
+import {
+  PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE,
+  PROJECT_NAVIGATION_CHEVRON_BUTTON_OPEN,
+  PROJECT_NAVIGATION_LIST_ITEM_HIDDEN,
+} from './variables';
 
 import { projects, inboxProject } from '../../..';
 
 export default function projectNavigation() {
   /* query selectors */
 
+  const projectNavigationOpenNewProjectPopupButton = document.querySelector(
+    'project-navigation__open-add-new-project-popup',
+  );
+  const projectNavigationChevronButton = document.querySelector(
+    '.project-navigation__chevron-button',
+  );
+
   const projectNavigationList = document.querySelector('.project-navigation-list');
+
   const projectNavigationListItemTemplate = document.querySelector(
     '#project-navigation-list-item-template',
   );
@@ -13,6 +25,7 @@ export default function projectNavigation() {
   /* variables */
 
   let chosenProject = inboxProject;
+  let chevronOpen = true;
 
   /* utils */
 
@@ -33,33 +46,6 @@ export default function projectNavigation() {
     projectNavigationButton.classList.add(PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE);
   }
 
-  function removeHighlighterFromPrevioslySelectedProjectNavigationButton(projectNavigationButtons) {
-    projectNavigationButtons.forEach((projectNavigationButton) => {
-      if (
-        projectNavigationButton.classList.contains(
-          PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE,
-        )
-      ) {
-        projectNavigationButton.classList.remove(
-          PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE,
-        );
-      }
-    });
-  }
-
-  /* event's handlers */
-
-  function handleNavigationListItemClick(
-    projectNavigationButton,
-    projectNavigationButtons,
-    project,
-  ) {
-    chosenProject = project;
-
-    removeHighlighterFromPrevioslySelectedProjectNavigationButton(projectNavigationButtons);
-    highlightProjectNavigationButton(projectNavigationButton);
-  }
-
   function renderProjectNavigationListItems(
     projectNavigationList,
     projectNavigationListItemTemplate,
@@ -75,6 +61,10 @@ export default function projectNavigation() {
         '.project-navigation-list__item',
       );
 
+      if (project === inboxProject) {
+        projectNavigationListItem.classList.add('project-navigation-list__item_always_visible');
+      }
+
       const projectNavigationButton = projectNavigationListItem.querySelector(
         '.project-navigation__button',
       );
@@ -86,7 +76,11 @@ export default function projectNavigation() {
       buttonWithIconText.textContent = project.title;
 
       projectNavigationListItem.addEventListener('click', () =>
-        handleNavigationListItemClick(projectNavigationButton, projectNavigationButtons, project),
+        handleProjectNavigationListItemClick(
+          projectNavigationButton,
+          projectNavigationButtons,
+          project,
+        ),
       );
 
       projectNavigationList.append(projectNavigationListItem);
@@ -94,6 +88,77 @@ export default function projectNavigation() {
 
     highlightInitialChosenProjectNavigationButton(projectNavigationButtons);
   }
+
+  function removeHighlighterFromPrevioslySelectedProjectNavigationButton(projectNavigationButtons) {
+    projectNavigationButtons.forEach((projectNavigationButton) => {
+      if (
+        projectNavigationButton.classList.contains(
+          PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE,
+        )
+      ) {
+        projectNavigationButton.classList.remove(
+          PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE,
+        );
+      }
+    });
+  }
+
+  const switchChevronState = () => (chevronOpen = !chevronOpen);
+
+  function toggleChevronButtonStyles() {
+    if (chevronOpen) {
+      projectNavigationChevronButton.classList.add(PROJECT_NAVIGATION_CHEVRON_BUTTON_OPEN);
+    } else {
+      projectNavigationChevronButton.classList.remove(PROJECT_NAVIGATION_CHEVRON_BUTTON_OPEN);
+    }
+  }
+
+  function toggleListItemsVisibilityState() {
+    const projectNavigationListItems = projectNavigationList.querySelectorAll(
+      '.project-navigation-list__item',
+    );
+
+    projectNavigationListItems.forEach((projectNavigationListItem) => {
+      if (chevronOpen) {
+        projectNavigationListItem.classList.remove(PROJECT_NAVIGATION_LIST_ITEM_HIDDEN);
+      } else {
+        projectNavigationListItem.classList.add(PROJECT_NAVIGATION_LIST_ITEM_HIDDEN);
+      }
+    });
+  }
+
+  /* event's handlers */
+
+  function handleProjectNavigationListItemClick(
+    projectNavigationButton,
+    projectNavigationButtons,
+    project,
+  ) {
+    chosenProject = project;
+
+    removeHighlighterFromPrevioslySelectedProjectNavigationButton(projectNavigationButtons);
+    highlightProjectNavigationButton(projectNavigationButton);
+  }
+
+  /* function handleProjectNavigationOpenNewProjectPopupButtonClick() {
+
+  } */
+
+  function handleProjectNavigationChevronButton() {
+    switchChevronState();
+    toggleChevronButtonStyles();
+    toggleListItemsVisibilityState();
+  }
+
+  /* event's listeners */
+
+  /* projectNavigationOpenNewProjectPopupButton.addEventListener(
+    'click',
+    handleProjectNavigationOpenNewProjectPopupButtonClick,
+  );
+ */
+
+  projectNavigationChevronButton.addEventListener('click', handleProjectNavigationChevronButton);
 
   renderProjectNavigationListItems(
     projectNavigationList,
