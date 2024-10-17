@@ -10,6 +10,11 @@
   border-radius: 6px;
 }
 
+.project-navigation__list-title:hover {
+  background-color: var(--sidebar-button-background-color);
+  cursor: pointer;
+}
+
 .project-navigation__list {
   display: flex;
   flex-direction: column;
