@@ -6,7 +6,8 @@
 
 .project-navigation__list-title {
   font-size: 16px;
-  padding: 0 10px;
+  padding: 15px 10px;
+  border-radius: 6px;
 }
 
 .project-navigation__list {
