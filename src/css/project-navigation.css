@@ -10,7 +10,7 @@
   align-items: center;
 
   min-height: 54px;
-  padding: 15px 10px;
+  padding: 10px;
   border-radius: 6px;
   transition: all ease-out 0.2s;
 }
@@ -29,7 +29,7 @@
   gap: 2px;
 }
 
-.project-navigation__list-title-container:hover .popup-navigation__buttons-container {
+.project-navigation:hover .popup-navigation__buttons-container {
   display: flex;
 }
 
@@ -42,17 +42,19 @@
 }
 
 .project-navigation__chevron-button {
-  transform: rotate(90deg);
   transition: all ease-out 0.2s;
 }
 
 .project-navigation__chevron-button_open {
-  transform: rotate(-90deg);
+  transform: rotate(90deg);
 }
 
 .project-navigation-title-button {
   display: flex;
+  justify-content: center;
   align-items: center;
+  width: 32px;
+  height: 32px;
 }
 
 .project-navigation__list {
@@ -61,9 +63,18 @@
   gap: 5px;
 }
 
+.project-navigation-list__item_hidden {
+  display: none;
+}
+
+.project-navigation-list__item.project-navigation-list__item_always_visible {
+  display: flex;
+}
+
 .project-navigation__button {
+  display: flex;
   width: 100%;
-  padding: 15px 10px;
+  padding: 12px 10px;
 }
 
 .project-navigation__button_active {
