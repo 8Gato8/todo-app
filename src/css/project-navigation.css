@@ -8,6 +8,7 @@
   font-size: 16px;
   padding: 15px 10px;
   border-radius: 6px;
+  transition: all ease-out 0.2s;
 }
 
 .project-navigation__list-title:hover {
