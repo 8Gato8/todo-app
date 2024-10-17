@@ -33,7 +33,7 @@
   display: flex;
 }
 
-.project-navigation__open-add-new-project-popup-button:active {
+.project-navigation__open-new-project-popup-button:active {
   transform: scale(0.9);
 }
 
