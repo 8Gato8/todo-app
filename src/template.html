@@ -59,7 +59,33 @@
         </button>
 
         <nav class="project-navigation">
-          <h2 class="project-navigation__list-title">Мои проекты</h2>
+          <div class="project-navigation__list-title-container">
+            <h2 class="project-navigation__list-title">Мои проекты</h2>
+
+            <div class="popup-navigation__buttons-container">
+              <button
+                class="project-navigation__open-add-new-project-popup project-navigation-title-button">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 -960 960 960"
+                  width="24px"
+                  fill="#000">
+                  <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
+                </svg>
+              </button>
+              <button class="project-navigation__chevron project-navigation-title-button">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 -960 960 960"
+                  width="24px"
+                  fill="#000">
+                  <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
+                </svg>
+              </button>
+            </div>
+          </div>
 
           <ul class="project-navigation__list project-navigation-list"></ul>
         </nav>
