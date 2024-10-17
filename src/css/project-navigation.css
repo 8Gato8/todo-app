@@ -33,15 +33,15 @@
   display: flex;
 }
 
-.project-navigation__open-add-new-project-popup:active {
+.project-navigation__open-add-new-project-popup-button:active {
   transform: scale(0.9);
 }
 
-.project-navigation__chevron {
+.project-navigation__chevron-button {
   transform: rotate(90deg);
 }
 
-.project-navigation__chevron_up {
+.project-navigation__chevron-button_up {
   transform: rotate(-90deg);
 }
 
