@@ -1,0 +1,12 @@
+.overlay {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.overlay_visible {
+  display: flex;
+}

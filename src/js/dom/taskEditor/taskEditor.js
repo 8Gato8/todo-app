@@ -1,5 +1,6 @@
+import { OVERLAY_CLASS_FOR_VISIBLE_STATE } from '../commonVariables';
+
 import {
-  TASK_EDITOR_CLASS_FOR_VISIBLE_STATE,
   CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE,
   CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
 } from './variables';
@@ -299,13 +300,13 @@ export default function taskEditor() {
   /* event listeners */
 
   sidebarOpenTaskEditorButton.addEventListener('click', () =>
-    openPopup(taskEditorOverlay, TASK_EDITOR_CLASS_FOR_VISIBLE_STATE),
+    openPopup(taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
   );
 
   taskEditorOverlay.addEventListener('click', (e) =>
     handleTaskEditorOverlayClick(
       e,
-      TASK_EDITOR_CLASS_FOR_VISIBLE_STATE,
+      OVERLAY_CLASS_FOR_VISIBLE_STATE,
       CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE,
     ),
   );
@@ -337,7 +338,7 @@ export default function taskEditor() {
   );
 
   cancelButton.addEventListener('click', () =>
-    handleCancelButtonClick(taskEditorOverlay, TASK_EDITOR_CLASS_FOR_VISIBLE_STATE),
+    handleCancelButtonClick(taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
   );
 
   editingAreaInputs.forEach((editingAreaInput) =>
@@ -345,7 +346,7 @@ export default function taskEditor() {
   );
 
   addTaskButton.addEventListener('click', () =>
-    handleAddTaskButtonClick(taskEditorOverlay, TASK_EDITOR_CLASS_FOR_VISIBLE_STATE),
+    handleAddTaskButtonClick(taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
   );
 
   renderChoicePopupElements(projectChoicePopupList, choicePopupItemTemplate, projects);

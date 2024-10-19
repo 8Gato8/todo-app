@@ -1,18 +1,5 @@
 @import url('./variables.css');
 
-.task-editor-overlay {
-  display: none;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.task-editor-overlay_visible {
-  display: flex;
-}
-
 .task-editor {
   margin-top: 150px;
   width: min(580px, 50%);
