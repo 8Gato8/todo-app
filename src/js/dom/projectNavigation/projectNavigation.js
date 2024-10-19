@@ -72,8 +72,12 @@ export default function projectNavigation() {
       projectNavigationButtons.push(projectNavigationButton);
 
       const buttonWithIconText = projectNavigationListItem.querySelector('.button-with-icon__text');
-
       buttonWithIconText.textContent = project.title;
+
+      const projectNavigationTaskCount = projectNavigationListItem.querySelector(
+        '.project-navigation-button__task-count',
+      );
+      projectNavigationTaskCount.textContent = project.tasks.length || '';
 
       projectNavigationListItem.addEventListener('click', () =>
         handleProjectNavigationListItemClick(

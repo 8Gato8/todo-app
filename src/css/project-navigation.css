@@ -67,12 +67,17 @@
   display: none;
 }
 
+.project-navigation-button__task-count {
+  color: #aaa;
+}
+
 .project-navigation-list__item.project-navigation-list__item_always_visible {
   display: flex;
 }
 
 .project-navigation__button {
   display: flex;
+  justify-content: space-between;
   width: 100%;
   padding: 12px 10px;
 }
