@@ -1,0 +1,22 @@
+@import url('./variables.css');
+
+.editor {
+  margin-top: 150px;
+  width: min(580px, 50%);
+  box-shadow: 0 15px 50px 0 rgba(0, 0, 0, 0.35);
+  border-radius: 6px;
+}
+
+.editor-footer__buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.editor__popup-button {
+  color: var(--task-editor-button-color);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 12px;
+  border-radius: 6px;
+  transition: all ease-out 0.2s;
+}
