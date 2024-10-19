@@ -13,6 +13,8 @@ import {
   addTaskToProject,
 } from '../../..';
 
+import { isPopupOpen, openPopup, closePopup } from '../commonUtils';
+
 export default function taskEditor() {
   /* query selectors */
 
@@ -58,17 +60,6 @@ export default function taskEditor() {
   };
 
   /* utils */
-
-  const isPopupOpen = (popup, classForVisibleState) =>
-    popup.classList.contains(classForVisibleState);
-
-  function openPopup(popup, classForVisibleState) {
-    popup.classList.add(classForVisibleState);
-  }
-
-  function closePopup(popup, classForVisibleState) {
-    popup.classList.remove(classForVisibleState);
-  }
 
   function anyChoicePopupOpen(choicePopupsNodeList, classForVisibleState) {
     const choicePopupsArray = Array.from(choicePopupsNodeList);
