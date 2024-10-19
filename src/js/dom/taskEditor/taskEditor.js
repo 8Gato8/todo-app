@@ -20,7 +20,7 @@ export default function taskEditor() {
 
   const sidebarOpenTaskEditorButton = document.querySelector('.sidebar__open-task-editor-button');
 
-  const taskEditorOverlay = document.querySelector('.task-editor-overlay');
+  const taskEditorOverlay = document.querySelector('#task-editor-overlay');
 
   const choicePopupItemTemplate = document.querySelector('#choice-popup-item-template');
 
@@ -181,7 +181,7 @@ export default function taskEditor() {
   function allInputsValid(editingAreaInputs) {
     const editingAreaInputsArray = Array.from(editingAreaInputs);
     const filteredEditingAreaInputsArray = editingAreaInputsArray.filter(
-      (input) => input.dataset.value !== 'description',
+      (input) => input.name !== 'description',
     );
 
     return filteredEditingAreaInputsArray.every((input) => input.value !== '');
@@ -275,7 +275,7 @@ export default function taskEditor() {
 
   function handleEditingAreaInputChange(e) {
     const input = e.currentTarget;
-    const valueName = input.dataset.value;
+    const valueName = input.name;
     newTaskDataValues[valueName] = input.value;
 
     toggleAddTaskButtonDisabledState(allInputsValid(editingAreaInputs));
