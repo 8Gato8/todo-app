@@ -110,8 +110,8 @@
         </section>
       </div>
 
-      <div class="task-editor-overlay overlay">
-        <form class="task-editor">
+      <div id="task-editor-overlay" class="overlay">
+        <form class="task-editor editor">
           <div class="task-editor__editing-area editing-area">
             <input
               data-value="title"
@@ -135,7 +135,7 @@
                 <button
                   type="button"
                   id="choose-project-popup-button"
-                  class="task-editor__popup-button choice-popup-button task-editor__select-button pressed-button">
+                  class="editor__popup-button choice-popup-button task-editor__select-button pressed-button">
                   <svg
                     class="choice-popup-button__project-icon"
                     xmlns="http://www.w3.org/2000/svg"
@@ -173,7 +173,7 @@
                 <button
                   type="button"
                   id="choose-priority-popup-button"
-                  class="task-editor__popup-button choice-popup-button task-editor__select-button pressed-button">
+                  class="editor__popup-button choice-popup-button task-editor__select-button pressed-button">
                   <svg
                     class="choice-popup-button__project-icon"
                     xmlns="http://www.w3.org/2000/svg"
@@ -208,18 +208,18 @@
                 </div>
               </div>
             </div>
-            <div class="task-editor-footer__buttons">
+            <div class="editor-footer__buttons">
               <button
                 id="cancel-button"
                 type="button"
-                class="task-editor__popup-button cancel-task-edition-button pressed-button">
+                class="editor__popup-button cancel-task-edition-button pressed-button">
                 Отмена
               </button>
               <button
                 disabled
                 id="add-task-button"
                 type="button"
-                class="task-editor__popup-button add-task-button pressed-button">
+                class="editor__popup-button add-task-button pressed-button">
                 Добавить задачу
               </button>
             </div>
@@ -227,7 +227,31 @@
         </form>
       </div>
 
-      <div class="new-task-overlay overlay"></div>
+      <div id="new-project-editor-overlay" class="overlay">
+        <form class="new-project-editor editor">
+          <h2 class="new-project-editor__title">Добавить проект</h2>
+
+          <div class="inputs">
+            <input type="text" name />
+          </div>
+
+          <div class="editor-footer__buttons">
+            <button
+              id="cancel-button"
+              type="button"
+              class="editor__popup-button cancel-task-edition-button pressed-button">
+              Отмена
+            </button>
+            <button
+              disabled
+              id="add-task-button"
+              type="button"
+              class="editor__popup-button add-task-button pressed-button">
+              Добавить
+            </button>
+          </div>
+        </form>
+      </div>
     </main>
 
     <!-- templates -->
