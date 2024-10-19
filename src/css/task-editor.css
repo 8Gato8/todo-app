@@ -1,12 +1,5 @@
 @import url('./variables.css');
 
-.task-editor {
-  margin-top: 150px;
-  width: min(580px, 50%);
-  box-shadow: 0 15px 50px 0 rgba(0, 0, 0, 0.35);
-  border-radius: 6px;
-}
-
 .task-editor__editing-area {
   display: flex;
   flex-direction: column;
@@ -37,14 +30,14 @@
   outline: none;
 }
 
-.task-editor__popup-button {
+/* .task-editor__popup-button {
   color: var(--task-editor-button-color);
   font-size: 13px;
   font-weight: 600;
   padding: 10px 12px;
   border-radius: 6px;
   transition: all ease-out 0.2s;
-}
+} */
 
 .task-editor__select-button {
   position: relative;
@@ -65,11 +58,6 @@
 }
 
 .task-editor-footer__selects {
-  display: flex;
-  gap: 10px;
-}
-
-.task-editor-footer__buttons {
   display: flex;
   gap: 10px;
 }
