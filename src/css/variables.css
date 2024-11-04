@@ -3,15 +3,15 @@
   --sidebar-background: #f3f4f6;
   --sidebar-button-background-color: #eeeae7;
 
-  --task-editor-border-idle-tint: #e6e6e6;
-  --task-editor-button-color: #444;
-  --task-editor-cancel-button-background-color: #f5f5f5;
-  --task-editor-cancel-button-color-hover: #1a1a1a;
-  --task-editor-cancel-button-background-color-hover: #e5e5e5;
-  --task-editor-add-button-background-color: #3882f1;
-  --task-editor-add-button-background-light: #e1ecfd;
-  --task-editor-add-button-background-color-disabled: #afcdf9;
-  --task-editor-add-button-background-color-hover: #3a5884;
+  --editor-border-idle-tint: #e6e6e6;
+  --editor-button-color: #444;
+  --editor-cancel-button-background-color: #f5f5f5;
+  --editor-cancel-button-color-hover: #1a1a1a;
+  --editor-cancel-button-background-color-hover: #e5e5e5;
+  --editor-add-button-background-color: #3882f1;
+  --editor-add-button-background-light: #e1ecfd;
+  --editor-add-button-background-color-disabled: #afcdf9;
+  --editor-add-button-background-color-hover: #3a5884;
 
   --choice-popup-list__item-container: #f3f3f3;
 
