@@ -4,6 +4,7 @@
   --sidebar-button-background-color: #eeeae7;
 
   --editor-border-idle-tint: #e6e6e6;
+  --editor-section-border-color: #f3f3f3;
   --editor-button-color: #444;
   --editor-cancel-button-background-color: #f5f5f5;
   --editor-cancel-button-color-hover: #1a1a1a;
@@ -12,6 +13,12 @@
   --editor-add-button-background-light: #e1ecfd;
   --editor-add-button-background-color-disabled: #afcdf9;
   --editor-add-button-background-color-hover: #3a5884;
+
+  --focus-border: #b8b8b8;
+  --focus-box-shadow-inner: #1f60c2;
+  --focus-marker-box-shadow-outer: #dceaff;
+  --focus-marker-box-shadow: 0 0 0 1px var(--focus-marker-box-shadow-inner),
+    0 0 0 4px var(--focus-marker-box-shadow-outer);
 
   --choice-popup-list__item-container: #f3f3f3;
 

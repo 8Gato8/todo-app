@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  border-bottom: 1px solid var(--task-editor-border-idle-tint);
+  border-bottom: 1px solid var(--editor-border-idle-tint);
   padding: 15px;
 }
 
@@ -30,25 +30,16 @@
   outline: none;
 }
 
-/* .task-editor__popup-button {
-  color: var(--task-editor-button-color);
-  font-size: 13px;
-  font-weight: 600;
-  padding: 10px 12px;
-  border-radius: 6px;
-  transition: all ease-out 0.2s;
-} */
-
 .task-editor__select-button {
   position: relative;
 }
 
 .task-editor__select-button_active {
-  background-color: var(--task-editor-cancel-button-background-color);
+  background-color: var(--editor-cancel-button-background-color);
 }
 
 .task-editor__select-button:hover {
-  background-color: var(--task-editor-cancel-button-background-color);
+  background-color: var(--editor-cancel-button-background-color);
 }
 
 .task-editor__footer {
@@ -100,7 +91,7 @@
 }
 
 .choice-popup-list__item {
-  color: var(--task-editor-button-color);
+  color: var(--editor-button-color);
   font-size: 13px;
   font-weight: 400;
   flex: 1;
@@ -126,21 +117,21 @@
 }
 
 .cancel-task-edition-button {
-  background-color: var(--task-editor-cancel-button-background-color);
+  background-color: var(--editor-cancel-button-background-color);
 }
 
 .cancel-task-edition-button:hover {
-  background-color: var(--task-editor-cancel-button-background-color-hover);
-  color: var(--task-editor-cancel-button-color-hover);
+  background-color: var(--editor-cancel-button-background-color-hover);
+  color: var(--editor-cancel-button-color-hover);
 }
 
 .add-task-button {
-  background-color: var(--task-editor-add-button-background-color);
+  background-color: var(--editor-add-button-background-color);
   color: var(--white);
 }
 
 .add-task-button:disabled {
-  background-color: var(--task-editor-add-button-background-color-disabled);
+  background-color: var(--editor-add-button-background-color-disabled);
   cursor: not-allowed;
 }
 
@@ -149,9 +140,9 @@
 }
 
 .add-task-button:disabled:hover {
-  background-color: var(--task-editor-add-button-background-color-disabled);
+  background-color: var(--editor-add-button-background-color-disabled);
 }
 
 .add-task-button:hover {
-  background-color: var(--task-editor-add-button-background-color-hover);
+  background-color: var(--editor-add-button-background-color-hover);
 }
