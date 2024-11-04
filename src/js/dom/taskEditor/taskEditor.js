@@ -237,8 +237,7 @@ export default function taskEditor() {
     taskEditorClassForVisibleState,
     choicePopupClassForVisibleState,
   ) {
-    const popup = e.currentTarget;
-    const target = e.target;
+    const { target, currentTarget: popup } = e;
 
     if (
       target === popup &&
