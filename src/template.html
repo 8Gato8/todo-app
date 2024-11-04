@@ -231,11 +231,39 @@
         <form class="new-project-editor editor">
           <h2 class="new-project-editor__title">Добавить проект</h2>
 
-          <div class="inputs">
-            <input type="text" name="title" />
+          <div class="new-project-editor__fields">
+            <div class="new-project-editor__field-container">
+              <label for="new-project-editor-title" class="new-project-editor__field-title"
+                >Имя</label
+              >
+              <input
+                id="new-project-editor-title"
+                class="new-project-editor__field new-project-editor__input"
+                type="text"
+                name="title" />
+            </div>
+            <div class="new-project-editor__field-container">
+              <span class="new-project-editor__field-title">Цвет</span>
+              <button
+                type="button"
+                class="new-project-editor__field new-project-editor__select-button new-project-editor-select-button">
+                <span class="color-circle new-project-editor__color-circle"></span>
+                <span class="new-project-editor-select-button__title"></span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="#666"
+                  viewBox="0 0 24 24">
+                  <path
+                    d="M15.646 9.647a.5.5 0 0 1 .708.707l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 1 1 .708-.707L12 13.294l3.646-3.647Z"></path>
+                </svg>
+              </button>
+              <ul class="new-project-editor__select-list"></ul>
+            </div>
           </div>
 
-          <div class="editor-footer__buttons">
+          <div class="new-project-editor__buttons editor-footer__buttons">
             <button
               id="cancel-button"
               type="button"
@@ -278,11 +306,24 @@
           width="12"
           height="12">
           <path
-            fill="currentColor"
+            fill="#d1453b"
             fill-rule="evenodd"
             d="M4.902 6.975l4.182-4.244a.74.74 0 0 1 1.06 0 .775.775 0 0 1 0 1.081L5.432 8.597a.74.74 0 0 1-1.06 0L1.78 5.975a.775.775 0 0 1 0-1.081.74.74 0 0 1 1.061 0l2.06 2.081z"></path>
         </svg>
       </div>
+    </template>
+
+    <template id="new-project-editor-select-item">
+      <li class="new-project-editor__select-item">
+        <span class="color-circle new-project-editor__color-circle"></span>
+        <span class="new-project-editor-select-item__title"></span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12">
+          <path
+            fill="#000"
+            fill-rule="evenodd"
+            d="M4.902 6.975l4.182-4.244a.74.74 0 0 1 1.06 0 .775.775 0 0 1 0 1.081L5.432 8.597a.74.74 0 0 1-1.06 0L1.78 5.975a.775.775 0 0 1 0-1.081.74.74 0 0 1 1.061 0l2.06 2.081z"></path>
+        </svg>
+      </li>
     </template>
 
     <template id="project-template">
