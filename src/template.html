@@ -131,7 +131,7 @@
           </div>
           <div class="task-editor__footer task-editor-footer">
             <div class="task-editor-footer__selects">
-              <div id="project-choice-container" class="choice-container">
+              <div id="project-choice-container" class="choice-container select-popup-container">
                 <button
                   type="button"
                   id="choose-project-popup-button"
@@ -162,14 +162,14 @@
                     <path d="M480-360 280-560h400L480-360Z" />
                   </svg>
                 </button>
-                <div id="project-choice-popup" class="choice-popup">
+                <div id="project-choice-popup" class="choice-popup select-popup">
                   <ul
                     data-name="project"
                     id="project-choice-popup-list"
                     class="choice-popup__list choice-popup-list"></ul>
                 </div>
               </div>
-              <div id="priority-choice-container" class="choice-container">
+              <div id="priority-choice-container" class="choice-container select-popup-container">
                 <button
                   type="button"
                   id="choose-priority-popup-button"
@@ -200,7 +200,7 @@
                     <path d="M480-360 280-560h400L480-360Z" />
                   </svg>
                 </button>
-                <div id="priority-choice-popup" class="choice-popup">
+                <div id="priority-choice-popup" class="choice-popup select-popup">
                   <ul
                     data-name="priority"
                     id="priority-choice-popup-list"
@@ -244,22 +244,34 @@
             </div>
             <div class="new-project-editor__field-container">
               <span class="new-project-editor__field-title">Цвет</span>
-              <button
-                type="button"
-                class="new-project-editor__field new-project-editor__select-button new-project-editor-select-button">
-                <span class="color-circle new-project-editor__color-circle"></span>
-                <span class="new-project-editor-select-button__title"></span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="#666"
-                  viewBox="0 0 24 24">
-                  <path
-                    d="M15.646 9.647a.5.5 0 0 1 .708.707l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 1 1 .708-.707L12 13.294l3.646-3.647Z"></path>
-                </svg>
-              </button>
-              <ul class="new-project-editor__select-list"></ul>
+
+              <div
+                id="new-project-editor-select-color-container"
+                class="new-project-editor__select-container select-popup-container">
+                <button
+                  type="button"
+                  id="new-project-editor-select-color-button"
+                  class="new-project-editor__field new-project-editor__select-button new-project-editor-select-button">
+                  <span class="color-circle new-project-editor__color-circle"></span>
+                  <span class="new-project-editor-select-button__title"></span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="#666"
+                    viewBox="0 0 24 24">
+                    <path
+                      d="M15.646 9.647a.5.5 0 0 1 .708.707l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 1 1 .708-.707L12 13.294l3.646-3.647Z"></path>
+                  </svg>
+                </button>
+                <div
+                  id="new-project-editor-select-color-popup"
+                  class="new-project-editor__select-popup select-popup">
+                  <ul
+                    id="new-project-editor-select-color-list"
+                    class="new-project-editor__select-list"></ul>
+                </div>
+              </div>
             </div>
           </div>
 
