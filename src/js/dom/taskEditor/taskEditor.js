@@ -13,7 +13,13 @@ import {
   addTaskToProject,
 } from '../../..';
 
-import { isPopupOpen, openPopup, closePopup, togglePopup } from '../commonUtils';
+import {
+  isPopupOpen,
+  openPopup,
+  closePopup,
+  togglePopup,
+  makeElementChildrenList,
+} from '../commonUtils';
 
 export default function taskEditor() {
   /* query selectors */
@@ -64,18 +70,6 @@ export default function taskEditor() {
   function anyChoicePopupOpen(choicePopupsNodeList, classForVisibleState) {
     const choicePopupsArray = Array.from(choicePopupsNodeList);
     return choicePopupsArray.some((choicePopup) => isPopupOpen(choicePopup, classForVisibleState));
-  }
-
-  function makeElementChildrenList(elementNode) {
-    const listOfChildren = [];
-
-    if (elementNode.children.length === 0) return elementNode;
-
-    for (let child of elementNode.children) {
-      listOfChildren.push(child, makeElementChildrenList(child));
-    }
-
-    return listOfChildren.flat(Infinity);
   }
 
   function markInitialChosenTaskPropertyWithTick(
@@ -247,17 +241,12 @@ export default function taskEditor() {
     }
   }
 
-  function handleClickOutsideChoicePopup(
-    e,
-    popup,
-    popupContainerChildrenList,
-    classForVisibleState,
-  ) {
+  function handleClickOutsideChoicePopup(e, popup, popupChildrenList, classForVisibleState) {
     if (!isPopupOpen(popup, classForVisibleState)) return;
 
     const target = e.target;
 
-    if (popupContainerChildrenList.some((child) => child === target)) return;
+    if (popupChildrenList.some((child) => child === target)) return;
 
     closePopup(popup, classForVisibleState);
   }
