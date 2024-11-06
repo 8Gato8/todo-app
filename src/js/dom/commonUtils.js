@@ -8,3 +8,7 @@ export function openPopup(popup, classForVisibleState) {
 export function closePopup(popup, classForVisibleState) {
   popup.classList.remove(classForVisibleState);
 }
+
+export function togglePopup(popup, classForVisibleState) {
+  popup.classList.toggle(classForVisibleState);
+}
