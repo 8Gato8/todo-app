@@ -9,7 +9,7 @@ import {
 
 import { projects, inboxProject, colors } from '../../..';
 
-import { isPopupOpen, openPopup, closePopup } from '../commonUtils';
+import { isPopupOpen, openPopup, closePopup, togglePopup } from '../commonUtils';
 
 export default function projectNavigation() {
   /* query selectors */
@@ -241,7 +241,7 @@ export default function projectNavigation() {
   );
 
   newProjectEditorSelectColorButton.addEventListener('click', () =>
-    openPopup(newProjectEditorSelectColorPopup, SELECT_POPUP_CLASS_FOR_VISIBLE_STATE),
+    togglePopup(newProjectEditorSelectColorPopup, SELECT_POPUP_CLASS_FOR_VISIBLE_STATE),
   );
 
   cancelButton.addEventListener('click', () =>
