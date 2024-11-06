@@ -20,6 +20,7 @@ import {
   togglePopup,
   makeElementChildrenList,
   handleClickOutsidePopup,
+  handleInputChange,
 } from '../commonUtils';
 
 export default function taskEditor() {
@@ -51,7 +52,7 @@ export default function taskEditor() {
   const cancelButton = document.querySelector('#cancel-button');
   const addTaskButton = document.querySelector('#add-task-button');
 
-  const editingAreaInputs = document.querySelectorAll('.editing-area-input');
+  const inputs = document.querySelectorAll('.editing-area-input');
 
   /* variables */
 
@@ -119,9 +120,9 @@ export default function taskEditor() {
     };
   }
 
-  function clearAllEditingAreaParams() {
-    editingAreaInputs.forEach((editingAreaInput) => {
-      editingAreaInput.value = '';
+  function clearAllInputs() {
+    inputs.forEach((input) => {
+      input.value = '';
     });
   }
 
@@ -155,31 +156,6 @@ export default function taskEditor() {
 
     removeTickMarkFromPrevioslySelectedPopupItem(choicePopupItemTicks);
     markChosenTaskPropertyWithTick(choicePopupItemTick);
-  }
-
-  function disableAddTaskButton() {
-    addTaskButton.setAttribute('disabled', true);
-  }
-
-  function enableAddTaskButton() {
-    addTaskButton.removeAttribute('disabled');
-  }
-
-  function toggleAddTaskButtonDisabledState(allInputsValid) {
-    if (allInputsValid) {
-      enableAddTaskButton();
-    } else {
-      disableAddTaskButton();
-    }
-  }
-
-  function allInputsValid(editingAreaInputs) {
-    const editingAreaInputsArray = Array.from(editingAreaInputs);
-    const filteredEditingAreaInputsArray = editingAreaInputsArray.filter(
-      (input) => input.name !== 'description',
-    );
-
-    return filteredEditingAreaInputsArray.every((input) => input.value !== '');
   }
 
   function renderChoicePopupElements(
@@ -243,21 +219,13 @@ export default function taskEditor() {
   }
 
   function handleCancelButtonClick(taskEditorOverlay, classForVisibleState) {
-    clearAllEditingAreaParams();
+    clearAllInputs();
     resetNewTaskDataValues();
 
     clearChosenValuesInPopup(projectChoicePopupList, projects);
     clearChosenValuesInPopup(priorityChoicePopupList, priorities);
 
     closePopup(taskEditorOverlay, classForVisibleState);
-  }
-
-  function handleEditingAreaInputChange(e) {
-    const input = e.currentTarget;
-    const valueName = input.name;
-    newTaskDataValues[valueName] = input.value;
-
-    toggleAddTaskButtonDisabledState(allInputsValid(editingAreaInputs));
   }
 
   function handleAddTaskButtonClick(taskEditorOverlay, classForVisibleState) {
@@ -311,9 +279,11 @@ export default function taskEditor() {
     handleCancelButtonClick(taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
   );
 
-  editingAreaInputs.forEach((editingAreaInput) =>
-    editingAreaInput.addEventListener('input', (e) => handleEditingAreaInputChange(e)),
-  );
+  inputs.forEach((input) => {
+    input.addEventListener('input', (e) =>
+      handleInputChange(e, newTaskDataValues, addTaskButton, inputs),
+    );
+  });
 
   addTaskButton.addEventListener('click', () =>
     handleAddTaskButtonClick(taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),

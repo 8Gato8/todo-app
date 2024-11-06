@@ -39,3 +39,36 @@ export function handleClickOutsidePopup(
 
   closePopup(popup, classForVisibleState);
 }
+
+function disableAddButton(addButton) {
+  addButton.setAttribute('disabled', true);
+}
+
+function enableAddButton(addButton) {
+  addButton.removeAttribute('disabled');
+}
+
+function allInputsValid(inputs) {
+  if (typeof inputs !== 'array') return inputs.value !== '';
+
+  const inputsArray = Array.from(inputs);
+  const filteredInputsArray = inputsArray.filter((input) => input.name !== 'description');
+
+  return filteredInputsArray.every((input) => input.value !== '');
+}
+
+function toggleAddButtonDisabledState(allInputsValid, addButton) {
+  if (allInputsValid) {
+    enableAddButton(addButton);
+  } else {
+    disableAddButton(addButton);
+  }
+}
+
+export function handleInputChange(e, newDataValues, addButton, inputs) {
+  const input = e.currentTarget;
+  const valueName = input.name;
+  newDataValues[valueName] = input.value;
+
+  toggleAddButtonDisabledState(allInputsValid(inputs), addButton);
+}

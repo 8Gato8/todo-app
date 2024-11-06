@@ -16,6 +16,7 @@ import {
   togglePopup,
   makeElementChildrenList,
   handleClickOutsidePopup,
+  handleInputChange,
 } from '../commonUtils';
 
 export default function projectNavigation() {
@@ -35,6 +36,8 @@ export default function projectNavigation() {
   const projectNavigationListItemTemplate = document.querySelector(
     '#project-navigation-list-item-template',
   );
+
+  const newProjectTitle = document.querySelector('#new-project-title');
 
   const newProjectEditorSelectColorButton = document.querySelector(
     '#new-project-editor-select-color-button',
@@ -62,7 +65,7 @@ export default function projectNavigation() {
   );
 
   const cancelButton = document.querySelector('#new-project-editor-cancel-button');
-  const addTaskButton = document.querySelector('#new-project-editor-add-task-button');
+  const addTaskButton = document.querySelector('#new-project-editor-add-project-button');
 
   /* variables */
 
@@ -257,9 +260,17 @@ export default function projectNavigation() {
     handleNewProjectEditorOverlayClick(e, OVERLAY_CLASS_FOR_VISIBLE_STATE),
   );
 
+  newProjectTitle.addEventListener('input', (e) =>
+    handleInputChange(e, newProjectDataValues, addTaskButton, newProjectTitle),
+  );
+
   newProjectEditorSelectColorButton.addEventListener('click', () =>
     togglePopup(newProjectEditorSelectColorPopup, SELECT_POPUP_CLASS_FOR_VISIBLE_STATE),
   );
+
+  addTaskButton.addEventListener('click', (e) => {
+    console.log(newProjectDataValues);
+  });
 
   document.addEventListener('click', (e) =>
     handleClickOutsidePopup(
