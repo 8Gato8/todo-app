@@ -71,6 +71,11 @@ export default function projectNavigation() {
   let chosenProject = inboxProject;
   let chevronOpen = true;
 
+  let newProjectDataValues = {
+    title: '',
+    color: colors[0],
+  };
+
   /* utils */
 
   function highlightInitialChosenProjectNavigationButton(projectNavigationButtons) {
@@ -175,8 +180,7 @@ export default function projectNavigation() {
     });
   }
 
-  function setInitialSelectColorButtonUI(colors) {
-    const defaultColor = colors[0];
+  function renderInitialSelectButtonUI(defaultColor) {
     selectColorButtonColorCircle.style.backgroundColor = defaultColor.hexCode;
     selectColorButtonTitle.textContent = defaultColor.name;
   }
@@ -276,6 +280,6 @@ export default function projectNavigation() {
     projects,
   );
 
-  setInitialSelectColorButtonUI(colors);
+  renderInitialSelectButtonUI(newProjectDataValues.color);
   renderSelectListItems(newProjectEditorSelectColorList, colors);
 }
