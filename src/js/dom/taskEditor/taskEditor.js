@@ -13,7 +13,7 @@ import {
   addTaskToProject,
 } from '../../..';
 
-import { isPopupOpen, openPopup, closePopup } from '../commonUtils';
+import { isPopupOpen, openPopup, closePopup, togglePopup } from '../commonUtils';
 
 export default function taskEditor() {
   /* query selectors */
@@ -320,11 +320,11 @@ export default function taskEditor() {
   );
 
   chooseProjectButton.addEventListener('click', () =>
-    openPopup(projectChoicePopup, CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE),
+    togglePopup(projectChoicePopup, CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE),
   );
 
   choosePriorityButton.addEventListener('click', () =>
-    openPopup(priorityChoicePopup, CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE),
+    togglePopup(priorityChoicePopup, CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE),
   );
 
   cancelButton.addEventListener('click', () =>
