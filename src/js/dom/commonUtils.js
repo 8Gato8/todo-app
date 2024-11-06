@@ -12,3 +12,15 @@ export function closePopup(popup, classForVisibleState) {
 export function togglePopup(popup, classForVisibleState) {
   popup.classList.toggle(classForVisibleState);
 }
+
+export function makeElementChildrenList(elementNode) {
+  const listOfChildren = [];
+
+  if (elementNode.children.length === 0) return elementNode;
+
+  for (let child of elementNode.children) {
+    listOfChildren.push(child, makeElementChildrenList(child));
+  }
+
+  return listOfChildren.flat(Infinity);
+}
