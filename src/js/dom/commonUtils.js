@@ -24,3 +24,18 @@ export function makeElementChildrenList(elementNode) {
 
   return listOfChildren.flat(Infinity);
 }
+
+export function handleClickOutsidePopup(
+  e,
+  popup,
+  popupContainerChildrenList,
+  classForVisibleState,
+) {
+  if (!isPopupOpen(popup, classForVisibleState)) return;
+
+  const target = e.target;
+
+  if (popupContainerChildrenList.some((child) => child === target)) return;
+
+  closePopup(popup, classForVisibleState);
+}

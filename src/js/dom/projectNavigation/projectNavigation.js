@@ -9,7 +9,14 @@ import {
 
 import { projects, inboxProject, colors } from '../../..';
 
-import { isPopupOpen, openPopup, closePopup, togglePopup } from '../commonUtils';
+import {
+  isPopupOpen,
+  openPopup,
+  closePopup,
+  togglePopup,
+  makeElementChildrenList,
+  handleClickOutsidePopup,
+} from '../commonUtils';
 
 export default function projectNavigation() {
   /* query selectors */
@@ -39,6 +46,10 @@ export default function projectNavigation() {
     '.new-project-editor-select-button__title',
   );
 
+  const newProjectSelectColorContainer = document.querySelector(
+    '#new-project-editor-select-color-container',
+  );
+
   const newProjectEditorSelectColorPopup = document.querySelector(
     '#new-project-editor-select-color-popup',
   );
@@ -54,6 +65,8 @@ export default function projectNavigation() {
   const addTaskButton = document.querySelector('#new-project-editor-add-task-button');
 
   /* variables */
+
+  const selectColorContainerChildrenList = makeElementChildrenList(newProjectSelectColorContainer);
 
   let chosenProject = inboxProject;
   let chevronOpen = true;
@@ -242,6 +255,15 @@ export default function projectNavigation() {
 
   newProjectEditorSelectColorButton.addEventListener('click', () =>
     togglePopup(newProjectEditorSelectColorPopup, SELECT_POPUP_CLASS_FOR_VISIBLE_STATE),
+  );
+
+  document.addEventListener('click', (e) =>
+    handleClickOutsidePopup(
+      e,
+      newProjectEditorSelectColorPopup,
+      selectColorContainerChildrenList,
+      SELECT_POPUP_CLASS_FOR_VISIBLE_STATE,
+    ),
   );
 
   cancelButton.addEventListener('click', () =>

@@ -19,6 +19,7 @@ import {
   closePopup,
   togglePopup,
   makeElementChildrenList,
+  handleClickOutsidePopup,
 } from '../commonUtils';
 
 export default function taskEditor() {
@@ -241,16 +242,6 @@ export default function taskEditor() {
     }
   }
 
-  function handleClickOutsideChoicePopup(e, popup, popupChildrenList, classForVisibleState) {
-    if (!isPopupOpen(popup, classForVisibleState)) return;
-
-    const target = e.target;
-
-    if (popupChildrenList.some((child) => child === target)) return;
-
-    closePopup(popup, classForVisibleState);
-  }
-
   function handleCancelButtonClick(taskEditorOverlay, classForVisibleState) {
     clearAllEditingAreaParams();
     resetNewTaskDataValues();
@@ -291,7 +282,7 @@ export default function taskEditor() {
   );
 
   document.addEventListener('click', (e) =>
-    handleClickOutsideChoicePopup(
+    handleClickOutsidePopup(
       e,
       projectChoicePopup,
       projectPopupContainerChildrenList,
@@ -300,7 +291,7 @@ export default function taskEditor() {
   );
 
   document.addEventListener('click', (e) =>
-    handleClickOutsideChoicePopup(
+    handleClickOutsidePopup(
       e,
       priorityChoicePopup,
       priorityPopupContainerChildrenList,
