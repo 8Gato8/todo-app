@@ -2,10 +2,12 @@ class Project {
   #title;
   #id;
   #tasks = [];
+  #color;
 
-  constructor({ title, id }) {
+  constructor({ title, id, color }) {
     this.#title = title;
     this.#id = id;
+    this.#color = color;
   }
 
   get title() {
@@ -21,6 +23,14 @@ class Project {
 
   get id() {
     return this.#id;
+  }
+
+  get color() {
+    return this.#color;
+  }
+
+  set color(newColor) {
+    this.#color = newColor;
   }
 
   addTask(newTask) {
