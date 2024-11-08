@@ -104,3 +104,11 @@
 .new-project-editor-select-item__title {
   flex: 1;
 }
+
+.new-project-editor-select-item__tick {
+  display: none;
+}
+
+.new-project-editor-select-item__tick_visible {
+  display: block;
+}
