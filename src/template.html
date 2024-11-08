@@ -137,7 +137,7 @@
                   id="choose-project-popup-button"
                   class="editor__popup-button choice-popup-button task-editor__select-button pressed-button">
                   <svg
-                    class="choice-popup-button__project-icon"
+                    class="choice-popup-button-icon choice-popup-button__project-icon"
                     xmlns="http://www.w3.org/2000/svg"
                     height="15px"
                     viewBox="0 -960 960 960"
@@ -175,7 +175,7 @@
                   id="choose-priority-popup-button"
                   class="editor__popup-button choice-popup-button task-editor__select-button pressed-button">
                   <svg
-                    class="choice-popup-button__project-icon"
+                    class="choice-popup-button-icon choice-popup-button__project-icon"
                     xmlns="http://www.w3.org/2000/svg"
                     height="15px"
                     viewBox="0 -960 960 960"
@@ -253,7 +253,7 @@
                   id="new-project-editor-select-color-button"
                   class="new-project-editor__field new-project-editor__select-button new-project-editor-select-button">
                   <span class="color-circle new-project-editor__color-circle"></span>
-                  <span class="new-project-editor-select-button__title"></span>
+                  <span data-name="color" class="new-project-editor-select-button__title"></span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -268,6 +268,7 @@
                   id="new-project-editor-select-color-popup"
                   class="new-project-editor__select-popup select-popup">
                   <ul
+                    data-name="color"
                     id="new-project-editor-select-color-list"
                     class="new-project-editor__select-list"></ul>
                 </div>
@@ -326,10 +327,15 @@
     </template>
 
     <template id="new-project-editor-select-item-template">
-      <li class="new-project-editor__select-item">
+      <li class="new-project-editor__select-item new-project-editor-select-item">
         <span class="color-circle new-project-editor__color-circle"></span>
-        <span class="new-project-editor-select-item__title"></span>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12">
+        <span data-name="color" class="new-project-editor-select-item__title"></span>
+        <svg
+          class="new-project-editor-select-item__tick"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 12 12"
+          width="12"
+          height="12">
           <path
             fill="#000"
             fill-rule="evenodd"
