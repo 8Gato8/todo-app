@@ -111,14 +111,19 @@ export function handleCancelButtonClick(
   popupClassForVisibleState,
   clearAllInputsValues,
   resetNewDataValues,
-  ticks,
+  allTicks,
   itemTickClassForVisibleState,
 ) {
   clearAllInputsValues();
   resetNewDataValues();
 
-  hideTicks(ticks, itemTickClassForVisibleState);
-  showTick(ticks[0], itemTickClassForVisibleState);
+  for (let tickNodeList in allTicks) {
+    hideTicks(allTicks[tickNodeList], itemTickClassForVisibleState);
+  }
+
+  for (let tickNodeList in allTicks) {
+    showTick(allTicks[tickNodeList][0], itemTickClassForVisibleState);
+  }
 
   updatePopupButtonTextElements();
   updatePopupButtonIconElements();

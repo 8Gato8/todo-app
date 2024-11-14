@@ -80,8 +80,10 @@ export default function taskEditor() {
     priority: defaultPriority,
   };
 
-  const choicePopupItemTicks = [];
-
+  const allTicks = {
+    project: [],
+    priority: [],
+  };
   /* utils */
 
   function anyChoicePopupOpen(choicePopupsNodeList, classForVisibleState) {
@@ -158,6 +160,7 @@ export default function taskEditor() {
     choicePopupData,
   ) {
     const choiceValueName = choicePopupListElement.dataset.name;
+    const choicePopupItemTicks = allTicks[choiceValueName];
 
     const choicePopupButtonTitleElement = popupButton.querySelector('.choice-popup-button__text');
     const choicePopupButtonIconElement = popupButton.querySelector('.choice-popup-button-icon');
@@ -287,7 +290,7 @@ export default function taskEditor() {
       OVERLAY_CLASS_FOR_VISIBLE_STATE,
       clearAllInputsValues,
       resetNewTaskDataValues,
-      choicePopupItemTicks,
+      allTicks,
       CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
     ),
   );

@@ -84,7 +84,9 @@ export default function projectNavigation() {
     color: defaultColor,
   };
 
-  const selectListItemsTicks = [];
+  const allTicks = {
+    color: [],
+  };
 
   /* utils */
 
@@ -210,6 +212,7 @@ export default function projectNavigation() {
     colors,
   ) {
     const valueName = newProjectEditorSelectColorList.dataset.name;
+    const selectPopupTicks = allTicks[valueName];
 
     const selectButtonTitleElement = newProjectEditorSelectColorButton.querySelector(
       '.new-project-editor-select-button__title',
@@ -230,7 +233,7 @@ export default function projectNavigation() {
         '.new-project-editor-select-item__tick',
       );
 
-      selectListItemsTicks.push(selectListItemTick);
+      selectPopupTicks.push(selectListItemTick);
 
       if (index === 0) {
         showTick(selectListItemTick, tickItemClassForVisibleState);
@@ -256,7 +259,7 @@ export default function projectNavigation() {
           updatePopupButtonTextElement,
           updatePopupButtonIconElement,
           updateNewDataValues,
-          selectListItemsTicks,
+          selectPopupTicks,
           selectListItemTick,
           tickItemClassForVisibleState,
         ),
@@ -375,7 +378,7 @@ export default function projectNavigation() {
       OVERLAY_CLASS_FOR_VISIBLE_STATE,
       clearAllInputsValues,
       resetNewProjectDataValues,
-      selectListItemsTicks,
+      allTicks,
       SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
     ),
   );
