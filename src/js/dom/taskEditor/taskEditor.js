@@ -65,12 +65,19 @@ export default function taskEditor() {
   const projectPopupContainerChildrenList = makeElementChildrenList(projectChoiceContainer);
   const priorityPopupContainerChildrenList = makeElementChildrenList(priorityChoiceContainer);
 
+  const defaultPriority = priorities.find((priority) => priority.number === 1);
+
+  const defaultChoicePopupsData = {
+    project: inboxProject,
+    priority: defaultPriority,
+  };
+
   let newTaskDataValues = {
     title: '',
     description: '',
     dueTime: '',
     project: inboxProject,
-    priority: priorities.find((priority) => priority.number === 1),
+    priority: defaultPriority,
   };
 
   const choicePopupItemTicks = [];
@@ -98,6 +105,11 @@ export default function taskEditor() {
 
   function updateNewDataValues(valueName, dataValue) {
     newTaskDataValues[valueName] = dataValue;
+  }
+
+  function renderInitialPopupButtonUI(defaultChoicePopupData, popupButtonTitle, popupButtonIcon) {
+    popupButtonIcon.style.fill = defaultChoicePopupData.color.hexCode;
+    popupButtonTitle.textContent = defaultChoicePopupData.title;
   }
 
   function resetNewTaskDataValues() {
@@ -135,7 +147,6 @@ export default function taskEditor() {
   }
 
   function updatePopupButtonIconElement(choicePopupButtonIcon, valueName) {
-    console.log(newTaskDataValues[valueName]);
     choicePopupButtonIcon.style.fill = newTaskDataValues[valueName].color.hexCode;
   }
 
@@ -148,7 +159,16 @@ export default function taskEditor() {
   ) {
     const choiceValueName = choicePopupListElement.dataset.name;
 
+    const choicePopupButtonTitleElement = popupButton.querySelector('.choice-popup-button__text');
     const choicePopupButtonIconElement = popupButton.querySelector('.choice-popup-button-icon');
+
+    const defaultChoicePopupData = defaultChoicePopupsData[choiceValueName];
+
+    renderInitialPopupButtonUI(
+      defaultChoicePopupData,
+      choicePopupButtonTitleElement,
+      choicePopupButtonIconElement,
+    );
 
     choicePopupData.forEach((choicePopupDataItem, index) => {
       const choicePopupItemElementTemplateClone = choicePopupItemTemplate.content.cloneNode(true);
