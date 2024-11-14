@@ -72,3 +72,56 @@ export function handleInputChange(e, newDataValues, addButton, inputs) {
 
   toggleAddButtonDisabledState(allInputsValid(inputs), addButton);
 }
+
+export function showTick(tick, tickItemClassForVisibleState) {
+  tick.classList.add(tickItemClassForVisibleState);
+}
+
+function hideTicks(ticks, tickItemClassForVisibleState) {
+  ticks.forEach((tick) => {
+    tick.classList.remove(tickItemClassForVisibleState);
+  });
+}
+
+export function handlePopupItemClick(
+  valueName,
+  newValue,
+  popupButtonTextElement,
+  popupButtonIconElement,
+  updatePopupButtonTextElement,
+  updatePopupButtonIconElement,
+  updateNewDataValues,
+  ticks,
+  currentTick,
+  tickItemClassForVisibleState,
+) {
+  updateNewDataValues(valueName, newValue);
+
+  updatePopupButtonTextElement(popupButtonTextElement, valueName);
+  updatePopupButtonIconElement(popupButtonIconElement, valueName);
+
+  hideTicks(ticks, tickItemClassForVisibleState);
+  showTick(currentTick, tickItemClassForVisibleState);
+}
+
+export function handleCancelButtonClick(
+  popup,
+  updatePopupButtonTextElements,
+  updatePopupButtonIconElements,
+  popupClassForVisibleState,
+  clearAllInputsValues,
+  resetNewDataValues,
+  ticks,
+  itemTickClassForVisibleState,
+) {
+  clearAllInputsValues();
+  resetNewDataValues();
+
+  hideTicks(ticks, itemTickClassForVisibleState);
+  showTick(ticks[0], itemTickClassForVisibleState);
+
+  updatePopupButtonTextElements();
+  updatePopupButtonIconElements();
+
+  closePopup(popup, popupClassForVisibleState);
+}

@@ -21,6 +21,9 @@ import {
   makeElementChildrenList,
   handleClickOutsidePopup,
   handleInputChange,
+  handleCancelButtonClick,
+  showTick,
+  handlePopupItemClick,
 } from '../commonUtils';
 
 export default function taskEditor() {
@@ -49,6 +52,9 @@ export default function taskEditor() {
 
   const choicePopupsNodeList = document.querySelectorAll('.choice-popup');
 
+  const choicePopupButtonsTexts = document.querySelectorAll('.choice-popup-button__text');
+  const choicePopupButtonsIcons = document.querySelectorAll('.choice-popup-button-icon');
+
   const cancelButton = document.querySelector('#cancel-button');
   const addTaskButton = document.querySelector('#add-task-button');
 
@@ -67,25 +73,13 @@ export default function taskEditor() {
     priority: priorities.find((priority) => priority.number === 1),
   };
 
+  const choicePopupItemTicks = [];
+
   /* utils */
 
   function anyChoicePopupOpen(choicePopupsNodeList, classForVisibleState) {
     const choicePopupsArray = Array.from(choicePopupsNodeList);
     return choicePopupsArray.some((choicePopup) => isPopupOpen(choicePopup, classForVisibleState));
-  }
-
-  function markInitialChosenTaskPropertyWithTick(
-    choiceValueName,
-    choicePopupData,
-    choicePopupItemTicks,
-  ) {
-    const newTaskDataValueProperty = newTaskDataValues[choiceValueName];
-
-    choicePopupItemTicks.forEach((choicePopupItemTick, i) => {
-      if (newTaskDataValueProperty.title === choicePopupData[i].title) {
-        choicePopupItemTick.classList.add(CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
-      }
-    });
   }
 
   function markChosenTaskPropertyWithTick(choicePopupItemTick) {
@@ -102,12 +96,8 @@ export default function taskEditor() {
     });
   }
 
-  function updateChoicePopupButtonTextElement(choicePopupButtonTextElement, choiceValueName) {
-    choicePopupButtonTextElement.textContent = newTaskDataValues[choiceValueName].title;
-  }
-
-  function updateNewTaskDataValues(choiceValueName, taskDataValue) {
-    newTaskDataValues[choiceValueName] = taskDataValue;
+  function updateNewDataValues(valueName, dataValue) {
+    newTaskDataValues[valueName] = dataValue;
   }
 
   function resetNewTaskDataValues() {
@@ -120,54 +110,47 @@ export default function taskEditor() {
     };
   }
 
-  function clearAllInputs() {
+  function clearAllInputsValues() {
     inputs.forEach((input) => {
       input.value = '';
     });
   }
 
-  function clearChosenValuesInPopup(choicePopupList, choicePopupData) {
-    const choiceValueName = choicePopupList.dataset.name;
-
-    const choicePopupItemTicks = choicePopupList.querySelectorAll('.choice-popup-list__item-tick');
-
-    removeTickMarkFromPrevioslySelectedPopupItem(choicePopupItemTicks);
-
-    markInitialChosenTaskPropertyWithTick(choiceValueName, choicePopupData, choicePopupItemTicks);
-
-    const choicePopupButtonTextElement =
-      choicePopupButtonsTextsObject[`${choiceValueName}ButtonText`];
-
-    updateChoicePopupButtonTextElement(choicePopupButtonTextElement, choiceValueName);
+  function updatePopupButtonTextElements() {
+    choicePopupButtonsTexts.forEach((choicePopupButtonsText) => {
+      const valueName = choicePopupButtonsText.dataset.name;
+      choicePopupButtonsText.textContent = newTaskDataValues[valueName].title;
+    });
   }
 
-  function handleChoicePopupItemContainerElementClick(
-    taskDataValue,
-    choiceValueName,
-    choicePopupItemTicks,
-    choicePopupItemTick,
-  ) {
-    updateNewTaskDataValues(choiceValueName, taskDataValue);
+  function updatePopupButtonIconElements() {
+    choicePopupButtonsIcons.forEach((choicePopupButtonsIcon) => {
+      const valueName = choicePopupButtonsIcon.dataset.name;
+      choicePopupButtonsIcon.style.fill = newTaskDataValues[valueName].color.hexCode;
+    });
+  }
 
-    const choicePopupButtonTextElement =
-      choicePopupButtonsTextsObject[`${choiceValueName}ButtonText`];
+  function updatePopupButtonTextElement(popupButtonTextElement, valueName) {
+    popupButtonTextElement.textContent = newTaskDataValues[valueName].title;
+  }
 
-    updateChoicePopupButtonTextElement(choicePopupButtonTextElement, choiceValueName);
-
-    removeTickMarkFromPrevioslySelectedPopupItem(choicePopupItemTicks);
-    markChosenTaskPropertyWithTick(choicePopupItemTick);
+  function updatePopupButtonIconElement(choicePopupButtonIcon, valueName) {
+    console.log(newTaskDataValues[valueName]);
+    choicePopupButtonIcon.style.fill = newTaskDataValues[valueName].color.hexCode;
   }
 
   function renderChoicePopupElements(
     choicePopupListElement,
+    popupButton,
+    tickItemClassForVisibleState,
     choicePopupItemTemplate,
     choicePopupData,
   ) {
-    const choicePopupItemTicks = [];
-
     const choiceValueName = choicePopupListElement.dataset.name;
 
-    choicePopupData.forEach((choicePopupDataItem) => {
+    const choicePopupButtonIconElement = popupButton.querySelector('.choice-popup-button-icon');
+
+    choicePopupData.forEach((choicePopupDataItem, index) => {
       const choicePopupItemElementTemplateClone = choicePopupItemTemplate.content.cloneNode(true);
 
       const choicePopupItemContainerElement = choicePopupItemElementTemplateClone.querySelector(
@@ -184,21 +167,32 @@ export default function taskEditor() {
 
       choicePopupItemTicks.push(choicePopupItemTick);
 
+      if (index === 0) {
+        showTick(choicePopupItemTick, tickItemClassForVisibleState);
+      }
+
       choicePopupItemElement.textContent = choicePopupDataItem.title;
 
-      choicePopupItemContainerElement.addEventListener('click', (_) =>
-        handleChoicePopupItemContainerElementClick(
-          choicePopupDataItem,
+      const choicePopupButtonTextElement =
+        choicePopupButtonsTextsObject[`${choiceValueName}ButtonText`];
+
+      choicePopupItemContainerElement.addEventListener('click', () =>
+        handlePopupItemClick(
           choiceValueName,
+          choicePopupDataItem,
+          choicePopupButtonTextElement,
+          choicePopupButtonIconElement,
+          updatePopupButtonTextElement,
+          updatePopupButtonIconElement,
+          updateNewDataValues,
           choicePopupItemTicks,
           choicePopupItemTick,
+          tickItemClassForVisibleState,
         ),
       );
 
       choicePopupListElement.append(choicePopupItemContainerElement);
     });
-
-    markInitialChosenTaskPropertyWithTick(choiceValueName, choicePopupData, choicePopupItemTicks);
   }
 
   /* event listener handlers */
@@ -216,16 +210,6 @@ export default function taskEditor() {
     ) {
       closePopup(popup, taskEditorClassForVisibleState);
     }
-  }
-
-  function handleCancelButtonClick(taskEditorOverlay, classForVisibleState) {
-    clearAllInputs();
-    resetNewTaskDataValues();
-
-    clearChosenValuesInPopup(projectChoicePopupList, projects);
-    clearChosenValuesInPopup(priorityChoicePopupList, priorities);
-
-    closePopup(taskEditorOverlay, classForVisibleState);
   }
 
   function handleAddTaskButtonClick(taskEditorOverlay, classForVisibleState) {
@@ -276,7 +260,16 @@ export default function taskEditor() {
   );
 
   cancelButton.addEventListener('click', () =>
-    handleCancelButtonClick(taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
+    handleCancelButtonClick(
+      taskEditorOverlay,
+      updatePopupButtonTextElements,
+      updatePopupButtonIconElements,
+      OVERLAY_CLASS_FOR_VISIBLE_STATE,
+      clearAllInputsValues,
+      resetNewTaskDataValues,
+      choicePopupItemTicks,
+      CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
+    ),
   );
 
   inputs.forEach((input) => {
@@ -289,6 +282,18 @@ export default function taskEditor() {
     handleAddTaskButtonClick(taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
   );
 
-  renderChoicePopupElements(projectChoicePopupList, choicePopupItemTemplate, projects);
-  renderChoicePopupElements(priorityChoicePopupList, choicePopupItemTemplate, priorities);
+  renderChoicePopupElements(
+    projectChoicePopupList,
+    chooseProjectButton,
+    CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
+    choicePopupItemTemplate,
+    projects,
+  );
+  renderChoicePopupElements(
+    priorityChoicePopupList,
+    choosePriorityButton,
+    CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
+    choicePopupItemTemplate,
+    priorities,
+  );
 }

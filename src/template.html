@@ -137,14 +137,17 @@
                   id="choose-project-popup-button"
                   class="editor__popup-button choice-popup-button task-editor__select-button pressed-button">
                   <svg
-                    class="choice-popup-button-icon choice-popup-button__project-icon"
+                    data-name="project"
+                    class="choice-popup-button-icon choice-popup-button__icon"
                     xmlns="http://www.w3.org/2000/svg"
-                    height="15px"
-                    viewBox="0 -960 960 960"
-                    width="15px"
-                    fill="#000">
+                    width="15"
+                    height="15"
+                    fill="#000"
+                    viewBox="0 0 15 15">
                     <path
-                      d="M240-320h320v-80H240v80Zm0-160h480v-80H240v80Zm-80 320q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z" />
+                      fill-rule="evenodd"
+                      d="M6.555 3.003a.5.5 0 0 1 .442.552L6.781 5.5h2.994l.228-2.055a.5.5 0 0 1 .994.11L10.781 5.5H12.5a.5.5 0 0 1 0 1h-1.83l-.334 3H12a.5.5 0 0 1 0 1h-1.775l-.228 2.055a.5.5 0 1 1-.994-.11L9.22 10.5H6.225l-.228 2.055a.5.5 0 1 1-.994-.11L5.22 10.5H3.5a.5.5 0 1 1 0-1h1.83l.334-3H4a.5.5 0 0 1 0-1h1.775l.228-2.055a.5.5 0 0 1 .552-.442ZM9.33 9.5l.334-3H6.67l-.334 3H9.33Z"
+                      clip-rule="evenodd"></path>
                   </svg>
                   <span
                     data-name="project"
@@ -175,7 +178,8 @@
                   id="choose-priority-popup-button"
                   class="editor__popup-button choice-popup-button task-editor__select-button pressed-button">
                   <svg
-                    class="choice-popup-button-icon choice-popup-button__project-icon"
+                    data-name="priority"
+                    class="choice-popup-button-icon choice-popup-button__icon"
                     xmlns="http://www.w3.org/2000/svg"
                     height="15px"
                     viewBox="0 -960 960 960"
@@ -249,10 +253,13 @@
                 id="new-project-editor-select-color-container"
                 class="new-project-editor__select-container select-popup-container">
                 <button
+                  data-name="color"
                   type="button"
                   id="new-project-editor-select-color-button"
                   class="new-project-editor__field new-project-editor__select-button new-project-editor-select-button">
-                  <span class="color-circle new-project-editor__color-circle"></span>
+                  <span
+                    data-name="color"
+                    class="select-button-circle color-circle new-project-editor__color-circle"></span>
                   <span data-name="color" class="new-project-editor-select-button__title"></span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

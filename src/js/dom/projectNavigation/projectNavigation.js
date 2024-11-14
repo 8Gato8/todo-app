@@ -5,6 +5,7 @@ import {
   PROJECT_NAVIGATION_CHEVRON_BUTTON_OPEN,
   PROJECT_NAVIGATION_LIST_ITEM_HIDDEN,
   SELECT_POPUP_CLASS_FOR_VISIBLE_STATE,
+  SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
 } from './variables';
 
 import { projects, inboxProject, colors } from '../../..';
@@ -16,7 +17,10 @@ import {
   togglePopup,
   makeElementChildrenList,
   handleClickOutsidePopup,
+  showTick,
   handleInputChange,
+  handleCancelButtonClick,
+  handlePopupItemClick,
 } from '../commonUtils';
 
 export default function projectNavigation() {
@@ -42,12 +46,9 @@ export default function projectNavigation() {
   const newProjectEditorSelectColorButton = document.querySelector(
     '#new-project-editor-select-color-button',
   );
-  const selectColorButtonColorCircle = newProjectEditorSelectColorButton.querySelector(
-    '.new-project-editor__color-circle',
-  );
-  const selectColorButtonTitle = newProjectEditorSelectColorButton.querySelector(
-    '.new-project-editor-select-button__title',
-  );
+
+  const selectButtonIcons = document.querySelectorAll('.select-button-circle');
+  const selectButtonTitles = document.querySelectorAll('.new-project-editor-select-button__title');
 
   const newProjectSelectColorContainer = document.querySelector(
     '#new-project-editor-select-color-container',
@@ -64,6 +65,8 @@ export default function projectNavigation() {
     '#new-project-editor-select-item-template',
   );
 
+  const inputs = document.querySelectorAll('.new-project-editor__input');
+
   const cancelButton = document.querySelector('#new-project-editor-cancel-button');
   const addTaskButton = document.querySelector('#new-project-editor-add-project-button');
 
@@ -78,6 +81,10 @@ export default function projectNavigation() {
     title: '',
     color: colors[0],
   };
+
+  const defaultColor = colors[0];
+
+  const selectListItemsTicks = [];
 
   /* utils */
 
@@ -183,17 +190,51 @@ export default function projectNavigation() {
     });
   }
 
-  function renderInitialSelectButtonUI(defaultColor) {
-    selectColorButtonColorCircle.style.backgroundColor = defaultColor.hexCode;
-    selectColorButtonTitle.textContent = defaultColor.name;
+  function updateNewDataValues(valueName, dataValue) {
+    newProjectDataValues[valueName] = dataValue;
   }
 
-  function renderSelectListItems(newProjectEditorSelectColorList, colors) {
-    colors.forEach((color) => {
+  function renderInitialSelectButtonUI(
+    defaultColor,
+    selectColorButtonTitle,
+    selectColorButtonIcon,
+  ) {
+    selectColorButtonIcon.style.backgroundColor = defaultColor.hexCode;
+    selectColorButtonTitle.textContent = defaultColor.title;
+  }
+
+  function renderSelectListItems(
+    newProjectEditorSelectColorList,
+    newProjectEditorSelectColorButton,
+    tickItemClassForVisibleState,
+    colors,
+  ) {
+    const valueName = newProjectEditorSelectColorList.dataset.name;
+
+    const selectButtonTitleElement = newProjectEditorSelectColorButton.querySelector(
+      '.new-project-editor-select-button__title',
+    );
+    const selectButtonIconElement = newProjectEditorSelectColorButton.querySelector(
+      '.new-project-editor__color-circle',
+    );
+
+    renderInitialSelectButtonUI(defaultColor, selectButtonTitleElement, selectButtonIconElement);
+
+    colors.forEach((color, index) => {
       const selectListItemClone = newProjectEditorSelectListItemTemplate.content.cloneNode(true);
       const selectListItem = selectListItemClone.querySelector('.new-project-editor__select-item');
 
       selectListItem.setAttribute('data-hexCode', color.hexCode);
+
+      const selectListItemTick = selectListItem.querySelector(
+        '.new-project-editor-select-item__tick',
+      );
+
+      selectListItemsTicks.push(selectListItemTick);
+
+      if (index === 0) {
+        showTick(selectListItemTick, tickItemClassForVisibleState);
+      }
 
       const selectListItemColorCircle = selectListItem.querySelector(
         '.new-project-editor__color-circle',
@@ -204,10 +245,32 @@ export default function projectNavigation() {
         '.new-project-editor-select-item__title',
       );
 
-      selectListItemTitle.textContent = color.name;
+      selectListItemTitle.textContent = color.title;
+
+      selectListItem.addEventListener('click', () =>
+        handlePopupItemClick(
+          valueName,
+          color,
+          selectButtonTitleElement,
+          selectButtonIconElement,
+          updatePopupButtonTextElement,
+          updatePopupButtonIconElement,
+          updateNewDataValues,
+          selectListItemsTicks,
+          selectListItemTick,
+          tickItemClassForVisibleState,
+        ),
+      );
 
       newProjectEditorSelectColorList.append(selectListItem);
     });
+  }
+
+  function resetNewProjectDataValues() {
+    newProjectDataValues = {
+      title: '',
+      color: colors[0],
+    };
   }
 
   /* event's handlers */
@@ -235,15 +298,39 @@ export default function projectNavigation() {
     }
   }
 
-  function handleCancelButtonClick(newProjectEditorOverlay, editorClassForVisibleState) {
-    /* TODO: Дописать логику очистки инпутов */
-    closePopup(newProjectEditorOverlay, editorClassForVisibleState);
-  }
-
   function handleProjectNavigationChevronButton() {
     switchChevronState();
     toggleChevronButtonStyles();
     toggleListItemsVisibilityState();
+  }
+
+  function updatePopupButtonTextElements() {
+    selectButtonTitles.forEach((selectButtonTitle) => {
+      const valueName = selectButtonTitle.dataset.name;
+      selectButtonTitle.textContent = newProjectDataValues[valueName].title;
+    });
+  }
+
+  function updatePopupButtonIconElements() {
+    selectButtonIcons.forEach((selectButtonIcon) => {
+      const valueName = selectButtonIcon.dataset.name;
+      console.log(newProjectDataValues[valueName]);
+      selectButtonIcon.style.backgroundColor = newProjectDataValues[valueName].hexCode;
+    });
+  }
+
+  function updatePopupButtonTextElement(popupButtonTextElement, valueName) {
+    popupButtonTextElement.textContent = newProjectDataValues[valueName].title;
+  }
+
+  function updatePopupButtonIconElement(popupButtonIconElement, valueName) {
+    popupButtonIconElement.style.backgroundColor = newProjectDataValues[valueName].hexCode;
+  }
+
+  function clearAllInputsValues() {
+    inputs.forEach((input) => {
+      input.value = '';
+    });
   }
 
   /* event's listeners */
@@ -282,7 +369,16 @@ export default function projectNavigation() {
   );
 
   cancelButton.addEventListener('click', () =>
-    handleCancelButtonClick(newProjectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
+    handleCancelButtonClick(
+      newProjectEditorOverlay,
+      updatePopupButtonTextElements,
+      updatePopupButtonIconElements,
+      OVERLAY_CLASS_FOR_VISIBLE_STATE,
+      clearAllInputsValues,
+      resetNewProjectDataValues,
+      selectListItemsTicks,
+      SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
+    ),
   );
 
   renderProjectNavigationListItems(
@@ -291,6 +387,10 @@ export default function projectNavigation() {
     projects,
   );
 
-  renderInitialSelectButtonUI(newProjectDataValues.color);
-  renderSelectListItems(newProjectEditorSelectColorList, colors);
+  renderSelectListItems(
+    newProjectEditorSelectColorList,
+    newProjectEditorSelectColorButton,
+    SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
+    colors,
+  );
 }
