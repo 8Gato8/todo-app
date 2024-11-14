@@ -91,20 +91,6 @@ export default function taskEditor() {
     return choicePopupsArray.some((choicePopup) => isPopupOpen(choicePopup, classForVisibleState));
   }
 
-  function markChosenTaskPropertyWithTick(choicePopupItemTick) {
-    choicePopupItemTick.classList.add(CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
-  }
-
-  function removeTickMarkFromPrevioslySelectedPopupItem(choicePopupItemTicks) {
-    choicePopupItemTicks.forEach((choicePopupItemTick) => {
-      if (
-        choicePopupItemTick.classList.contains(CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE)
-      ) {
-        choicePopupItemTick.classList.remove(CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
-      }
-    });
-  }
-
   function updateNewDataValues(valueName, dataValue) {
     newTaskDataValues[valueName] = dataValue;
   }
