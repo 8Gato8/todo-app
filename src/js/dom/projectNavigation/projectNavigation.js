@@ -77,12 +77,12 @@ export default function projectNavigation() {
   let chosenProject = inboxProject;
   let chevronOpen = true;
 
+  const defaultColor = colors[0];
+
   let newProjectDataValues = {
     title: '',
-    color: colors[0],
+    color: defaultColor,
   };
-
-  const defaultColor = colors[0];
 
   const selectListItemsTicks = [];
 
@@ -269,7 +269,7 @@ export default function projectNavigation() {
   function resetNewProjectDataValues() {
     newProjectDataValues = {
       title: '',
-      color: colors[0],
+      color: defaultColor,
     };
   }
 
@@ -314,7 +314,6 @@ export default function projectNavigation() {
   function updatePopupButtonIconElements() {
     selectButtonIcons.forEach((selectButtonIcon) => {
       const valueName = selectButtonIcon.dataset.name;
-      console.log(newProjectDataValues[valueName]);
       selectButtonIcon.style.backgroundColor = newProjectDataValues[valueName].hexCode;
     });
   }
