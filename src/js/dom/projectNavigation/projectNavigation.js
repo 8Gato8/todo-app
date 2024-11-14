@@ -11,7 +11,6 @@ import {
 import { projects, inboxProject, colors } from '../../..';
 
 import {
-  isPopupOpen,
   openPopup,
   closePopup,
   togglePopup,
@@ -21,6 +20,7 @@ import {
   handleInputChange,
   handleCancelButtonClick,
   handlePopupItemClick,
+  handleEditorOverlayClick,
 } from '../commonUtils';
 
 export default function projectNavigation() {
@@ -56,6 +56,10 @@ export default function projectNavigation() {
 
   const newProjectEditorSelectColorPopup = document.querySelector(
     '#new-project-editor-select-color-popup',
+  );
+
+  const newProjectEditorSelectPopupsNodeList = document.querySelectorAll(
+    '.new-project-editor__select-popup',
   );
 
   const newProjectEditorSelectColorList = document.querySelector(
@@ -293,14 +297,6 @@ export default function projectNavigation() {
     openPopup(newProjectEditorOverlay, editorClassForVisibleState);
   }
 
-  function handleNewProjectEditorOverlayClick(e, editorClassForVisibleState) {
-    const { target, currentTarget: popup } = e;
-
-    if (target === popup) {
-      closePopup(popup, editorClassForVisibleState);
-    }
-  }
-
   function handleProjectNavigationChevronButton() {
     switchChevronState();
     toggleChevronButtonStyles();
@@ -345,10 +341,6 @@ export default function projectNavigation() {
     handleProjectNavigationChevronButton(newProjectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
   );
 
-  newProjectEditorOverlay.addEventListener('click', (e) =>
-    handleNewProjectEditorOverlayClick(e, OVERLAY_CLASS_FOR_VISIBLE_STATE),
-  );
-
   newProjectTitle.addEventListener('input', (e) =>
     handleInputChange(e, newProjectDataValues, addTaskButton, newProjectTitle),
   );
@@ -360,6 +352,15 @@ export default function projectNavigation() {
   addTaskButton.addEventListener('click', (e) => {
     console.log(newProjectDataValues);
   });
+
+  newProjectEditorOverlay.addEventListener('click', (e) =>
+    handleEditorOverlayClick(
+      e,
+      newProjectEditorSelectPopupsNodeList,
+      OVERLAY_CLASS_FOR_VISIBLE_STATE,
+      SELECT_POPUP_CLASS_FOR_VISIBLE_STATE,
+    ),
+  );
 
   document.addEventListener('click', (e) =>
     handleClickOutsidePopup(

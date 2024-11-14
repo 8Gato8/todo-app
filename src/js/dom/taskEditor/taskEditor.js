@@ -14,7 +14,6 @@ import {
 } from '../../..';
 
 import {
-  isPopupOpen,
   openPopup,
   closePopup,
   togglePopup,
@@ -24,6 +23,7 @@ import {
   handleCancelButtonClick,
   showTick,
   handlePopupItemClick,
+  handleEditorOverlayClick,
 } from '../commonUtils';
 
 export default function taskEditor() {
@@ -85,11 +85,6 @@ export default function taskEditor() {
     priority: [],
   };
   /* utils */
-
-  function anyChoicePopupOpen(choicePopupsNodeList, classForVisibleState) {
-    const choicePopupsArray = Array.from(choicePopupsNodeList);
-    return choicePopupsArray.some((choicePopup) => isPopupOpen(choicePopup, classForVisibleState));
-  }
 
   function updateNewDataValues(valueName, dataValue) {
     newTaskDataValues[valueName] = dataValue;
@@ -206,21 +201,6 @@ export default function taskEditor() {
 
   /* event listener handlers */
 
-  function handleTaskEditorOverlayClick(
-    e,
-    taskEditorClassForVisibleState,
-    choicePopupClassForVisibleState,
-  ) {
-    const { target, currentTarget: popup } = e;
-
-    if (
-      target === popup &&
-      !anyChoicePopupOpen(choicePopupsNodeList, choicePopupClassForVisibleState)
-    ) {
-      closePopup(popup, taskEditorClassForVisibleState);
-    }
-  }
-
   function handleAddTaskButtonClick(taskEditorOverlay, classForVisibleState) {
     const newTask = createTaskWithUniqueId(newTaskDataValues);
     addTaskToProject(newTask);
@@ -235,8 +215,9 @@ export default function taskEditor() {
   );
 
   taskEditorOverlay.addEventListener('click', (e) =>
-    handleTaskEditorOverlayClick(
+    handleEditorOverlayClick(
       e,
+      choicePopupsNodeList,
       OVERLAY_CLASS_FOR_VISIBLE_STATE,
       CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE,
     ),

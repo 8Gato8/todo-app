@@ -40,6 +40,25 @@ export function handleClickOutsidePopup(
   closePopup(popup, classForVisibleState);
 }
 
+function anyPopupOpen(popupsNodeList, popupClassForVisibleState) {
+  const popupsArray = Array.from(popupsNodeList);
+  return popupsArray.some((popup) => isPopupOpen(popup, popupClassForVisibleState));
+}
+
+export function handleEditorOverlayClick(
+  e,
+  popupsNodeList,
+  editorClassForVisibleState,
+  popupClassForVisibleState,
+) {
+  const { target, currentTarget: overlay } = e;
+
+  console.log(target === anyPopupOpen(popupsNodeList, popupClassForVisibleState));
+  if (target === overlay && !anyPopupOpen(popupsNodeList, popupClassForVisibleState)) {
+    closePopup(overlay, editorClassForVisibleState);
+  }
+}
+
 function disableAddButton(addButton) {
   addButton.setAttribute('disabled', true);
 }
