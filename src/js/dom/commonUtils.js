@@ -53,7 +53,6 @@ export function handleEditorOverlayClick(
 ) {
   const { target, currentTarget: overlay } = e;
 
-  console.log(target === anyPopupOpen(popupsNodeList, popupClassForVisibleState));
   if (target === overlay && !anyPopupOpen(popupsNodeList, popupClassForVisibleState)) {
     closePopup(overlay, editorClassForVisibleState);
   }
@@ -67,29 +66,22 @@ function enableAddButton(addButton) {
   addButton.removeAttribute('disabled');
 }
 
-function allInputsValid(inputs) {
-  if (typeof inputs !== 'array') return inputs.value !== '';
+export function isFormValid(inputs) {
+  if (!inputs.length) return inputs.value !== '';
 
   const inputsArray = Array.from(inputs);
+
   const filteredInputsArray = inputsArray.filter((input) => input.name !== 'description');
 
   return filteredInputsArray.every((input) => input.value !== '');
 }
 
-function toggleAddButtonDisabledState(allInputsValid, addButton) {
-  if (allInputsValid) {
+export function toggleAddButtonDisabledState(formValid, addButton) {
+  if (formValid) {
     enableAddButton(addButton);
   } else {
     disableAddButton(addButton);
   }
-}
-
-export function handleInputChange(e, newDataValues, addButton, inputs) {
-  const input = e.currentTarget;
-  const valueName = input.name;
-  newDataValues[valueName] = input.value;
-
-  toggleAddButtonDisabledState(allInputsValid(inputs), addButton);
 }
 
 export function showTick(tick, tickItemClassForVisibleState) {

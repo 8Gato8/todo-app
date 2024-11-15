@@ -24,6 +24,8 @@ import {
   showTick,
   handlePopupItemClick,
   handleEditorOverlayClick,
+  isFormValid,
+  toggleAddButtonDisabledState,
 } from '../commonUtils';
 
 export default function taskEditor() {
@@ -208,6 +210,14 @@ export default function taskEditor() {
     closePopup(taskEditorOverlay, classForVisibleState);
   }
 
+  function handleInputChange(e, addButton, inputs) {
+    const input = e.currentTarget;
+    const valueName = input.name;
+    newTaskDataValues[valueName] = input.value;
+
+    toggleAddButtonDisabledState(isFormValid(inputs), addButton);
+  }
+
   /* event listeners */
 
   sidebarOpenTaskEditorButton.addEventListener('click', () =>
@@ -263,9 +273,7 @@ export default function taskEditor() {
   );
 
   inputs.forEach((input) => {
-    input.addEventListener('input', (e) =>
-      handleInputChange(e, newTaskDataValues, addTaskButton, inputs),
-    );
+    input.addEventListener('input', (e) => handleInputChange(e, addTaskButton, inputs));
   });
 
   addTaskButton.addEventListener('click', () =>

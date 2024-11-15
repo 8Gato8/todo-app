@@ -21,6 +21,8 @@ import {
   handleCancelButtonClick,
   handlePopupItemClick,
   handleEditorOverlayClick,
+  isFormValid,
+  toggleAddButtonDisabledState,
 } from '../commonUtils';
 
 export default function projectNavigation() {
@@ -331,6 +333,14 @@ export default function projectNavigation() {
     toggleListItemsVisibilityState();
   }
 
+  function handleInputChange(e, addButton, inputs) {
+    const input = e.currentTarget;
+    const valueName = input.name;
+    newProjectDataValues[valueName] = input.value;
+
+    toggleAddButtonDisabledState(isFormValid(inputs), addButton);
+  }
+
   /* event's listeners */
 
   addNewProjectButton.addEventListener('click', () =>
@@ -342,7 +352,7 @@ export default function projectNavigation() {
   );
 
   newProjectTitle.addEventListener('input', (e) =>
-    handleInputChange(e, newProjectDataValues, addTaskButton, newProjectTitle),
+    handleInputChange(e, addTaskButton, newProjectTitle),
   );
 
   newProjectEditorSelectColorButton.addEventListener('click', () =>
