@@ -280,29 +280,6 @@ export default function projectNavigation() {
     };
   }
 
-  /* event's handlers */
-
-  function handleProjectNavigationListItemClick(
-    projectNavigationButton,
-    projectNavigationButtons,
-    project,
-  ) {
-    chosenProject = project;
-
-    removeHighlighterFromPrevioslySelectedProjectNavigationButton(projectNavigationButtons);
-    highlightProjectNavigationButton(projectNavigationButton);
-  }
-
-  function handleAddNewProjectButtonClick(newProjectEditorOverlay, editorClassForVisibleState) {
-    openPopup(newProjectEditorOverlay, editorClassForVisibleState);
-  }
-
-  function handleProjectNavigationChevronButton() {
-    switchChevronState();
-    toggleChevronButtonStyles();
-    toggleListItemsVisibilityState();
-  }
-
   function updatePopupButtonTextElements() {
     selectButtonTitles.forEach((selectButtonTitle) => {
       const valueName = selectButtonTitle.dataset.name;
@@ -329,6 +306,29 @@ export default function projectNavigation() {
     inputs.forEach((input) => {
       input.value = '';
     });
+  }
+
+  /* event's handlers */
+
+  function handleProjectNavigationListItemClick(
+    projectNavigationButton,
+    projectNavigationButtons,
+    project,
+  ) {
+    chosenProject = project;
+
+    removeHighlighterFromPrevioslySelectedProjectNavigationButton(projectNavigationButtons);
+    highlightProjectNavigationButton(projectNavigationButton);
+  }
+
+  function handleAddNewProjectButtonClick(newProjectEditorOverlay, editorClassForVisibleState) {
+    openPopup(newProjectEditorOverlay, editorClassForVisibleState);
+  }
+
+  function handleProjectNavigationChevronButton() {
+    switchChevronState();
+    toggleChevronButtonStyles();
+    toggleListItemsVisibilityState();
   }
 
   /* event's listeners */
