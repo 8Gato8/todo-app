@@ -36,6 +36,12 @@ export default function taskEditor() {
   const taskEditorOverlay = document.querySelector('#task-editor-overlay');
 
   const choicePopupItemTemplate = document.querySelector('#choice-popup-item-template');
+  const choicePopupProjectIconTemplate = document.querySelector('#project-icon-template');
+  const choicePopupPriorityIconTemplate = document.querySelector('#priority-icon-template');
+  const choicePopupIconsTemplatesObject = {
+    project: choicePopupProjectIconTemplate,
+    priority: choicePopupPriorityIconTemplate,
+  };
 
   const projectChoiceContainer = document.querySelector('#project-choice-container');
   const chooseProjectButton = document.querySelector('#choose-project-popup-button');
@@ -158,10 +164,19 @@ export default function taskEditor() {
 
     choicePopupData.forEach((choicePopupDataItem, index) => {
       const choicePopupItemElementTemplateClone = choicePopupItemTemplate.content.cloneNode(true);
+      const choicePopupItemIconTemplateClone =
+        choicePopupIconsTemplatesObject[choiceValueName].content.cloneNode(true);
+
+      const choicePopupItemIcon =
+        choicePopupItemIconTemplateClone.querySelector('.choice-popup__icon');
+
+      choicePopupItemIcon.style.fill = choicePopupDataItem.color.hexCode;
 
       const choicePopupItemContainerElement = choicePopupItemElementTemplateClone.querySelector(
         '.choice-popup-list__item-container',
       );
+
+      choicePopupItemContainerElement.prepend(choicePopupItemIcon);
 
       const choicePopupItemElement = choicePopupItemContainerElement.querySelector(
         '.choice-popup-list__item',

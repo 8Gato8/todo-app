@@ -63,7 +63,7 @@
 }
 
 .choice-popup-button {
-  min-width: 120px;
+  min-width: 135px;
 }
 
 .choice-popup-list__item-container {
@@ -71,7 +71,8 @@
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  padding: 10px 15px;
+  padding: 10px 8px;
+  gap: 4px;
 }
 
 .choice-popup-list__item-container:hover {
@@ -96,6 +97,13 @@
 
 .choice-popup__icon {
   position: relative;
+}
+
+.choice-popup-item-icon {
+  top: 1px;
+}
+
+.choice-popup-button-icon {
   top: 3px;
 }
 
