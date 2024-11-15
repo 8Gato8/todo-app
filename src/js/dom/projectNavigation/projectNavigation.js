@@ -389,7 +389,7 @@ export default function projectNavigation() {
     );
   });
 
-  newProjectEditorOverlay.addEventListener('click', (e) =>
+  newProjectEditorOverlay.addEventListener('mousedown', (e) =>
     handleEditorOverlayClick(
       e,
       newProjectEditorSelectPopupsNodeList,

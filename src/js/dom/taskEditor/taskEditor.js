@@ -231,7 +231,7 @@ export default function taskEditor() {
     openPopup(taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
   );
 
-  taskEditorOverlay.addEventListener('click', (e) =>
+  taskEditorOverlay.addEventListener('mousedown', (e) =>
     handleEditorOverlayClick(
       e,
       choicePopupsNodeList,
