@@ -88,7 +88,7 @@ export function showTick(tick, tickItemClassForVisibleState) {
   tick.classList.add(tickItemClassForVisibleState);
 }
 
-function hideTicks(ticks, tickItemClassForVisibleState) {
+export function hideTicks(ticks, tickItemClassForVisibleState) {
   ticks.forEach((tick) => {
     tick.classList.remove(tickItemClassForVisibleState);
   });
@@ -113,31 +113,4 @@ export function handlePopupItemClick(
 
   hideTicks(ticks, tickItemClassForVisibleState);
   showTick(currentTick, tickItemClassForVisibleState);
-}
-
-export function handleCancelButtonClick(
-  popup,
-  updatePopupButtonTextElements,
-  updatePopupButtonIconElements,
-  popupClassForVisibleState,
-  clearAllInputsValues,
-  resetNewDataValues,
-  allTicks,
-  itemTickClassForVisibleState,
-) {
-  clearAllInputsValues();
-  resetNewDataValues();
-
-  for (let tickNodeList in allTicks) {
-    hideTicks(allTicks[tickNodeList], itemTickClassForVisibleState);
-  }
-
-  for (let tickNodeList in allTicks) {
-    showTick(allTicks[tickNodeList][0], itemTickClassForVisibleState);
-  }
-
-  updatePopupButtonTextElements();
-  updatePopupButtonIconElements();
-
-  closePopup(popup, popupClassForVisibleState);
 }

@@ -14,8 +14,8 @@ import {
   togglePopup,
   makeElementChildrenList,
   handleClickOutsidePopup,
-  handleCancelButtonClick,
   showTick,
+  hideTicks,
   handlePopupItemClick,
   handleEditorOverlayClick,
   isFormValid,
@@ -55,7 +55,7 @@ export default function taskEditor() {
   const choicePopupsNodeList = document.querySelectorAll('.choice-popup');
 
   const choicePopupButtonsTexts = document.querySelectorAll('.choice-popup-button__text');
-  const choicePopupButtonsIcons = document.querySelectorAll('.choice-popup-button-icon');
+  const choicePopupButtonsIcons = document.querySelectorAll('.icon_offset_medium');
 
   const cancelButton = document.querySelector('#cancel-button');
   const addTaskButton = document.querySelector('#add-task-button');
@@ -103,7 +103,7 @@ export default function taskEditor() {
       description: '',
       dueTime: '',
       project: inboxProject,
-      priority: priorities.find((priority) => priority.number === 1),
+      priority: defaultPriority,
     };
   }
 
@@ -208,13 +208,37 @@ export default function taskEditor() {
     });
   }
 
+  function reset() {
+    resetNewTaskDataValues();
+    clearAllInputsValues();
+
+    for (let tickNodeList in allTicks) {
+      hideTicks(allTicks[tickNodeList], CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+    }
+
+    for (let tickNodeList in allTicks) {
+      showTick(allTicks[tickNodeList][0], CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+    }
+
+    updatePopupButtonTextElements();
+    updatePopupButtonIconElements();
+  }
+
   /* event listener handlers */
+
+  function handleCancelButtonClick(popup, classForVisibleState) {
+    closePopup(popup, classForVisibleState);
+
+    reset();
+  }
 
   function handleAddTaskButtonClick(popup, classForVisibleState) {
     const newTask = createTaskWithUniqueId(newTaskDataValues);
     newTaskDataValues.project.addTask(newTask);
 
     closePopup(popup, classForVisibleState);
+
+    reset();
   }
 
   function handleInputChange(e, addButton, inputs) {
@@ -267,16 +291,7 @@ export default function taskEditor() {
   );
 
   cancelButton.addEventListener('click', () =>
-    handleCancelButtonClick(
-      taskEditorOverlay,
-      updatePopupButtonTextElements,
-      updatePopupButtonIconElements,
-      OVERLAY_CLASS_FOR_VISIBLE_STATE,
-      clearAllInputsValues,
-      resetNewTaskDataValues,
-      allTicks,
-      CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
-    ),
+    handleCancelButtonClick(taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
   );
 
   inputs.forEach((input) => {

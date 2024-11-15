@@ -18,7 +18,7 @@ import {
   makeElementChildrenList,
   handleClickOutsidePopup,
   showTick,
-  handleCancelButtonClick,
+  hideTicks,
   handlePopupItemClick,
   handleEditorOverlayClick,
   isFormValid,
@@ -315,11 +315,33 @@ export default function projectNavigation() {
     });
   }
 
+  function reset() {
+    resetNewProjectDataValues();
+    clearAllInputsValues();
+
+    for (let tickNodeList in allTicks) {
+      hideTicks(allTicks[tickNodeList], SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+    }
+
+    for (let tickNodeList in allTicks) {
+      showTick(allTicks[tickNodeList][0], SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+    }
+
+    updatePopupButtonTextElements();
+    updatePopupButtonIconElements();
+  }
+
   /* event's handlers */
 
   function handleProjectNavigationListItemClick(projectNavigationButton, projectNavigationButtons) {
     removeHighlighterFromPrevioslySelectedProjectNavigationButton(projectNavigationButtons);
     highlightProjectNavigationButton(projectNavigationButton);
+  }
+
+  function handleCancelButtonClick(popup, classForVisibleState) {
+    closePopup(popup, classForVisibleState);
+
+    reset();
   }
 
   function handleAddNewProjectButtonClick(newProjectEditorOverlay, editorClassForVisibleState) {
@@ -359,6 +381,8 @@ export default function projectNavigation() {
     );
 
     closePopup(popup, classForVisibleState);
+
+    reset();
   }
 
   /* event's listeners */
@@ -408,16 +432,7 @@ export default function projectNavigation() {
   );
 
   cancelButton.addEventListener('click', () =>
-    handleCancelButtonClick(
-      newProjectEditorOverlay,
-      updatePopupButtonTextElements,
-      updatePopupButtonIconElements,
-      OVERLAY_CLASS_FOR_VISIBLE_STATE,
-      clearAllInputsValues,
-      resetNewProjectDataValues,
-      allTicks,
-      SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
-    ),
+    handleCancelButtonClick(newProjectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
   );
 
   renderProjectNavigationListItems(
