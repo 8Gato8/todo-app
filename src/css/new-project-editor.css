@@ -28,9 +28,6 @@
   gap: 8px;
 }
 
-.new-project-editor__color-circle {
-}
-
 .new-project-editor__field-title {
   font-size: 14px;
 }
@@ -51,9 +48,6 @@
 
 .new-project-editor__input {
   outline: none;
-}
-
-.new-project-editor__field-title {
 }
 
 .new-project-editor__select-container {
