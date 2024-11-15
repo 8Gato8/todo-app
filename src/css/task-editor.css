@@ -94,7 +94,7 @@
   display: inline;
 }
 
-.choice-popup-button__icon {
+.choice-popup__icon {
   position: relative;
   top: 3px;
 }
