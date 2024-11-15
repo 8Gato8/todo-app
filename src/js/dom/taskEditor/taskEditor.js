@@ -35,11 +35,11 @@ export default function taskEditor() {
   const taskEditorOverlay = document.querySelector('#task-editor-overlay');
 
   const choicePopupItemTemplate = document.querySelector('#choice-popup-item-template');
-  const choicePopupProjectIconTemplate = document.querySelector('#project-icon-template');
-  const choicePopupPriorityIconTemplate = document.querySelector('#priority-icon-template');
-  const choicePopupIconsTemplatesObject = {
-    project: choicePopupProjectIconTemplate,
-    priority: choicePopupPriorityIconTemplate,
+  const projectIconTemplate = document.querySelector('#project-icon-template');
+  const priorityIconTemplate = document.querySelector('#priority-icon-template');
+  const iconTemplatesObject = {
+    project: projectIconTemplate,
+    priority: priorityIconTemplate,
   };
 
   const projectChoiceContainer = document.querySelector('#project-choice-container');
@@ -151,7 +151,7 @@ export default function taskEditor() {
     const choicePopupItemTicks = allTicks[choiceValueName];
 
     const choicePopupButtonTitleElement = popupButton.querySelector('.choice-popup-button__text');
-    const choicePopupButtonIconElement = popupButton.querySelector('.choice-popup-button-icon');
+    const choicePopupButtonIconElement = popupButton.querySelector('.icon');
 
     const defaultChoicePopupData = defaultChoicePopupsData[choiceValueName];
 
@@ -163,11 +163,9 @@ export default function taskEditor() {
 
     choicePopupData.forEach((choicePopupDataItem, index) => {
       const choicePopupItemElementTemplateClone = choicePopupItemTemplate.content.cloneNode(true);
-      const choicePopupItemIconTemplateClone =
-        choicePopupIconsTemplatesObject[choiceValueName].content.cloneNode(true);
+      const iconTemplateClone = iconTemplatesObject[choiceValueName].content.cloneNode(true);
 
-      const choicePopupItemIcon =
-        choicePopupItemIconTemplateClone.querySelector('.choice-popup__icon');
+      const choicePopupItemIcon = iconTemplateClone.querySelector('.icon');
 
       choicePopupItemIcon.style.fill = choicePopupDataItem.color.hexCode;
 
