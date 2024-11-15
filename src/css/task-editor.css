@@ -95,18 +95,6 @@
   display: inline;
 }
 
-.choice-popup__icon {
-  position: relative;
-}
-
-.choice-popup-item-icon {
-  top: 1px;
-}
-
-.choice-popup-button-icon {
-  top: 3px;
-}
-
 .choice-popup-button__arrow-down {
   position: relative;
   top: 2px;

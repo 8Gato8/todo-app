@@ -1,0 +1,11 @@
+.icon {
+  position: relative;
+}
+
+.icon_offset_small {
+  top: 1px;
+}
+
+.icon_offset_medium {
+  top: 3px;
+}

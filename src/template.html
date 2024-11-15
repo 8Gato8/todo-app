@@ -138,7 +138,7 @@
                   class="editor__popup-button choice-popup-button task-editor__select-button pressed-button">
                   <svg
                     data-name="project"
-                    class="choice-popup-button-icon choice-popup__icon"
+                    class="icon icon_offset_medium"
                     xmlns="http://www.w3.org/2000/svg"
                     width="15"
                     height="15"
@@ -177,7 +177,7 @@
                   class="editor__popup-button choice-popup-button task-editor__select-button pressed-button">
                   <svg
                     data-name="priority"
-                    class="choice-popup-button-icon choice-popup__icon"
+                    class="icon icon_offset_medium"
                     xmlns="http://www.w3.org/2000/svg"
                     height="15"
                     viewBox="0 -960 960 960"
@@ -302,7 +302,19 @@
     <template id="project-navigation-list-item-template">
       <li class="project-navigation-list__item project-navigation-list-item">
         <button class="project-navigation__button project-navigation-button button-with-icon">
-          <span class="button-with-icon__text"></span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+            class="icon icon_offset_small">
+            <path
+              fill-rule="evenodd"
+              d="M15.994 6.082a.5.5 0 1 0-.987-.164L14.493 9h-3.986l.486-2.918a.5.5 0 1 0-.986-.164L9.493 9H7a.5.5 0 1 0 0 1h2.326l-.666 4H6a.5.5 0 0 0 0 1h2.493l-.486 2.918a.5.5 0 1 0 .986.164L9.507 15h3.986l-.486 2.918a.5.5 0 1 0 .987.164L14.507 15H17a.5.5 0 1 0 0-1h-2.326l.667-4H18a.5.5 0 1 0 0-1h-2.493l.487-2.918ZM14.327 10H10.34l-.667 4h3.987l.667-4Z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span class="project-navigation-button__title button-with-icon__text"></span>
           <span class="project-navigation-button__task-count"></span>
         </button>
       </li>
@@ -332,7 +344,7 @@
     <template id="project-icon-template">
       <svg
         data-name="project"
-        class="choice-popup__icon choice-popup-item-icon"
+        class="icon icon_offset_small"
         xmlns="http://www.w3.org/2000/svg"
         width="15"
         height="15"
@@ -348,7 +360,7 @@
     <template id="priority-icon-template">
       <svg
         data-name="priority"
-        class="choice-popup__icon choice-popup-item-icon"
+        class="icon icon_offset_small"
         xmlns="http://www.w3.org/2000/svg"
         height="15"
         viewBox="0 -960 960 960"

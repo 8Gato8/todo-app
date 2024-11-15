@@ -134,6 +134,9 @@ export default function projectNavigation() {
       const projectNavigationButton = projectNavigationListItem.querySelector(
         '.project-navigation__button',
       );
+      const projectIcon = projectNavigationButton.querySelector('.icon');
+
+      projectIcon.style.fill = project.color.hexCode;
 
       projectNavigationButtons.push(projectNavigationButton);
 
