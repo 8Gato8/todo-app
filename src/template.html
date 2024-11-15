@@ -138,7 +138,7 @@
                   class="editor__popup-button choice-popup-button task-editor__select-button pressed-button">
                   <svg
                     data-name="project"
-                    class="choice-popup-button-icon choice-popup-button__icon"
+                    class="choice-popup-button-icon choice-popup__icon"
                     xmlns="http://www.w3.org/2000/svg"
                     width="15"
                     height="15"
@@ -147,7 +147,7 @@
                     <path
                       fill-rule="evenodd"
                       d="M6.555 3.003a.5.5 0 0 1 .442.552L6.781 5.5h2.994l.228-2.055a.5.5 0 0 1 .994.11L10.781 5.5H12.5a.5.5 0 0 1 0 1h-1.83l-.334 3H12a.5.5 0 0 1 0 1h-1.775l-.228 2.055a.5.5 0 1 1-.994-.11L9.22 10.5H6.225l-.228 2.055a.5.5 0 1 1-.994-.11L5.22 10.5H3.5a.5.5 0 1 1 0-1h1.83l.334-3H4a.5.5 0 0 1 0-1h1.775l.228-2.055a.5.5 0 0 1 .552-.442ZM9.33 9.5l.334-3H6.67l-.334 3H9.33Z"
-                      clip-rule="evenodd"></path>
+                      clip-rule="evenodd" />
                   </svg>
                   <span
                     data-name="project"
@@ -177,11 +177,11 @@
                   class="editor__popup-button choice-popup-button task-editor__select-button pressed-button">
                   <svg
                     data-name="priority"
-                    class="choice-popup-button-icon choice-popup-button__icon"
+                    class="choice-popup-button-icon choice-popup__icon"
                     xmlns="http://www.w3.org/2000/svg"
-                    height="15px"
+                    height="15"
                     viewBox="0 -960 960 960"
-                    width="15px"
+                    width="15"
                     fill="#000">
                     <path
                       d="m437-249 183-231H471l26-221-173 269h146l-33 183ZM336-96l48-264H192l324-504h72l-36 312h216L408-96h-72Zm136-379Z" />
@@ -327,6 +327,36 @@
             d="M4.902 6.975l4.182-4.244a.74.74 0 0 1 1.06 0 .775.775 0 0 1 0 1.081L5.432 8.597a.74.74 0 0 1-1.06 0L1.78 5.975a.775.775 0 0 1 0-1.081.74.74 0 0 1 1.061 0l2.06 2.081z"></path>
         </svg>
       </div>
+    </template>
+
+    <template id="project-icon-template">
+      <svg
+        data-name="project"
+        class="choice-popup__icon choice-popup-item-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="15"
+        height="15"
+        fill="#000"
+        viewBox="0 0 15 15">
+        <path
+          fill-rule="evenodd"
+          d="M6.555 3.003a.5.5 0 0 1 .442.552L6.781 5.5h2.994l.228-2.055a.5.5 0 0 1 .994.11L10.781 5.5H12.5a.5.5 0 0 1 0 1h-1.83l-.334 3H12a.5.5 0 0 1 0 1h-1.775l-.228 2.055a.5.5 0 1 1-.994-.11L9.22 10.5H6.225l-.228 2.055a.5.5 0 1 1-.994-.11L5.22 10.5H3.5a.5.5 0 1 1 0-1h1.83l.334-3H4a.5.5 0 0 1 0-1h1.775l.228-2.055a.5.5 0 0 1 .552-.442ZM9.33 9.5l.334-3H6.67l-.334 3H9.33Z"
+          clip-rule="evenodd" />
+      </svg>
+    </template>
+
+    <template id="priority-icon-template">
+      <svg
+        data-name="priority"
+        class="choice-popup__icon choice-popup-item-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        height="15"
+        viewBox="0 -960 960 960"
+        width="15"
+        fill="#000">
+        <path
+          d="m437-249 183-231H471l26-221-173 269h146l-33 183ZM336-96l48-264H192l324-504h72l-36 312h216L408-96h-72Zm136-379Z" />
+      </svg>
     </template>
 
     <template id="new-project-editor-select-item-template">
