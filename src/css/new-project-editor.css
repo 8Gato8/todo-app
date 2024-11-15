@@ -74,6 +74,8 @@
 
 .new-project-editor__select-popup_visible {
   display: flex;
+  height: 300px;
+  overflow-y: scroll;
 }
 
 .new-project-editor__select-list {
