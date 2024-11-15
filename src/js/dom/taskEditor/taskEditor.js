@@ -5,13 +5,8 @@ import {
   CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
 } from './variables';
 
-import {
-  projects,
-  inboxProject,
-  priorities,
-  createTaskWithUniqueId,
-  addTaskToProject,
-} from '../../..';
+import { projects, inboxProject, priorities } from '../../..';
+import createTaskWithUniqueId from '../../utils/createTaskWithUniqueId';
 
 import {
   openPopup,
@@ -215,11 +210,11 @@ export default function taskEditor() {
 
   /* event listener handlers */
 
-  function handleAddTaskButtonClick(taskEditorOverlay, classForVisibleState) {
+  function handleAddTaskButtonClick(popup, classForVisibleState) {
     const newTask = createTaskWithUniqueId(newTaskDataValues);
-    addTaskToProject(newTask);
+    newTaskDataValues.project.addTask(newTask);
 
-    closePopup(taskEditorOverlay, classForVisibleState);
+    closePopup(popup, classForVisibleState);
   }
 
   function handleInputChange(e, addButton, inputs) {
