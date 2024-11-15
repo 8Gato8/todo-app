@@ -90,10 +90,10 @@
 
 .new-project-editor__select-item {
   display: flex;
-  font-size: 14px;
+  font-size: 13px;
   align-items: center;
   gap: 10px;
-  padding: 8px;
+  padding: 10px;
 }
 
 .new-project-editor__select-item:hover {
