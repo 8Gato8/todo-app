@@ -17,7 +17,6 @@ import {
   makeElementChildrenList,
   handleClickOutsidePopup,
   showTick,
-  handleInputChange,
   handleCancelButtonClick,
   handlePopupItemClick,
   handleEditorOverlayClick,

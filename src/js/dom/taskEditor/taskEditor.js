@@ -19,7 +19,6 @@ import {
   togglePopup,
   makeElementChildrenList,
   handleClickOutsidePopup,
-  handleInputChange,
   handleCancelButtonClick,
   showTick,
   handlePopupItemClick,
