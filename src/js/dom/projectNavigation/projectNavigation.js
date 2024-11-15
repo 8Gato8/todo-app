@@ -9,6 +9,7 @@ import {
 } from './variables';
 
 import { projects, inboxProject, colors } from '../../..';
+import createProjectWithUniqueId from '../../utils/createProjectWithUniqueId';
 
 import {
   openPopup,
@@ -149,17 +150,19 @@ export default function projectNavigation() {
       projectNavigationTaskCount.textContent = project.tasks.length || '';
 
       projectNavigationListItem.addEventListener('click', () =>
-        handleProjectNavigationListItemClick(
-          projectNavigationButton,
-          projectNavigationButtons,
-          project,
-        ),
+        handleProjectNavigationListItemClick(projectNavigationButton, projectNavigationButtons),
       );
 
       projectNavigationList.append(projectNavigationListItem);
     });
 
     highlightInitialChosenProjectNavigationButton(projectNavigationButtons);
+  }
+
+  function clearProjectNavigationList(projectNavigationList) {
+    while (projectNavigationList.firstChild) {
+      projectNavigationList.removeChild(projectNavigationList.firstChild);
+    }
   }
 
   function removeHighlighterFromPrevioslySelectedProjectNavigationButton(projectNavigationButtons) {
@@ -314,13 +317,7 @@ export default function projectNavigation() {
 
   /* event's handlers */
 
-  function handleProjectNavigationListItemClick(
-    projectNavigationButton,
-    projectNavigationButtons,
-    project,
-  ) {
-    chosenProject = project;
-
+  function handleProjectNavigationListItemClick(projectNavigationButton, projectNavigationButtons) {
     removeHighlighterFromPrevioslySelectedProjectNavigationButton(projectNavigationButtons);
     highlightProjectNavigationButton(projectNavigationButton);
   }
@@ -343,6 +340,27 @@ export default function projectNavigation() {
     toggleAddButtonDisabledState(isFormValid(inputs), addButton);
   }
 
+  function handleAddTaskButtonClick(
+    popup,
+    classForVisibleState,
+    projectNavigationList,
+    projectNavigationListItemTemplate,
+    projects,
+  ) {
+    const newProject = createProjectWithUniqueId(newProjectDataValues);
+    projects.push(newProject);
+
+    clearProjectNavigationList(projectNavigationList);
+
+    renderProjectNavigationListItems(
+      projectNavigationList,
+      projectNavigationListItemTemplate,
+      projects,
+    );
+
+    closePopup(popup, classForVisibleState);
+  }
+
   /* event's listeners */
 
   addNewProjectButton.addEventListener('click', () =>
@@ -361,8 +379,14 @@ export default function projectNavigation() {
     togglePopup(newProjectEditorSelectColorPopup, SELECT_POPUP_CLASS_FOR_VISIBLE_STATE),
   );
 
-  addTaskButton.addEventListener('click', (e) => {
-    console.log(newProjectDataValues);
+  addTaskButton.addEventListener('click', () => {
+    handleAddTaskButtonClick(
+      newProjectEditorOverlay,
+      OVERLAY_CLASS_FOR_VISIBLE_STATE,
+      projectNavigationList,
+      projectNavigationListItemTemplate,
+      projects,
+    );
   });
 
   newProjectEditorOverlay.addEventListener('click', (e) =>
