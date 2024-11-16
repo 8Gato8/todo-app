@@ -1,44 +1,42 @@
 import './style.css';
 
-import projectNavigation from './js/dom/projectNavigation/projectNavigation';
-import taskEditor from './js/dom/taskEditor/taskEditor';
+import createProjectNavigation from './js/dom/createProjectNavigation/createProjectNavigation';
+import createNewProjectEditor from './js/dom/createNewProjectEditor/createNewProjectEditor';
+import createTaskEditor from './js/dom/createTaskEditor/createTaskEditor';
 
-import createTask from './js/task';
-import createProject from './js/project';
-
-import generateUniqueId from './js/utils/generateUniqueId';
+import createProjectWithUniqueId from './js/utils/createProjectWithUniqueId';
 
 export const priorities = [
   {
     title: 'Приоритет 1',
     number: 1,
     color: {
-      title: 'Ягодно-красный',
-      hexCode: '#b8255f',
+      title: 'Красный',
+      hexCode: '#d1453b',
     },
   },
   {
     title: 'Приоритет 2',
     number: 2,
     color: {
-      title: 'Красный',
-      hexCode: '#cf473a',
+      title: 'Оранжевый',
+      hexCode: '#eb8909',
     },
   },
   {
     title: 'Приоритет 3',
     number: 3,
     color: {
-      title: 'Оранжевый',
-      hexCode: '#c77100',
+      title: 'Синий',
+      hexCode: '#246fe0',
     },
   },
   {
     title: 'Приоритет 4',
     number: 4,
     color: {
-      title: 'Желтый',
-      hexCode: '#b29104',
+      title: 'Серый',
+      hexCode: '#666',
     },
   },
 ];
@@ -61,39 +59,83 @@ export const colors = [
     title: 'Желтый',
     hexCode: '#b29104',
   },
+  {
+    title: 'Оливковый',
+    hexCode: '#949c31',
+  },
+  {
+    title: 'Лайм',
+    hexCode: '#65a331',
+  },
+  {
+    title: 'Зелёный',
+    hexCode: '#369307',
+  },
+  {
+    title: 'Мятно-зелёный',
+    hexCode: '#42a393',
+  },
+  {
+    title: 'Зеленовато-голубой',
+    hexCode: '#148fad',
+  },
+  {
+    title: 'Небесно-голубой',
+    hexCode: '#319dc0',
+  },
+  {
+    title: 'Светло-голубой',
+    hexCode: '#6988a4',
+  },
+  {
+    title: 'Синий',
+    hexCode: '#2a67e2',
+  },
+  {
+    title: 'Виноградный',
+    hexCode: '#692ec2',
+  },
+  {
+    title: 'Фиолетовый',
+    hexCode: '#ac30cc',
+  },
+  {
+    title: 'Лавандовый',
+    hexCode: '#a4698c',
+  },
+  {
+    title: 'Ярко-розовый',
+    hexCode: '#e05095',
+  },
+  {
+    title: 'Розовый',
+    hexCode: '#b2635c',
+  },
+  {
+    title: 'Аспидно-серый',
+    hexCode: '#808080',
+  },
+  {
+    title: 'Серый',
+    hexCode: '#999999',
+  },
+  {
+    title: 'Тауп',
+    hexCode: '#8f7a69',
+  },
 ];
 
-function createProjectWithUniqueId(newProjectData) {
-  const id = generateUniqueId();
-
-  const newProject = createProject({ ...newProjectData, id });
-  return newProject;
-}
-
-export function createTaskWithUniqueId(newTaskData) {
-  const id = generateUniqueId();
-
-  const newTask = createTask({ ...newTaskData, id });
-
-  return newTask;
-}
-
-export function addTaskToProject(newTask) {
-  newTask.project.addTask(newTask);
-}
-
-export const inboxProject = createProjectWithUniqueId({ title: 'Входящие' });
-const homeProject = createProjectWithUniqueId({
-  title: 'Дом',
-  color: { title: 'Красный', hexCode: '#cf473a' },
-});
-const jobProject = createProjectWithUniqueId({
-  title: 'Работа',
-  color: { title: 'Желтый', hexCode: '#b29104' },
+export const inboxProject = createProjectWithUniqueId({
+  title: 'Входящие',
+  color: { title: 'Аспидно-серый', hexCode: '#808080' },
 });
 
-projects.push(inboxProject, homeProject, jobProject);
+projects.push(inboxProject);
 
-/* adds all sorts of event listeners related to task editor */
-projectNavigation();
-taskEditor();
+export const projectNavigation = createProjectNavigation();
+export const newProjectEditor = createNewProjectEditor();
+const taskEditor = createTaskEditor();
+
+projectNavigation.render();
+newProjectEditor.render();
+taskEditor.render();

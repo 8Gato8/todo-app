@@ -5,7 +5,7 @@ import {
   CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
 } from './variables';
 
-import { projects, inboxProject, priorities } from '../../..';
+import { projects, projectNavigation, inboxProject, priorities } from '../../..';
 import createTaskWithUniqueId from '../../utils/createTaskWithUniqueId';
 
 import {
@@ -22,7 +22,7 @@ import {
   toggleAddButtonDisabledState,
 } from '../commonUtils';
 
-export default function taskEditor() {
+export default function createTaskEditor() {
   /* query selectors */
 
   const sidebarOpenTaskEditorButton = document.querySelector('.sidebar__open-task-editor-button');
@@ -208,6 +208,23 @@ export default function taskEditor() {
     });
   }
 
+  function renderChoicePopupsElements() {
+    renderChoicePopupElements(
+      projectChoicePopupList,
+      chooseProjectButton,
+      CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
+      choicePopupItemTemplate,
+      projects,
+    );
+    renderChoicePopupElements(
+      priorityChoicePopupList,
+      choosePriorityButton,
+      CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
+      choicePopupItemTemplate,
+      priorities,
+    );
+  }
+
   function reset() {
     resetNewTaskDataValues();
     clearAllInputsValues();
@@ -235,6 +252,9 @@ export default function taskEditor() {
   function handleAddTaskButtonClick(popup, classForVisibleState) {
     const newTask = createTaskWithUniqueId(newTaskDataValues);
     newTaskDataValues.project.addTask(newTask);
+
+    projectNavigation.clear();
+    projectNavigation.render();
 
     closePopup(popup, classForVisibleState);
 
@@ -302,18 +322,5 @@ export default function taskEditor() {
     handleAddTaskButtonClick(taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
   );
 
-  renderChoicePopupElements(
-    projectChoicePopupList,
-    chooseProjectButton,
-    CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
-    choicePopupItemTemplate,
-    projects,
-  );
-  renderChoicePopupElements(
-    priorityChoicePopupList,
-    choosePriorityButton,
-    CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
-    choicePopupItemTemplate,
-    priorities,
-  );
+  return { render: renderChoicePopupsElements };
 }
