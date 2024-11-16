@@ -1,14 +1,12 @@
 import { OVERLAY_CLASS_FOR_VISIBLE_STATE } from '../commonVariables';
 
 import {
-  PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE,
-  PROJECT_NAVIGATION_CHEVRON_BUTTON_OPEN,
-  PROJECT_NAVIGATION_LIST_ITEM_HIDDEN,
   SELECT_POPUP_CLASS_FOR_VISIBLE_STATE,
   SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
 } from './variables';
 
-import { projects, inboxProject, colors } from '../../..';
+import { projects, projectNavigation, colors } from '../../..';
+
 import createProjectWithUniqueId from '../../utils/createProjectWithUniqueId';
 
 import {
@@ -25,22 +23,13 @@ import {
   toggleAddButtonDisabledState,
 } from '../commonUtils';
 
-export default function projectNavigation() {
+export default function createNewProjectEditor() {
   /* query selectors */
 
   const newProjectEditorOverlay = document.querySelector('#new-project-editor-overlay');
 
   const addNewProjectButton = document.querySelector(
     '.project-navigation__open-new-project-popup-button',
-  );
-  const projectNavigationChevronButton = document.querySelector(
-    '.project-navigation__chevron-button',
-  );
-
-  const projectNavigationList = document.querySelector('.project-navigation-list');
-
-  const projectNavigationListItemTemplate = document.querySelector(
-    '#project-navigation-list-item-template',
   );
 
   const newProjectTitle = document.querySelector('#new-project-title');
@@ -80,9 +69,6 @@ export default function projectNavigation() {
 
   const selectColorContainerChildrenList = makeElementChildrenList(newProjectSelectColorContainer);
 
-  let chosenProject = inboxProject;
-  let chevronOpen = true;
-
   const defaultColor = colors[0];
 
   let newProjectDataValues = {
@@ -95,113 +81,6 @@ export default function projectNavigation() {
   };
 
   /* utils */
-
-  function highlightInitialChosenProjectNavigationButton(projectNavigationButtons) {
-    projectNavigationButtons.forEach((projectNavigationButton) => {
-      const buttonText =
-        projectNavigationButton.querySelector('.button-with-icon__text').textContent;
-
-      if (chosenProject.title === buttonText) {
-        projectNavigationButton.classList.add(
-          PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE,
-        );
-      }
-    });
-  }
-
-  function highlightProjectNavigationButton(projectNavigationButton) {
-    projectNavigationButton.classList.add(PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE);
-  }
-
-  function renderProjectNavigationListItems(
-    projectNavigationList,
-    projectNavigationListItemTemplate,
-    projects,
-  ) {
-    const projectNavigationButtons = [];
-
-    projects.forEach((project) => {
-      const projectNavigationListItemTemplateClone =
-        projectNavigationListItemTemplate.content.cloneNode(true);
-
-      const projectNavigationListItem = projectNavigationListItemTemplateClone.querySelector(
-        '.project-navigation-list__item',
-      );
-
-      if (project === inboxProject) {
-        projectNavigationListItem.classList.add('project-navigation-list__item_always_visible');
-      }
-
-      const projectNavigationButton = projectNavigationListItem.querySelector(
-        '.project-navigation__button',
-      );
-      const projectIcon = projectNavigationButton.querySelector('.icon');
-
-      projectIcon.style.fill = project.color.hexCode;
-
-      projectNavigationButtons.push(projectNavigationButton);
-
-      const buttonWithIconText = projectNavigationListItem.querySelector('.button-with-icon__text');
-      buttonWithIconText.textContent = project.title;
-
-      const projectNavigationTaskCount = projectNavigationListItem.querySelector(
-        '.project-navigation-button__task-count',
-      );
-      projectNavigationTaskCount.textContent = project.tasks.length || '';
-
-      projectNavigationListItem.addEventListener('click', () =>
-        handleProjectNavigationListItemClick(projectNavigationButton, projectNavigationButtons),
-      );
-
-      projectNavigationList.append(projectNavigationListItem);
-    });
-
-    highlightInitialChosenProjectNavigationButton(projectNavigationButtons);
-  }
-
-  function clearProjectNavigationList(projectNavigationList) {
-    while (projectNavigationList.firstChild) {
-      projectNavigationList.removeChild(projectNavigationList.firstChild);
-    }
-  }
-
-  function removeHighlighterFromPrevioslySelectedProjectNavigationButton(projectNavigationButtons) {
-    projectNavigationButtons.forEach((projectNavigationButton) => {
-      if (
-        projectNavigationButton.classList.contains(
-          PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE,
-        )
-      ) {
-        projectNavigationButton.classList.remove(
-          PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE,
-        );
-      }
-    });
-  }
-
-  const switchChevronState = () => (chevronOpen = !chevronOpen);
-
-  function toggleChevronButtonStyles() {
-    if (chevronOpen) {
-      projectNavigationChevronButton.classList.add(PROJECT_NAVIGATION_CHEVRON_BUTTON_OPEN);
-    } else {
-      projectNavigationChevronButton.classList.remove(PROJECT_NAVIGATION_CHEVRON_BUTTON_OPEN);
-    }
-  }
-
-  function toggleListItemsVisibilityState() {
-    const projectNavigationListItems = projectNavigationList.querySelectorAll(
-      '.project-navigation-list__item',
-    );
-
-    projectNavigationListItems.forEach((projectNavigationListItem) => {
-      if (chevronOpen) {
-        projectNavigationListItem.classList.remove(PROJECT_NAVIGATION_LIST_ITEM_HIDDEN);
-      } else {
-        projectNavigationListItem.classList.add(PROJECT_NAVIGATION_LIST_ITEM_HIDDEN);
-      }
-    });
-  }
 
   function updateNewDataValues(valueName, dataValue) {
     newProjectDataValues[valueName] = dataValue;
@@ -216,12 +95,7 @@ export default function projectNavigation() {
     selectColorButtonTitle.textContent = defaultColor.title;
   }
 
-  function renderSelectListItems(
-    newProjectEditorSelectColorList,
-    newProjectEditorSelectColorButton,
-    tickItemClassForVisibleState,
-    colors,
-  ) {
+  function renderSelectListItems() {
     const valueName = newProjectEditorSelectColorList.dataset.name;
     const selectPopupTicks = allTicks[valueName];
 
@@ -247,7 +121,7 @@ export default function projectNavigation() {
       selectPopupTicks.push(selectListItemTick);
 
       if (index === 0) {
-        showTick(selectListItemTick, tickItemClassForVisibleState);
+        showTick(selectListItemTick, SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
       }
 
       const selectListItemColorCircle = selectListItem.querySelector(
@@ -272,7 +146,7 @@ export default function projectNavigation() {
           updateNewDataValues,
           selectPopupTicks,
           selectListItemTick,
-          tickItemClassForVisibleState,
+          SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
         ),
       );
 
@@ -333,11 +207,6 @@ export default function projectNavigation() {
 
   /* event's handlers */
 
-  function handleProjectNavigationListItemClick(projectNavigationButton, projectNavigationButtons) {
-    removeHighlighterFromPrevioslySelectedProjectNavigationButton(projectNavigationButtons);
-    highlightProjectNavigationButton(projectNavigationButton);
-  }
-
   function handleCancelButtonClick(popup, classForVisibleState) {
     closePopup(popup, classForVisibleState);
 
@@ -348,12 +217,6 @@ export default function projectNavigation() {
     openPopup(newProjectEditorOverlay, editorClassForVisibleState);
   }
 
-  function handleProjectNavigationChevronButton() {
-    switchChevronState();
-    toggleChevronButtonStyles();
-    toggleListItemsVisibilityState();
-  }
-
   function handleInputChange(e, addButton, inputs) {
     const input = e.currentTarget;
     const valueName = input.name;
@@ -362,23 +225,12 @@ export default function projectNavigation() {
     toggleAddButtonDisabledState(isFormValid(inputs), addButton);
   }
 
-  function handleAddTaskButtonClick(
-    popup,
-    classForVisibleState,
-    projectNavigationList,
-    projectNavigationListItemTemplate,
-    projects,
-  ) {
+  function handleAddTaskButtonClick(popup, classForVisibleState, projects) {
     const newProject = createProjectWithUniqueId(newProjectDataValues);
     projects.push(newProject);
 
-    clearProjectNavigationList(projectNavigationList);
-
-    renderProjectNavigationListItems(
-      projectNavigationList,
-      projectNavigationListItemTemplate,
-      projects,
-    );
+    projectNavigation.clear();
+    projectNavigation.render();
 
     closePopup(popup, classForVisibleState);
 
@@ -391,10 +243,6 @@ export default function projectNavigation() {
     handleAddNewProjectButtonClick(newProjectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
   );
 
-  projectNavigationChevronButton.addEventListener('click', () =>
-    handleProjectNavigationChevronButton(newProjectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
-  );
-
   newProjectTitle.addEventListener('input', (e) =>
     handleInputChange(e, addTaskButton, newProjectTitle),
   );
@@ -404,13 +252,7 @@ export default function projectNavigation() {
   );
 
   addTaskButton.addEventListener('click', () => {
-    handleAddTaskButtonClick(
-      newProjectEditorOverlay,
-      OVERLAY_CLASS_FOR_VISIBLE_STATE,
-      projectNavigationList,
-      projectNavigationListItemTemplate,
-      projects,
-    );
+    handleAddTaskButtonClick(newProjectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE, projects);
   });
 
   newProjectEditorOverlay.addEventListener('mousedown', (e) =>
@@ -435,11 +277,7 @@ export default function projectNavigation() {
     handleCancelButtonClick(newProjectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
   );
 
-  renderProjectNavigationListItems(
-    projectNavigationList,
-    projectNavigationListItemTemplate,
-    projects,
-  );
+  /* render functions */
 
   renderSelectListItems(
     newProjectEditorSelectColorList,
@@ -447,4 +285,6 @@ export default function projectNavigation() {
     SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
     colors,
   );
+
+  return { render: renderSelectListItems };
 }
