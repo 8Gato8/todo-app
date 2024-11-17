@@ -21,6 +21,7 @@ import {
   handleEditorOverlayClick,
   isFormValid,
   toggleAddButtonDisabledState,
+  resetAllTicks,
 } from '../commonUtils';
 
 export default function createNewProjectEditor() {
@@ -99,6 +100,9 @@ export default function createNewProjectEditor() {
 
   function renderSelectListItems() {
     const valueName = newProjectEditorSelectColorList.dataset.name;
+
+    resetAllTicks(allTicks, valueName);
+
     const selectPopupTicks = allTicks[valueName];
 
     const selectButtonTitleElement = newProjectEditorSelectColorButton.querySelector(
@@ -163,6 +167,12 @@ export default function createNewProjectEditor() {
     };
   }
 
+  function clearAllInputsValues() {
+    inputs.forEach((input) => {
+      input.value = '';
+    });
+  }
+
   function updatePopupButtonTextElements() {
     selectButtonTitles.forEach((selectButtonTitle) => {
       const valueName = selectButtonTitle.dataset.name;
@@ -183,12 +193,6 @@ export default function createNewProjectEditor() {
 
   function updatePopupButtonIconElement(popupButtonIconElement, valueName) {
     popupButtonIconElement.style.backgroundColor = newProjectDataValues[valueName].hexCode;
-  }
-
-  function clearAllInputsValues() {
-    inputs.forEach((input) => {
-      input.value = '';
-    });
   }
 
   function reset() {

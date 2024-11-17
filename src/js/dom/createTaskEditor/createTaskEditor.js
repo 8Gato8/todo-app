@@ -20,6 +20,7 @@ import {
   handleEditorOverlayClick,
   isFormValid,
   toggleAddButtonDisabledState,
+  resetAllTicks,
 } from '../commonUtils';
 
 export default function createTaskEditor() {
@@ -147,6 +148,9 @@ export default function createTaskEditor() {
     choicePopupData,
   ) {
     const choiceValueName = choicePopupListElement.dataset.name;
+
+    resetAllTicks(allTicks, choiceValueName);
+
     const choicePopupItemTicks = allTicks[choiceValueName];
 
     const choicePopupButtonTitleElement = popupButton.querySelector('.choice-popup-button__text');

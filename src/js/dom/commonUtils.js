@@ -94,6 +94,10 @@ export function hideTicks(ticks, tickItemClassForVisibleState) {
   });
 }
 
+export function resetAllTicks(allTicks, valueName) {
+  allTicks[valueName] = [];
+}
+
 export function handlePopupItemClick(
   valueName,
   newValue,
