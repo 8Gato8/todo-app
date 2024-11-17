@@ -7,9 +7,9 @@ import {
 import { projects, inboxProject } from '../../..';
 
 export default function createProjectNavigation() {
-  /* query selectors */
+  /* project-navigation-block */
 
-  /* project-navigation */
+  /* query selectors */
 
   const projectNavigationChevronButton = document.querySelector(
     '.project-navigation__chevron-button',
@@ -25,6 +25,8 @@ export default function createProjectNavigation() {
 
   let chosenProject = inboxProject;
   let chevronOpen = true;
+
+  /* utils */
 
   function highlightInitialChosenProjectNavigationButton(projectNavigationButtons) {
     projectNavigationButtons.forEach((projectNavigationButton) => {
@@ -145,6 +147,16 @@ export default function createProjectNavigation() {
   projectNavigationChevronButton.addEventListener('click', () =>
     handleProjectNavigationChevronButton(),
   );
+
+  /* other-actions-with-project-block */
+
+  /* query selectors */
+
+  /* variables */
+
+  /* utils */
+
+  /* event's handlers */
 
   return { render: renderProjectNavigationListItems, clear: clearProjectNavigationList };
 }
