@@ -58,7 +58,7 @@ export function handleEditorOverlayClick(
   }
 }
 
-function disableAddButton(addButton) {
+export function disableAddButton(addButton) {
   addButton.setAttribute('disabled', true);
 }
 

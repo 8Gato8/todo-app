@@ -20,6 +20,7 @@ import {
   handleEditorOverlayClick,
   isFormValid,
   toggleAddButtonDisabledState,
+  disableAddButton,
   resetAllTicks,
 } from '../commonUtils';
 
@@ -244,6 +245,7 @@ export default function createTaskEditor() {
   function reset() {
     resetNewTaskDataValues();
     clearAllInputsValues();
+    disableAddButton(addTaskButton);
 
     for (let tickNodeList in allTicks) {
       hideTicks(allTicks[tickNodeList], CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);

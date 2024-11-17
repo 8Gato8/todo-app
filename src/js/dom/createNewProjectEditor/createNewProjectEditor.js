@@ -21,6 +21,7 @@ import {
   handleEditorOverlayClick,
   isFormValid,
   toggleAddButtonDisabledState,
+  disableAddButton,
   resetAllTicks,
 } from '../commonUtils';
 
@@ -198,6 +199,7 @@ export default function createNewProjectEditor() {
   function reset() {
     resetNewProjectDataValues();
     clearAllInputsValues();
+    disableAddButton(addTaskButton);
 
     for (let tickNodeList in allTicks) {
       hideTicks(allTicks[tickNodeList], SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
