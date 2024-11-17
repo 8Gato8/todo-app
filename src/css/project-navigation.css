@@ -67,6 +67,27 @@
   display: none;
 }
 
+.project-navigation-button__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15px;
+  height: 15px;
+}
+
+.project-navigation-button__edit-task-button {
+  display: none;
+}
+
+.project-navigation__button:hover .project-navigation-button__edit-task-button {
+  display: flex;
+  align-items: center;
+}
+
+.project-navigation__button:hover .project-navigation-button__task-count {
+  display: none;
+}
+
 .project-navigation-button__task-count {
   color: #aaa;
 }
