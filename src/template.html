@@ -45,7 +45,7 @@
       </header>
 
       <div class="sidebar">
-        <button class="sidebar__open-task-editor-button button-with-icon">
+        <button type="button" class="sidebar__open-task-editor-button button-with-icon">
           <svg
             class="add"
             xmlns="http://www.w3.org/2000/svg"
@@ -64,6 +64,7 @@
 
             <div class="popup-navigation__buttons-container">
               <button
+                type="button"
                 class="project-navigation__open-new-project-popup-button project-navigation-title-button">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -75,6 +76,7 @@
                 </svg>
               </button>
               <button
+                type="button"
                 class="project-navigation__chevron-button project-navigation__chevron-button_open project-navigation-title-button">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +97,9 @@
       <div class="project-container">
         <section class="project">
           <h2 class="project__title">Входящие</h2>
-          <button class="project__open-task-editor-button button-with-icon pressed-button">
+          <button
+            type="button"
+            class="project__open-task-editor-button button-with-icon pressed-button">
             <svg
               class="add"
               xmlns="http://www.w3.org/2000/svg"
@@ -218,7 +222,7 @@
               <button
                 disabled
                 id="add-task-button"
-                type="button"
+                type="submit"
                 class="editor__popup-button add-task-button pressed-button">
                 Добавить задачу
               </button>
@@ -289,7 +293,7 @@
             <button
               disabled
               id="new-project-editor-add-project-button"
-              type="button"
+              type="submit"
               class="editor__popup-button add-task-button pressed-button">
               Добавить
             </button>
@@ -301,7 +305,9 @@
     <!-- templates -->
     <template id="project-navigation-list-item-template">
       <li class="project-navigation-list__item project-navigation-list-item">
-        <button class="project-navigation__button project-navigation-button button-with-icon">
+        <button
+          type="button"
+          class="project-navigation__button project-navigation-button button-with-icon">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -321,7 +327,11 @@
     </template>
 
     <template id="button-template">
-      <li><button class="project-navigation__button button-with-icon pressed-button"></button></li>
+      <li>
+        <button
+          type="button"
+          class="project-navigation__button button-with-icon pressed-button"></button>
+      </li>
     </template>
 
     <template id="choice-popup-item-template">
@@ -392,7 +402,7 @@
     <template id="project-template">
       <section class="project">
         <h2 class="project__title">Входящие</h2>
-        <button class="project__open-task-editor button-with-icon pressed-button">
+        <button type="button" class="project__open-task-editor button-with-icon pressed-button">
           <svg
             class="add"
             xmlns="http://www.w3.org/2000/svg"

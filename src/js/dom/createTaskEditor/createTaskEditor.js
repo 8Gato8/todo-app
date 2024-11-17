@@ -27,6 +27,8 @@ export default function createTaskEditor() {
 
   const sidebarOpenTaskEditorButton = document.querySelector('.sidebar__open-task-editor-button');
 
+  const taskEditorForm = document.querySelector('.task-editor');
+
   const taskEditorOverlay = document.querySelector('#task-editor-overlay');
 
   const choicePopupItemTemplate = document.querySelector('#choice-popup-item-template');
@@ -51,6 +53,8 @@ export default function createTaskEditor() {
 
   const projectChoicePopupList = document.querySelector('#project-choice-popup-list');
   const priorityChoicePopupList = document.querySelector('#priority-choice-popup-list');
+
+  const choicePopupLists = document.querySelectorAll('.choice-popup-list');
 
   const choicePopupsNodeList = document.querySelectorAll('.choice-popup');
 
@@ -225,6 +229,14 @@ export default function createTaskEditor() {
     );
   }
 
+  function clearChoicePopupLists() {
+    choicePopupLists.forEach((list) => {
+      while (list.firstChild) {
+        list.removeChild(list.firstChild);
+      }
+    });
+  }
+
   function reset() {
     resetNewTaskDataValues();
     clearAllInputsValues();
@@ -249,7 +261,9 @@ export default function createTaskEditor() {
     reset();
   }
 
-  function handleAddTaskButtonClick(popup, classForVisibleState) {
+  function handleAddTaskButtonClick(e, popup, classForVisibleState) {
+    e.preventDefault();
+
     const newTask = createTaskWithUniqueId(newTaskDataValues);
     newTaskDataValues.project.addTask(newTask);
 
@@ -318,9 +332,13 @@ export default function createTaskEditor() {
     input.addEventListener('input', (e) => handleInputChange(e, addTaskButton, inputs));
   });
 
-  addTaskButton.addEventListener('click', () =>
-    handleAddTaskButtonClick(taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
+  addTaskButton.addEventListener('submit', (e) =>
+    handleAddTaskButtonClick(e, taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
   );
 
-  return { render: renderChoicePopupsElements };
+  taskEditorForm.addEventListener('submit', (e) => {
+    handleAddTaskButtonClick(e, taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
+  });
+
+  return { render: renderChoicePopupsElements, clear: clearChoicePopupLists };
 }

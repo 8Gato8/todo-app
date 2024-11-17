@@ -5,7 +5,7 @@ import {
   SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
 } from './variables';
 
-import { projects, projectNavigation, colors } from '../../..';
+import { projects, projectNavigation, taskEditor, colors } from '../../..';
 
 import createProjectWithUniqueId from '../../utils/createProjectWithUniqueId';
 
@@ -25,6 +25,8 @@ import {
 
 export default function createNewProjectEditor() {
   /* query selectors */
+
+  const newProjectEditorForm = document.querySelector('.new-project-editor');
 
   const newProjectEditorOverlay = document.querySelector('#new-project-editor-overlay');
 
@@ -225,12 +227,17 @@ export default function createNewProjectEditor() {
     toggleAddButtonDisabledState(isFormValid(inputs), addButton);
   }
 
-  function handleAddTaskButtonClick(popup, classForVisibleState, projects) {
+  function handleAddTaskButtonClick(e, popup, classForVisibleState, projects) {
+    e.preventDefault();
+
     const newProject = createProjectWithUniqueId(newProjectDataValues);
     projects.push(newProject);
 
     projectNavigation.clear();
     projectNavigation.render();
+
+    taskEditor.clear();
+    taskEditor.render();
 
     closePopup(popup, classForVisibleState);
 
@@ -251,9 +258,13 @@ export default function createNewProjectEditor() {
     togglePopup(newProjectEditorSelectColorPopup, SELECT_POPUP_CLASS_FOR_VISIBLE_STATE),
   );
 
-  addTaskButton.addEventListener('click', () => {
-    handleAddTaskButtonClick(newProjectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE, projects);
+  addTaskButton.addEventListener('submit', (e) => {
+    handleAddTaskButtonClick(e, newProjectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE, projects);
   });
+
+  newProjectEditorForm.addEventListener('submit', (e) =>
+    handleAddTaskButtonClick(e, newProjectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE, projects),
+  );
 
   newProjectEditorOverlay.addEventListener('mousedown', (e) =>
     handleEditorOverlayClick(
