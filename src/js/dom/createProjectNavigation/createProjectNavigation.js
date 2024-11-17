@@ -9,6 +9,8 @@ import { projects, inboxProject } from '../../..';
 export default function createProjectNavigation() {
   /* query selectors */
 
+  /* project-navigation */
+
   const projectNavigationChevronButton = document.querySelector(
     '.project-navigation__chevron-button',
   );
@@ -18,6 +20,8 @@ export default function createProjectNavigation() {
   const projectNavigationListItemTemplate = document.querySelector(
     '#project-navigation-list-item-template',
   );
+
+  /* variables */
 
   let chosenProject = inboxProject;
   let chevronOpen = true;
