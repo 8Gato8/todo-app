@@ -70,18 +70,21 @@
 .project-navigation-button__container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 15px;
-  height: 15px;
+  width: 30px;
+  height: 100%;
 }
 
-.project-navigation-button__edit-project-button {
+.project-navigation-button__open-popup {
   display: none;
+  background-color: var(--other-actions-popup-border-color);
+  border-radius: 6px;
+  width: 100%;
 }
 
-.project-navigation__button:hover .project-navigation-button__edit-project-button {
+.project-navigation__button:hover .project-navigation-button__open-popup {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .project-navigation__button:hover .project-navigation-button__task-count {
@@ -90,6 +93,7 @@
 
 .project-navigation-button__task-count {
   color: #aaa;
+  align-self: center;
 }
 
 .project-navigation-list__item.project-navigation-list__item_always_visible {
@@ -101,12 +105,14 @@
   align-items: center;
   gap: 5px;
   width: 100%;
-  padding: 12px 12px 12px 6px;
+  min-height: 34px;
+  padding: 0;
   font-size: 15px;
 }
 
 .project-navigation-button__title {
   margin-right: auto;
+  padding: 12px 0;
 }
 
 .project-navigation__button_active {
