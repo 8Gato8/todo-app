@@ -134,7 +134,7 @@ projects.push(inboxProject);
 
 export const projectNavigation = createProjectNavigation();
 export const newProjectEditor = createNewProjectEditor();
-const taskEditor = createTaskEditor();
+export const taskEditor = createTaskEditor();
 
 projectNavigation.render();
 newProjectEditor.render();
