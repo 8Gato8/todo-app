@@ -1,3 +1,5 @@
+import { OVERLAY_CLASS_FOR_VISIBLE_STATE } from '../commonVariables';
+
 import {
   PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE,
   PROJECT_NAVIGATION_CHEVRON_BUTTON_OPEN,
@@ -5,6 +7,8 @@ import {
 } from './variables';
 
 import { projects, inboxProject } from '../../..';
+
+import { openPopup, closePopup } from '../commonUtils';
 
 export default function createProjectNavigation() {
   /* project-navigation-block */
@@ -152,11 +156,27 @@ export default function createProjectNavigation() {
 
   /* query selectors */
 
+  const otherActionsOverlay = document.querySelector('#other-actions-with-project-overlay');
+
   /* variables */
 
   /* utils */
 
   /* event's handlers */
+
+  function handleOverlayClick(e, classForVisibleState) {
+    const { target, currentTarget: overlay } = e;
+
+    if (target === overlay) {
+      closePopup(overlay, classForVisibleState);
+    }
+  }
+
+  /* event's listeners */
+
+  otherActionsOverlay.addEventListener('click', (e) =>
+    handleOverlayClick(e, OVERLAY_CLASS_FOR_VISIBLE_STATE),
+  );
 
   return { render: renderProjectNavigationListItems, clear: clearProjectNavigationList };
 }
