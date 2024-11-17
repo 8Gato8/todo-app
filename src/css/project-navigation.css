@@ -75,11 +75,11 @@
   height: 15px;
 }
 
-.project-navigation-button__edit-task-button {
+.project-navigation-button__edit-project-button {
   display: none;
 }
 
-.project-navigation__button:hover .project-navigation-button__edit-task-button {
+.project-navigation__button:hover .project-navigation-button__edit-project-button {
   display: flex;
   align-items: center;
 }
