@@ -1,0 +1,30 @@
+.other-actions-popup {
+  width: 200px;
+  box-shadow: var(--other-actions-popup-box-shadow);
+  border-color: var(--other-actions-popup-border-color);
+  border-radius: 10px;
+}
+
+.other-actions-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.other-actions-list__item {
+  padding: 10px;
+  border-bottom: 1px solid var(--editor-border-idle-tint);
+}
+
+.other-actions-list__item:last-child {
+  border-bottom: none;
+}
+
+.other-actions-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.other-actions-button__text {
+  font-size: 14px;
+}

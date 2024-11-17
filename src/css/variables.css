@@ -20,6 +20,9 @@
   --focus-marker-box-shadow: 0 0 0 1px var(--focus-marker-box-shadow-inner),
     0 0 0 4px var(--focus-marker-box-shadow-outer);
 
+  --other-actions-popup-box-shadow: 0 0 8px rgba(0, 0, 0, 0.12);
+  --other-actions-popup-border-color: #eee;
+
   --choice-popup-list__item-container: #f3f3f3;
 
   --choice-popup-list__item-tick: #dc4c3e;
