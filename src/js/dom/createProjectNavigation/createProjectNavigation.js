@@ -6,7 +6,7 @@ import {
   PROJECT_NAVIGATION_LIST_ITEM_HIDDEN,
 } from './variables';
 
-import { projects, inboxProject } from '../../..';
+import { projects, inboxProject, taskEditor } from '../../..';
 
 import { openPopup, closePopup } from '../commonUtils';
 
@@ -60,13 +60,14 @@ export default function createProjectNavigation() {
         '.project-navigation-list__item',
       );
 
-      if (project === inboxProject) {
-        projectNavigationListItem.classList.add('project-navigation-list__item_always_visible');
-      }
-
       const projectNavigationButton = projectNavigationListItem.querySelector(
         '.project-navigation__button',
       );
+
+      const openPopupButton = projectNavigationListItem.querySelector(
+        '.project-navigation-button__open-popup',
+      );
+
       const projectIcon = projectNavigationButton.querySelector('.icon');
 
       projectIcon.style.fill = project.color.hexCode;
@@ -80,17 +81,18 @@ export default function createProjectNavigation() {
         '.project-navigation-button__task-count',
       );
 
-      const openPopupButton = projectNavigationListItem.querySelector(
-        '.project-navigation-button__open-popup',
-      );
-
       projectNavigationTaskCount.textContent = project.tasks.length || '';
+
+      if (project === inboxProject) {
+        projectNavigationListItem.classList.add('project-navigation-list__item_always_visible');
+        openPopupButton.classList.add('project-navigation-button__open-popup_hidden');
+      }
 
       projectNavigationListItem.addEventListener('click', () =>
         handleProjectNavigationListItemClick(projectNavigationButton, projectNavigationButtons),
       );
 
-      openPopupButton.addEventListener('click', () => handleOpenPopupClick());
+      openPopupButton.addEventListener('click', () => handleOpenPopupClick(project));
 
       projectNavigationList.append(projectNavigationListItem);
     });
@@ -165,16 +167,19 @@ export default function createProjectNavigation() {
 
   const otherActionsOverlay = document.querySelector('#other-actions-with-project-overlay');
 
-  const changeProjectButton = document.querySelector('#change-project-button');
   const deleteProjectButton = document.querySelector('#delete-project-button');
 
   /* variables */
+
+  let chosenProject = null;
 
   /* utils */
 
   /* event's handlers */
 
-  function handleOpenPopupClick() {
+  function handleOpenPopupClick(project) {
+    chosenProject = project;
+
     openPopup(otherActionsOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
   }
 
@@ -186,11 +191,32 @@ export default function createProjectNavigation() {
     }
   }
 
+  function handleDeleteProjectButtonClick() {
+    projects.forEach((project, _, array) => {
+      if (project === chosenProject) {
+        const index = array.indexOf(project);
+        array.splice(index, 1);
+      }
+    });
+
+    chosenProject = null;
+
+    clearProjectNavigationList();
+    renderProjectNavigationListItems();
+
+    taskEditor.clear();
+    taskEditor.render();
+
+    closePopup(otherActionsOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
+  }
+
   /* event's listeners */
 
   otherActionsOverlay.addEventListener('click', (e) =>
     handleOverlayClick(e, OVERLAY_CLASS_FOR_VISIBLE_STATE),
   );
+
+  deleteProjectButton.addEventListener('click', () => handleDeleteProjectButtonClick());
 
   return { render: renderProjectNavigationListItems, clear: clearProjectNavigationList };
 }
