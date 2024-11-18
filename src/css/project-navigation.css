@@ -81,7 +81,8 @@
   width: 100%;
 }
 
-.project-navigation__button:hover .project-navigation-button__open-popup {
+.project-navigation__button:hover
+  .project-navigation-button__open-popup:not(.project-navigation-button__open-popup_hidden) {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -105,7 +106,7 @@
   align-items: center;
   gap: 5px;
   width: 100%;
-  min-height: 34px;
+  height: 40px;
   padding: 0;
   font-size: 15px;
 }
