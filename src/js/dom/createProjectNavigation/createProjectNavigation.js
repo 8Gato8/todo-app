@@ -27,17 +27,17 @@ export default function createProjectNavigation() {
 
   /* variables */
 
-  let chosenProject = inboxProject;
+  let openedProject = inboxProject;
   let chevronOpen = true;
 
   /* utils */
 
-  function highlightInitialChosenProjectNavigationButton(projectNavigationButtons) {
+  function highlightInitialOpenedProjectNavigationButton(projectNavigationButtons) {
     projectNavigationButtons.forEach((projectNavigationButton) => {
       const buttonText =
         projectNavigationButton.querySelector('.button-with-icon__text').textContent;
 
-      if (chosenProject.title === buttonText) {
+      if (openedProject.title === buttonText) {
         projectNavigationButton.classList.add(
           PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE,
         );
@@ -79,16 +79,23 @@ export default function createProjectNavigation() {
       const projectNavigationTaskCount = projectNavigationListItem.querySelector(
         '.project-navigation-button__task-count',
       );
+
+      const openPopupButton = projectNavigationListItem.querySelector(
+        '.project-navigation-button__open-popup',
+      );
+
       projectNavigationTaskCount.textContent = project.tasks.length || '';
 
       projectNavigationListItem.addEventListener('click', () =>
         handleProjectNavigationListItemClick(projectNavigationButton, projectNavigationButtons),
       );
 
+      openPopupButton.addEventListener('click', () => handleOpenPopupClick());
+
       projectNavigationList.append(projectNavigationListItem);
     });
 
-    highlightInitialChosenProjectNavigationButton(projectNavigationButtons);
+    highlightInitialOpenedProjectNavigationButton(projectNavigationButtons);
   }
 
   function clearProjectNavigationList() {
@@ -158,11 +165,18 @@ export default function createProjectNavigation() {
 
   const otherActionsOverlay = document.querySelector('#other-actions-with-project-overlay');
 
+  const changeProjectButton = document.querySelector('#change-project-button');
+  const deleteProjectButton = document.querySelector('#delete-project-button');
+
   /* variables */
 
   /* utils */
 
   /* event's handlers */
+
+  function handleOpenPopupClick() {
+    openPopup(otherActionsOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
+  }
 
   function handleOverlayClick(e, classForVisibleState) {
     const { target, currentTarget: overlay } = e;
