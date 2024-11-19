@@ -153,7 +153,7 @@ export default function createprojectEditor() {
     });
   }
 
-  function resetprojectDataValues() {
+  function resetProjectDataValues() {
     projectDataValues = {
       title: '',
       color: defaultColor,
@@ -189,7 +189,7 @@ export default function createprojectEditor() {
   }
 
   function reset() {
-    resetprojectDataValues();
+    resetProjectDataValues();
     clearAllInputsValues();
     disableAddButton(addTaskButton);
 
