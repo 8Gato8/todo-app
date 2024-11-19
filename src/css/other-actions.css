@@ -1,5 +1,7 @@
 .other-actions-popup {
+  position: absolute;
   width: 200px;
+  left: 280px;
   box-shadow: var(--other-actions-popup-box-shadow);
   border-color: var(--other-actions-popup-border-color);
   border-radius: 10px;
