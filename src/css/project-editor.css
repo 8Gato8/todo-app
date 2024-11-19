@@ -1,14 +1,14 @@
-.new-project-editor {
+.project-editor {
   display: flex;
   flex-direction: column;
 }
 
-.new-project-editor__title {
+.project-editor__title {
   font-size: 16px;
   padding: 15px;
 }
 
-.new-project-editor__fields {
+.project-editor__fields {
   display: flex;
   flex-direction: column;
   gap: 35px;
@@ -17,22 +17,22 @@
   padding: 15px;
 }
 
-.new-project-editor__buttons {
+.project-editor__buttons {
   padding: 15px;
   align-self: flex-end;
 }
 
-.new-project-editor__field-container {
+.project-editor__field-container {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.new-project-editor__field-title {
+.project-editor__field-title {
   font-size: 14px;
 }
 
-.new-project-editor__field {
+.project-editor__field {
   min-height: 34px;
   border: 1px solid var(--editor-border-idle-tint);
   border-radius: 5px;
@@ -41,50 +41,50 @@
   transition: all 0.3s ease;
 }
 
-.new-project-editor__field:focus {
+.project-editor__field:focus {
   box-shadow: var(--focus-marker-box-shadow);
   border: 1px solid var(--focus-border);
 }
 
-.new-project-editor__input {
+.project-editor__input {
   outline: none;
 }
 
-.new-project-editor__select-container {
+.project-editor__select-container {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.new-project-editor__select-button {
+.project-editor__select-button {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.new-project-editor__select-button:focus {
+.project-editor__select-button:focus {
   box-shadow: var(--focus-marker-box-shadow);
   border: 1px solid var(--focus-border);
 }
 
-.new-project-editor-select-button__title {
+.project-editor-select-button__title {
   font-size: 14px;
   margin-right: auto;
 }
 
-.new-project-editor__select-popup_visible {
+.project-editor__select-popup_visible {
   display: flex;
   height: 300px;
   overflow-y: scroll;
 }
 
-.new-project-editor__select-list {
+.project-editor__select-list {
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.new-project-editor__select-item {
+.project-editor__select-item {
   display: flex;
   font-size: 13px;
   align-items: center;
@@ -92,19 +92,19 @@
   padding: 10px;
 }
 
-.new-project-editor__select-item:hover {
+.project-editor__select-item:hover {
   background-color: var(--choice-popup-list__item-container);
   cursor: pointer;
 }
 
-.new-project-editor-select-item__title {
+.project-editor-select-item__title {
   flex: 1;
 }
 
-.new-project-editor-select-item__tick {
+.project-editor-select-item__tick {
   display: none;
 }
 
-.new-project-editor-select-item__tick_visible {
+.project-editor-select-item__tick_visible {
   display: block;
 }
