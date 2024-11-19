@@ -1,7 +1,7 @@
 import './style.css';
 
 import createProjectNavigation from './js/dom/createProjectNavigation/createProjectNavigation';
-import createNewProjectEditor from './js/dom/createNewProjectEditor/createNewProjectEditor';
+import createProjectEditor from './js/dom/createProjectEditor/createProjectEditor';
 import createTaskEditor from './js/dom/createTaskEditor/createTaskEditor';
 
 import createProjectWithUniqueId from './js/utils/createProjectWithUniqueId';
@@ -137,7 +137,7 @@ export const inboxProject = createProjectWithUniqueId({
 projects.push(inboxProject);
 
 export const projectNavigation = createProjectNavigation();
-export const newProjectEditor = createNewProjectEditor();
+export const newProjectEditor = createProjectEditor();
 export const taskEditor = createTaskEditor();
 
 projectNavigation.render();
