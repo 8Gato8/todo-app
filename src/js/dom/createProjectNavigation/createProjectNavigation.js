@@ -15,11 +15,9 @@ export default function createProjectNavigation() {
 
   /* query selectors */
 
-  const addNewProjectButton = document.querySelector(
-    '.project-navigation__open-new-project-popup-button',
-  );
+  const addProjectButton = document.querySelector('.project-navigation__open-project-popup-button');
 
-  const newProjectEditorOverlay = document.querySelector('#new-project-editor-overlay');
+  const projectEditorOverlay = document.querySelector('#project-editor-overlay');
 
   const projectNavigationChevronButton = document.querySelector(
     '.project-navigation__chevron-button',
@@ -166,8 +164,8 @@ export default function createProjectNavigation() {
     toggleListItemsVisibilityState();
   }
 
-  function handleAddNewProjectButtonClick() {
-    openPopup(newProjectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
+  function handleAddProjectButtonClick() {
+    openPopup(projectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
   }
 
   /* event's listeners */
@@ -176,8 +174,8 @@ export default function createProjectNavigation() {
     handleProjectNavigationChevronButton(),
   );
 
-  addNewProjectButton.addEventListener('click', () =>
-    handleAddNewProjectButtonClick(newProjectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
+  addProjectButton.addEventListener('click', () =>
+    handleAddProjectButtonClick(projectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
   );
 
   /* other-actions-with-project-block */
@@ -230,7 +228,7 @@ export default function createProjectNavigation() {
   function handleEditProjectButtonClick() {
     closePopup(otherActionsOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
 
-    openPopup(newProjectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
+    openPopup(projectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
   }
 
   /* event's listeners */
