@@ -6,7 +6,7 @@ import {
   PROJECT_NAVIGATION_LIST_ITEM_HIDDEN,
 } from './variables';
 
-import { projects, inboxProject, taskEditor } from '../../..';
+import { projects, inboxProject, taskEditor, deleteProjectFromProjectsArray } from '../../..';
 
 import { openPopup, closePopup } from '../commonUtils';
 
@@ -14,6 +14,12 @@ export default function createProjectNavigation() {
   /* project-navigation-block */
 
   /* query selectors */
+
+  const addNewProjectButton = document.querySelector(
+    '.project-navigation__open-new-project-popup-button',
+  );
+
+  const newProjectEditorOverlay = document.querySelector('#new-project-editor-overlay');
 
   const projectNavigationChevronButton = document.querySelector(
     '.project-navigation__chevron-button',
@@ -92,9 +98,12 @@ export default function createProjectNavigation() {
         handleProjectNavigationListItemClick(projectNavigationButton, projectNavigationButtons),
       );
 
-      openPopupButton.addEventListener('click', () => handleOpenPopupClick(project));
-
       projectNavigationList.append(projectNavigationListItem);
+
+      const listItemCoordinates = projectNavigationListItem.getBoundingClientRect();
+      openPopupButton.addEventListener('click', () =>
+        handleOpenPopupClick(project, listItemCoordinates),
+      );
     });
 
     highlightInitialOpenedProjectNavigationButton(projectNavigationButtons);
@@ -157,8 +166,18 @@ export default function createProjectNavigation() {
     toggleListItemsVisibilityState();
   }
 
+  function handleAddNewProjectButtonClick() {
+    openPopup(newProjectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
+  }
+
+  /* event's listeners */
+
   projectNavigationChevronButton.addEventListener('click', () =>
     handleProjectNavigationChevronButton(),
+  );
+
+  addNewProjectButton.addEventListener('click', () =>
+    handleAddNewProjectButtonClick(newProjectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
   );
 
   /* other-actions-with-project-block */
@@ -166,8 +185,10 @@ export default function createProjectNavigation() {
   /* query selectors */
 
   const otherActionsOverlay = document.querySelector('#other-actions-with-project-overlay');
+  const otherActionsPopup = document.querySelector('.other-actions-popup');
 
   const deleteProjectButton = document.querySelector('#delete-project-button');
+  const editProjectButton = document.querySelector('#edit-project-button');
 
   /* variables */
 
@@ -177,8 +198,9 @@ export default function createProjectNavigation() {
 
   /* event's handlers */
 
-  function handleOpenPopupClick(project) {
+  function handleOpenPopupClick(project, listItemCoordinates) {
     chosenProject = project;
+    otherActionsPopup.style.top = `${listItemCoordinates.y}px`;
 
     openPopup(otherActionsOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
   }
@@ -192,12 +214,7 @@ export default function createProjectNavigation() {
   }
 
   function handleDeleteProjectButtonClick() {
-    projects.forEach((project, _, array) => {
-      if (project === chosenProject) {
-        const index = array.indexOf(project);
-        array.splice(index, 1);
-      }
-    });
+    deleteProjectFromProjectsArray(chosenProject);
 
     chosenProject = null;
 
@@ -210,6 +227,12 @@ export default function createProjectNavigation() {
     closePopup(otherActionsOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
   }
 
+  function handleEditProjectButtonClick() {
+    closePopup(otherActionsOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
+
+    openPopup(newProjectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
+  }
+
   /* event's listeners */
 
   otherActionsOverlay.addEventListener('click', (e) =>
@@ -217,6 +240,7 @@ export default function createProjectNavigation() {
   );
 
   deleteProjectButton.addEventListener('click', () => handleDeleteProjectButtonClick());
+  editProjectButton.addEventListener('click', () => handleEditProjectButtonClick());
 
   return { render: renderProjectNavigationListItems, clear: clearProjectNavigationList };
 }
