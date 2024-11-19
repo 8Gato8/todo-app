@@ -42,6 +42,11 @@ export const priorities = [
 ];
 export let projects = [];
 
+export let chosenProject = null;
+export function setChosenProject(newProject) {
+  chosenProject = newProject;
+}
+
 export function deleteProjectFromProjectsArray(chosenProject) {
   projects = projects.filter((p) => p !== chosenProject);
 }
@@ -137,9 +142,9 @@ export const inboxProject = createProjectWithUniqueId({
 projects.push(inboxProject);
 
 export const projectNavigation = createProjectNavigation();
-export const newProjectEditor = createProjectEditor();
+export const projectEditor = createProjectEditor();
 export const taskEditor = createTaskEditor();
 
 projectNavigation.render();
-newProjectEditor.render();
+projectEditor.renderListItems();
 taskEditor.render();
