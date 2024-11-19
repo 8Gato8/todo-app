@@ -65,7 +65,7 @@
             <div class="popup-navigation__buttons-container">
               <button
                 type="button"
-                class="project-navigation__open-new-project-popup-button project-navigation-title-button">
+                class="project-navigation__open-project-popup-button project-navigation-title-button">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   height="24px"
@@ -231,36 +231,34 @@
         </form>
       </div>
 
-      <div id="new-project-editor-overlay" class="overlay overlay_align">
-        <form class="new-project-editor editor">
-          <h2 class="new-project-editor__title">Добавить проект</h2>
+      <div id="project-editor-overlay" class="overlay overlay_align">
+        <form class="project-editor editor">
+          <h2 class="project-editor__title"></h2>
 
-          <div class="new-project-editor__fields">
-            <div class="new-project-editor__field-container">
-              <label for="new-project-editor-title" class="new-project-editor__field-title"
-                >Имя</label
-              >
+          <div class="project-editor__fields">
+            <div class="project-editor__field-container">
+              <label for="project-editor-title" class="project-editor__field-title">Имя</label>
               <input
-                id="new-project-title"
-                class="new-project-editor__field new-project-editor__input"
+                id="project-title"
+                class="project-editor__field project-editor__input"
                 type="text"
                 name="title" />
             </div>
-            <div class="new-project-editor__field-container">
-              <span class="new-project-editor__field-title">Цвет</span>
+            <div class="project-editor__field-container">
+              <span class="project-editor__field-title">Цвет</span>
 
               <div
-                id="new-project-editor-select-color-container"
-                class="new-project-editor__select-container select-popup-container">
+                id="project-editor-select-color-container"
+                class="project-editor__select-container select-popup-container">
                 <button
                   data-name="color"
                   type="button"
-                  id="new-project-editor-select-color-button"
-                  class="new-project-editor__field new-project-editor__select-button new-project-editor-select-button">
+                  id="project-editor-select-color-button"
+                  class="project-editor__field project-editor__select-button project-editor-select-button">
                   <span
                     data-name="color"
-                    class="select-button-circle color-circle new-project-editor__color-circle"></span>
-                  <span data-name="color" class="new-project-editor-select-button__title"></span>
+                    class="select-button-circle color-circle project-editor__color-circle"></span>
+                  <span data-name="color" class="project-editor-select-button__title"></span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -272,31 +270,29 @@
                   </svg>
                 </button>
                 <div
-                  id="new-project-editor-select-color-popup"
-                  class="new-project-editor__select-popup select-popup">
+                  id="project-editor-select-color-popup"
+                  class="project-editor__select-popup select-popup">
                   <ul
                     data-name="color"
-                    id="new-project-editor-select-color-list"
-                    class="new-project-editor__select-list"></ul>
+                    id="project-editor-select-color-list"
+                    class="project-editor__select-list"></ul>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="new-project-editor__buttons editor-footer__buttons">
+          <div class="project-editor__buttons editor-footer__buttons">
             <button
-              id="new-project-editor-cancel-button"
+              id="project-editor-cancel-button"
               type="button"
               class="editor__popup-button cancel-task-edition-button pressed-button">
               Отмена
             </button>
             <button
               disabled
-              id="new-project-editor-add-project-button"
+              id="project-editor-add-project-button"
               type="submit"
-              class="editor__popup-button add-task-button pressed-button">
-              Добавить
-            </button>
+              class="editor__popup-button add-task-button pressed-button"></button>
           </div>
         </form>
       </div>
@@ -427,12 +423,12 @@
       </svg>
     </template>
 
-    <template id="new-project-editor-select-item-template">
-      <li class="new-project-editor__select-item new-project-editor-select-item">
-        <span class="color-circle new-project-editor__color-circle"></span>
-        <span data-name="color" class="new-project-editor-select-item__title"></span>
+    <template id="project-editor-select-item-template">
+      <li class="project-editor__select-item project-editor-select-item">
+        <span class="color-circle project-editor__color-circle"></span>
+        <span data-name="color" class="project-editor-select-item__title"></span>
         <svg
-          class="new-project-editor-select-item__tick"
+          class="project-editor-select-item__tick"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 12 12"
           width="12"
