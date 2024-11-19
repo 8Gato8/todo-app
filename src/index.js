@@ -40,7 +40,11 @@ export const priorities = [
     },
   },
 ];
-export const projects = [];
+export let projects = [];
+
+export function deleteProjectFromProjectsArray(chosenProject) {
+  projects = projects.filter((p) => p !== chosenProject);
+}
 
 export const colors = [
   {
