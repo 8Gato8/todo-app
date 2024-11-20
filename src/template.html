@@ -98,8 +98,9 @@
         <section class="project">
           <h2 class="project__title">Входящие</h2>
           <button
+            id="project__add-task-button"
             type="button"
-            class="project__open-task-editor-button button-with-icon pressed-button">
+            class="button-with-icon pressed-button">
             <svg
               class="add"
               xmlns="http://www.w3.org/2000/svg"
@@ -109,13 +110,13 @@
               fill="#000">
               <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
             </svg>
-            <span id="project__add-new-task" class="button-with-icon__text">Добавить задачу</span>
+            <span class="button-with-icon__text">Добавить задачу</span>
           </button>
         </section>
       </div>
 
       <div id="task-editor-overlay" class="overlay overlay_align">
-        <form class="task-editor editor">
+        <form class="task-editor editor editor_popup">
           <div class="task-editor__editing-area editing-area">
             <input
               name="title"
@@ -232,7 +233,7 @@
       </div>
 
       <div id="project-editor-overlay" class="overlay overlay_align">
-        <form class="project-editor editor">
+        <form class="project-editor editor editor_popup">
           <h2 class="project-editor__title"></h2>
 
           <div class="project-editor__fields">
