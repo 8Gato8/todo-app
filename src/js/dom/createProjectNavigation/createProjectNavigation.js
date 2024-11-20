@@ -6,7 +6,15 @@ import {
   PROJECT_NAVIGATION_LIST_ITEM_HIDDEN,
 } from './variables';
 
-import { projects, inboxProject, taskEditor, deleteProjectFromProjectsArray } from '../../..';
+import {
+  projects,
+  inboxProject,
+  taskEditor,
+  projectEditor,
+  deleteProjectFromProjectsArray,
+  chosenProject,
+  setChosenProject,
+} from '../../..';
 
 import { openPopup, closePopup } from '../commonUtils';
 
@@ -165,6 +173,8 @@ export default function createProjectNavigation() {
   }
 
   function handleAddProjectButtonClick() {
+    projectEditor.updateEditor('Добавить проект', 'Добавить');
+
     openPopup(projectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
   }
 
@@ -190,14 +200,13 @@ export default function createProjectNavigation() {
 
   /* variables */
 
-  let chosenProject = null;
-
   /* utils */
 
   /* event's handlers */
 
   function handleOpenPopupClick(project, listItemCoordinates) {
-    chosenProject = project;
+    setChosenProject(project);
+
     otherActionsPopup.style.top = `${listItemCoordinates.y}px`;
 
     openPopup(otherActionsOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
@@ -214,7 +223,7 @@ export default function createProjectNavigation() {
   function handleDeleteProjectButtonClick() {
     deleteProjectFromProjectsArray(chosenProject);
 
-    chosenProject = null;
+    setChosenProject(null);
 
     clearProjectNavigationList();
     renderProjectNavigationListItems();
@@ -227,6 +236,8 @@ export default function createProjectNavigation() {
 
   function handleEditProjectButtonClick() {
     closePopup(otherActionsOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
+
+    projectEditor.updateEditor('Изменить', 'Сохранить', chosenProject);
 
     openPopup(projectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
   }

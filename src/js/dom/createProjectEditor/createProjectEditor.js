@@ -5,12 +5,18 @@ import {
   SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
 } from './variables';
 
-import { projects, projectNavigation, taskEditor, colors } from '../../..';
+import {
+  projects,
+  projectNavigation,
+  taskEditor,
+  colors,
+  chosenProject,
+  addProjectToProjectsArray,
+} from '../../..';
 
 import createProjectWithUniqueId from '../../utils/createProjectWithUniqueId';
 
 import {
-  openPopup,
   closePopup,
   togglePopup,
   makeElementChildrenList,
@@ -32,9 +38,7 @@ export default function createProjectEditor() {
 
   const projectEditorOverlay = document.querySelector('#project-editor-overlay');
 
-  /* const addprojectButton = document.querySelector(
-    '.project-navigation__open-project-popup-button',
-  ); */
+  const projectEditorTitle = document.querySelector('.project-editor__title');
 
   const projectTitle = document.querySelector('#project-title');
 
@@ -62,6 +66,13 @@ export default function createProjectEditor() {
     '#project-editor-select-item-template',
   );
 
+  const selectButtonTitleElement = projectEditorSelectColorButton.querySelector(
+    '.project-editor-select-button__title',
+  );
+  const selectButtonIconElement = projectEditorSelectColorButton.querySelector(
+    '.project-editor__color-circle',
+  );
+
   const inputs = document.querySelectorAll('.project-editor__input');
 
   const cancelButton = document.querySelector('#project-editor-cancel-button');
@@ -82,32 +93,107 @@ export default function createProjectEditor() {
     color: [],
   };
 
+  const valueName = projectEditorSelectColorList.dataset.name;
+
   /* utils */
 
   function updateDataValues(valueName, dataValue) {
     projectDataValues[valueName] = dataValue;
   }
 
-  function renderInitialSelectButtonUI(color, selectColorButtonTitle, selectColorButtonIcon) {
+  function updateSelectButtonUI(color, selectColorButtonTitle, selectColorButtonIcon) {
     selectColorButtonIcon.style.backgroundColor = color.hexCode;
     selectColorButtonTitle.textContent = color.title;
   }
 
-  function renderInitialSelectListItems() {
-    const valueName = projectEditorSelectColorList.dataset.name;
+  function updateEditorTitle(editorTitleText) {
+    projectEditorTitle.textContent = editorTitleText;
+  }
 
-    resetAllTicks(allTicks, valueName);
+  function updateEditorSubmitButton(editorSubmitText) {
+    addTaskButton.textContent = editorSubmitText;
+  }
 
+  function updateInputsValues(project) {
+    inputs.forEach((input) => {
+      input.value = project[input.name];
+    });
+  }
+
+  function updateSelectButtonTextElements() {
+    selectButtonTitles.forEach((selectButtonTitle) => {
+      const valueName = selectButtonTitle.dataset.name;
+      selectButtonTitle.textContent = projectDataValues[valueName].title;
+    });
+  }
+
+  function updateSelectButtonIconElements() {
+    selectButtonIcons.forEach((selectButtonIcon) => {
+      const valueName = selectButtonIcon.dataset.name;
+      selectButtonIcon.style.backgroundColor = projectDataValues[valueName].hexCode;
+    });
+  }
+
+  function updateSelectButtonTextElement(
+    buttonTitleElement,
+    valueName,
+    project = projectDataValues,
+  ) {
+    buttonTitleElement.textContent = project[valueName].title;
+  }
+
+  function updateSelectButtonIconElement(
+    buttonIconElement,
+    valueName,
+    project = projectDataValues,
+  ) {
+    buttonIconElement.style.backgroundColor = project[valueName].hexCode;
+  }
+
+  function updateEditor(editorTitleText, editorSubmitText, project = projectDataValues) {
+    updateEditorTitle(editorTitleText);
+    updateEditorSubmitButton(editorSubmitText);
+    updateInputsValues(project);
+    updateSelectButtonTextElement(selectButtonTitleElement, valueName, project);
+    updateSelectButtonIconElement(selectButtonIconElement, valueName, project);
+    toggleAddButtonDisabledState(isFormValid(inputs), addTaskButton);
+  }
+
+  function resetProjectDataValues() {
+    projectDataValues = {
+      title: '',
+      color: defaultColor,
+    };
+  }
+
+  function clearAllInputsValues() {
+    inputs.forEach((input) => {
+      input.value = '';
+    });
+  }
+
+  function reset() {
+    resetProjectDataValues();
+    clearAllInputsValues();
+    disableAddButton(addTaskButton);
+
+    for (let tickNodeList in allTicks) {
+      hideTicks(allTicks[tickNodeList], SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+    }
+
+    for (let tickNodeList in allTicks) {
+      showTick(allTicks[tickNodeList][0], SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+    }
+
+    updateSelectButtonTextElements();
+    updateSelectButtonIconElements();
+  }
+
+  function renderSelectListItems() {
     const selectPopupTicks = allTicks[valueName];
 
-    const selectButtonTitleElement = projectEditorSelectColorButton.querySelector(
-      '.project-editor-select-button__title',
-    );
-    const selectButtonIconElement = projectEditorSelectColorButton.querySelector(
-      '.project-editor__color-circle',
-    );
-
-    renderInitialSelectButtonUI(defaultColor, selectButtonTitleElement, selectButtonIconElement);
+    updateSelectButtonUI(defaultColor, selectButtonTitleElement, selectButtonIconElement);
+    /* resetAllTicks(allTicks, valueName); */
 
     colors.forEach((color, index) => {
       const selectListItemClone = projectEditorSelectListItemTemplate.content.cloneNode(true);
@@ -140,8 +226,8 @@ export default function createProjectEditor() {
           color,
           selectButtonTitleElement,
           selectButtonIconElement,
-          updatePopupButtonTextElement,
-          updatePopupButtonIconElement,
+          updateSelectButtonTextElement,
+          updateSelectButtonIconElement,
           updateDataValues,
           selectPopupTicks,
           selectListItemTick,
@@ -153,58 +239,6 @@ export default function createProjectEditor() {
     });
   }
 
-  function resetProjectDataValues() {
-    projectDataValues = {
-      title: '',
-      color: defaultColor,
-    };
-  }
-
-  function clearAllInputsValues() {
-    inputs.forEach((input) => {
-      input.value = '';
-    });
-  }
-
-  function updatePopupButtonTextElements() {
-    selectButtonTitles.forEach((selectButtonTitle) => {
-      const valueName = selectButtonTitle.dataset.name;
-      selectButtonTitle.textContent = projectDataValues[valueName].title;
-    });
-  }
-
-  function updatePopupButtonIconElements() {
-    selectButtonIcons.forEach((selectButtonIcon) => {
-      const valueName = selectButtonIcon.dataset.name;
-      selectButtonIcon.style.backgroundColor = projectDataValues[valueName].hexCode;
-    });
-  }
-
-  function updatePopupButtonTextElement(popupButtonTextElement, valueName) {
-    popupButtonTextElement.textContent = projectDataValues[valueName].title;
-  }
-
-  function updatePopupButtonIconElement(popupButtonIconElement, valueName) {
-    popupButtonIconElement.style.backgroundColor = projectDataValues[valueName].hexCode;
-  }
-
-  function reset() {
-    resetProjectDataValues();
-    clearAllInputsValues();
-    disableAddButton(addTaskButton);
-
-    for (let tickNodeList in allTicks) {
-      hideTicks(allTicks[tickNodeList], SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
-    }
-
-    for (let tickNodeList in allTicks) {
-      showTick(allTicks[tickNodeList][0], SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
-    }
-
-    updatePopupButtonTextElements();
-    updatePopupButtonIconElements();
-  }
-
   /* event's handlers */
 
   function handleCancelButtonClick(popup, classForVisibleState) {
@@ -212,10 +246,6 @@ export default function createProjectEditor() {
 
     reset();
   }
-
-  /* function handleAddprojectButtonClick(projectEditorOverlay, editorClassForVisibleState) {
-    openPopup(projectEditorOverlay, editorClassForVisibleState);
-  } */
 
   function handleInputChange(e, addButton, inputs) {
     const input = e.currentTarget;
@@ -225,11 +255,23 @@ export default function createProjectEditor() {
     toggleAddButtonDisabledState(isFormValid(inputs), addButton);
   }
 
-  function handleAddTaskButtonClick(e, popup, classForVisibleState, projects) {
+  function addProject() {
+    const project = createProjectWithUniqueId(projectDataValues);
+    addProjectToProjectsArray(project);
+  }
+
+  function editProject() {
+    chosenProject.edit(projectDataValues);
+  }
+
+  function handleAddTaskButtonClick(e, popup, classForVisibleState) {
     e.preventDefault();
 
-    const project = createProjectWithUniqueId(projectDataValues);
-    projects.push(project);
+    if (addTaskButton.textContent === 'Добавить') {
+      addProject();
+    } else {
+      editProject();
+    }
 
     projectNavigation.clear();
     projectNavigation.render();
@@ -243,10 +285,6 @@ export default function createProjectEditor() {
   }
 
   /* event's listeners */
-
-  /* addprojectButton.addEventListener('click', () =>
-    handleAddprojectButtonClick(projectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
-  ); */
 
   projectTitle.addEventListener('input', (e) => handleInputChange(e, addTaskButton, projectTitle));
 
@@ -286,12 +324,15 @@ export default function createProjectEditor() {
 
   /* render functions */
 
-  renderInitialSelectListItems(
+  renderSelectListItems(
     projectEditorSelectColorList,
     projectEditorSelectColorButton,
     SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
     colors,
   );
 
-  return { render: renderInitialSelectListItems };
+  return {
+    renderListItems: renderSelectListItems,
+    updateEditor,
+  };
 }
