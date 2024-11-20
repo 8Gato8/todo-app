@@ -1,10 +1,19 @@
 @import url('./variables.css');
 
 .editor {
+  border-radius: 6px;
+}
+
+.editor_popup {
   margin-top: 150px;
   width: min(580px, 50%);
   box-shadow: 0 15px 50px 0 rgba(0, 0, 0, 0.35);
-  border-radius: 6px;
+}
+
+.editor_flex-item {
+  width: 100%;
+  border: 1px solid var(--editor-border-idle-tint);
+  border-radius: 10px;
 }
 
 .editor-footer__buttons {
