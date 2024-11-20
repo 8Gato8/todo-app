@@ -97,6 +97,121 @@
       <div class="project-container">
         <section class="project">
           <h2 class="project__title">Входящие</h2>
+          <ul class="project__task-list"></ul>
+          <!-- <form class="task-editor editor editor_flex-item editor_flex-item_hidden">
+            <div class="task-editor__editing-area editing-area">
+              <input
+                name="title"
+                class="editing-area__title editing-area-input"
+                type="text"
+                placeholder="Название задачи" />
+              <textarea
+                name="description"
+                class="editing-area__description editing-area-input"
+                placeholder="Описание"
+                rows="1"></textarea>
+              <input
+                name="dueTime"
+                class="editing-area__due-time editing-area-input"
+                type="text"
+                placeholder="Срок выполнения" />
+            </div>
+            <div class="task-editor__footer task-editor-footer">
+              <div class="task-editor-footer__selects">
+                <div id="project-choice-container" class="choice-container select-popup-container">
+                  <button
+                    type="button"
+                    id="choose-project-popup-button"
+                    class="editor__popup-button choice-popup-button task-editor__select-button pressed-button">
+                    <svg
+                      data-name="project"
+                      class="icon icon_offset_medium"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="15"
+                      height="15"
+                      fill="#000"
+                      viewBox="0 0 15 15">
+                      <path
+                        fill-rule="evenodd"
+                        d="M6.555 3.003a.5.5 0 0 1 .442.552L6.781 5.5h2.994l.228-2.055a.5.5 0 0 1 .994.11L10.781 5.5H12.5a.5.5 0 0 1 0 1h-1.83l-.334 3H12a.5.5 0 0 1 0 1h-1.775l-.228 2.055a.5.5 0 1 1-.994-.11L9.22 10.5H6.225l-.228 2.055a.5.5 0 1 1-.994-.11L5.22 10.5H3.5a.5.5 0 1 1 0-1h1.83l.334-3H4a.5.5 0 0 1 0-1h1.775l.228-2.055a.5.5 0 0 1 .552-.442ZM9.33 9.5l.334-3H6.67l-.334 3H9.33Z"
+                        clip-rule="evenodd" />
+                    </svg>
+                    <span
+                      data-name="project"
+                      id="project-button-text"
+                      class="choice-popup-button__text"></span>
+                    <svg
+                      class="choice-popup-button__arrow-down arrow-down"
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="15px"
+                      viewBox="0 -960 960 960"
+                      width="15px"
+                      fill="#000">
+                      <path d="M480-360 280-560h400L480-360Z" />
+                    </svg>
+                  </button>
+                  <div id="project-choice-popup" class="choice-popup select-popup">
+                    <ul
+                      data-name="project"
+                      id="project-choice-popup-list"
+                      class="choice-popup__list choice-popup-list"></ul>
+                  </div>
+                </div>
+                <div id="priority-choice-container" class="choice-container select-popup-container">
+                  <button
+                    type="button"
+                    id="choose-priority-popup-button"
+                    class="editor__popup-button choice-popup-button task-editor__select-button pressed-button">
+                    <svg
+                      data-name="priority"
+                      class="icon icon_offset_medium"
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="15"
+                      viewBox="0 -960 960 960"
+                      width="15"
+                      fill="#000">
+                      <path
+                        d="m437-249 183-231H471l26-221-173 269h146l-33 183ZM336-96l48-264H192l324-504h72l-36 312h216L408-96h-72Zm136-379Z" />
+                    </svg>
+                    <span
+                      data-name="priority"
+                      id="priority-button-text"
+                      class="choice-popup-button__text"></span>
+                    <svg
+                      class="choice-popup-button__arrow-down arrow-down"
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="15px"
+                      viewBox="0 -960 960 960"
+                      width="15px"
+                      fill="#000">
+                      <path d="M480-360 280-560h400L480-360Z" />
+                    </svg>
+                  </button>
+                  <div id="priority-choice-popup" class="choice-popup select-popup">
+                    <ul
+                      data-name="priority"
+                      id="priority-choice-popup-list"
+                      class="choice-popup__list choice-popup-list"></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="editor-footer__buttons">
+                <button
+                  id="cancel-button"
+                  type="button"
+                  class="editor__popup-button cancel-task-edition-button pressed-button">
+                  Отмена
+                </button>
+                <button
+                  disabled
+                  id="add-task-button"
+                  type="submit"
+                  class="editor__popup-button add-task-button pressed-button">
+                  Добавить задачу
+                </button>
+              </div>
+            </div>
+          </form> -->
           <button
             id="project__add-task-button"
             type="button"
@@ -439,6 +554,50 @@
             fill-rule="evenodd"
             d="M4.902 6.975l4.182-4.244a.74.74 0 0 1 1.06 0 .775.775 0 0 1 0 1.081L5.432 8.597a.74.74 0 0 1-1.06 0L1.78 5.975a.775.775 0 0 1 0-1.081.74.74 0 0 1 1.061 0l2.06 2.081z"></path>
         </svg>
+      </li>
+    </template>
+
+    <template id="project-task-item-template">
+      <li class="project__task-item project-task-item">
+        <div class="project-task-item__checkbox">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="#999"
+            xmlns="http://www.w3.org/2000/svg"
+            class="project-task-item__checkmark">
+            <path
+              d="M16.5056 9.00958C16.2128 8.71668 15.7379 8.71668 15.445 9.00958L10.6715 13.7831L8.72649 11.8381C8.43359 11.5452 7.95872 11.5452 7.66583 11.8381C7.37294 12.1309 7.37293 12.6058 7.66583 12.8987L10.1407 15.3736C10.297 15.5299 10.5051 15.6028 10.7097 15.5923C10.8889 15.5833 11.0655 15.5104 11.2023 15.3735L16.5056 10.0702C16.7985 9.77735 16.7985 9.30247 16.5056 9.00958Z"></path>
+          </svg>
+        </div>
+
+        <span class="project-task-item__title">Первое</span>
+        <div class="project-task-item__buttons">
+          <button class="project-task-item__button project-task-item-button">
+            <svg
+              class="project-task-item-button__icon"
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 -960 960 960"
+              width="24"
+              fill="#000">
+              <path
+                d="M216-216h51l375-375-51-51-375 375v51Zm-72 72v-153l498-498q11-11 23.84-16 12.83-5 27-5 14.16 0 27.16 5t24 16l51 51q11 11 16 24t5 26.54q0 14.45-5.02 27.54T795-642L297-144H144Zm600-549-51-51 51 51Zm-127.95 76.95L591-642l51 51-25.95-25.05Z" />
+            </svg></button
+          ><button class="project-task-item__button project-task-item-button">
+            <svg
+              class="project-task-item-button__icon"
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 -960 960 960"
+              width="24"
+              fill="#000">
+              <path
+                d="M312-144q-29.7 0-50.85-21.15Q240-186.3 240-216v-480h-48v-72h192v-48h192v48h192v72h-48v479.57Q720-186 698.85-165T648-144H312Zm336-552H312v480h336v-480ZM384-288h72v-336h-72v336Zm120 0h72v-336h-72v336ZM312-696v480-480Z" />
+            </svg>
+          </button>
+        </div>
       </li>
     </template>
   </body>
