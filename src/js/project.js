@@ -33,9 +33,9 @@ class Project {
     this.#color = newColor;
   }
 
-  edit(newProject) {
-    this.title = newProject.title;
-    this.color = newProject.color;
+  edit(newProjectData) {
+    this.title = newProjectData.title;
+    this.color = newProjectData.color;
   }
 
   addTask(newTask) {
