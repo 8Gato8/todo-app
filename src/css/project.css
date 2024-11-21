@@ -16,9 +16,13 @@
 }
 
 .project__task-list {
+  display: none;
   width: 100%;
-  display: flex;
   flex-direction: column;
+}
+
+.project__task-list_visible {
+  display: flex;
 }
 
 .project__task-item {
