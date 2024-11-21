@@ -88,7 +88,9 @@
   justify-content: center;
 }
 
-.project-navigation__button:hover .project-navigation-button__task-count {
+.project-navigation__button:hover
+  .project-navigation-button__open-popup:not(.project-navigation-button__open-popup_hidden)
+  + .project-navigation-button__task-count {
   display: none;
 }
 
