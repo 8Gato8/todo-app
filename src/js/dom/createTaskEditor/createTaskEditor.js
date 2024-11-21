@@ -98,7 +98,7 @@ export default function createTaskEditor() {
     newTaskDataValues[valueName] = dataValue;
   }
 
-  function renderInitialPopupButtonUI(defaultChoicePopupData, popupButtonTitle, popupButtonIcon) {
+  function updateSelectButtonUI(defaultChoicePopupData, popupButtonTitle, popupButtonIcon) {
     popupButtonIcon.style.fill = defaultChoicePopupData.color.hexCode;
     popupButtonTitle.textContent = defaultChoicePopupData.title;
   }
@@ -159,7 +159,7 @@ export default function createTaskEditor() {
 
     const defaultChoicePopupData = defaultChoicePopupsData[choiceValueName];
 
-    renderInitialPopupButtonUI(
+    updateSelectButtonUI(
       defaultChoicePopupData,
       choicePopupButtonTitleElement,
       choicePopupButtonIconElement,
