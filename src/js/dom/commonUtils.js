@@ -97,24 +97,3 @@ export function hideTicks(ticks, tickItemClassForVisibleState) {
 export function resetAllTicks(allTicks, valueName) {
   allTicks[valueName] = [];
 }
-
-export function handlePopupItemClick(
-  valueName,
-  newValue,
-  popupButtonTextElement,
-  popupButtonIconElement,
-  updatePopupButtonTextElement,
-  updatePopupButtonIconElement,
-  updateNewDataValues,
-  ticks,
-  currentTick,
-  tickItemClassForVisibleState,
-) {
-  updateNewDataValues(valueName, newValue);
-
-  updatePopupButtonTextElement(popupButtonTextElement, valueName);
-  updatePopupButtonIconElement(popupButtonIconElement, valueName);
-
-  hideTicks(ticks, tickItemClassForVisibleState);
-  showTick(currentTick, tickItemClassForVisibleState);
-}
