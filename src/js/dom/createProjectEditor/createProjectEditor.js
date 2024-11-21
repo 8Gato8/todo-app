@@ -23,7 +23,6 @@ import {
   handleClickOutsidePopup,
   showTick,
   hideTicks,
-  handlePopupItemClick,
   handleEditorOverlayClick,
   isFormValid,
   toggleAddButtonDisabledState,
@@ -84,7 +83,7 @@ export default function createProjectEditor() {
 
   const defaultColor = colors[0];
 
-  let projectDataValues = {
+  let projectData = {
     title: '',
     color: defaultColor,
   };
@@ -98,7 +97,7 @@ export default function createProjectEditor() {
   /* utils */
 
   function updateDataValues(valueName, dataValue) {
-    projectDataValues[valueName] = dataValue;
+    projectData[valueName] = dataValue;
   }
 
   function updateSelectButtonUI(color, selectColorButtonTitle, selectColorButtonIcon) {
@@ -123,44 +122,39 @@ export default function createProjectEditor() {
   function updateSelectButtonTextElements() {
     selectButtonTitles.forEach((selectButtonTitle) => {
       const valueName = selectButtonTitle.dataset.name;
-      selectButtonTitle.textContent = projectDataValues[valueName].title;
+      selectButtonTitle.textContent = projectData[valueName].title;
     });
   }
 
   function updateSelectButtonIconElements() {
     selectButtonIcons.forEach((selectButtonIcon) => {
       const valueName = selectButtonIcon.dataset.name;
-      selectButtonIcon.style.backgroundColor = projectDataValues[valueName].hexCode;
+      selectButtonIcon.style.backgroundColor = projectData[valueName].hexCode;
     });
   }
 
-  function updateSelectButtonTextElement(
-    buttonTitleElement,
-    valueName,
-    project = projectDataValues,
-  ) {
-    buttonTitleElement.textContent = project[valueName].title;
+  function updateSelectButtonTextElement(buttonTitleElement, valueName) {
+    buttonTitleElement.textContent = projectData[valueName].title;
   }
 
-  function updateSelectButtonIconElement(
-    buttonIconElement,
-    valueName,
-    project = projectDataValues,
-  ) {
-    buttonIconElement.style.backgroundColor = project[valueName].hexCode;
+  function updateSelectButtonIconElement(buttonIconElement, valueName) {
+    buttonIconElement.style.backgroundColor = projectData[valueName].hexCode;
   }
 
-  function updateEditor(editorTitleText, editorSubmitText, project = projectDataValues) {
+  function updateEditor(editorTitleText, editorSubmitText, updatedProjectData) {
+    if (!updatedProjectData) resetProjectData();
+    else projectData = updatedProjectData;
+
     updateEditorTitle(editorTitleText);
     updateEditorSubmitButton(editorSubmitText);
-    updateInputsValues(project);
-    updateSelectButtonTextElement(selectButtonTitleElement, valueName, project);
-    updateSelectButtonIconElement(selectButtonIconElement, valueName, project);
+    updateInputsValues(projectData);
+    updateSelectButtonTextElement(selectButtonTitleElement, valueName);
+    updateSelectButtonIconElement(selectButtonIconElement, valueName);
     toggleAddButtonDisabledState(isFormValid(inputs), addTaskButton);
   }
 
-  function resetProjectDataValues() {
-    projectDataValues = {
+  function resetProjectData() {
+    projectData = {
       title: '',
       color: defaultColor,
     };
@@ -173,7 +167,7 @@ export default function createProjectEditor() {
   }
 
   function reset() {
-    resetProjectDataValues();
+    resetProjectData();
     clearAllInputsValues();
     disableAddButton(addTaskButton);
 
@@ -221,18 +215,7 @@ export default function createProjectEditor() {
       selectListItemTitle.textContent = color.title;
 
       selectListItem.addEventListener('click', () =>
-        handlePopupItemClick(
-          valueName,
-          color,
-          selectButtonTitleElement,
-          selectButtonIconElement,
-          updateSelectButtonTextElement,
-          updateSelectButtonIconElement,
-          updateDataValues,
-          selectPopupTicks,
-          selectListItemTick,
-          SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
-        ),
+        handlePopupItemClick(valueName, color, selectPopupTicks, selectListItemTick),
       );
 
       projectEditorSelectColorList.append(selectListItem);
@@ -240,6 +223,16 @@ export default function createProjectEditor() {
   }
 
   /* event's handlers */
+
+  function handlePopupItemClick(valueName, newValue, ticks, currentTick) {
+    updateDataValues(valueName, newValue);
+
+    updateSelectButtonTextElement(selectButtonTitleElement, valueName);
+    updateSelectButtonIconElement(selectButtonIconElement, valueName);
+
+    hideTicks(ticks, SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+    showTick(currentTick, SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+  }
 
   function handleCancelButtonClick(popup, classForVisibleState) {
     closePopup(popup, classForVisibleState);
@@ -250,18 +243,18 @@ export default function createProjectEditor() {
   function handleInputChange(e, addButton, inputs) {
     const input = e.currentTarget;
     const valueName = input.name;
-    projectDataValues[valueName] = input.value;
+    projectData[valueName] = input.value;
 
     toggleAddButtonDisabledState(isFormValid(inputs), addButton);
   }
 
   function addProject() {
-    const project = createProjectWithUniqueId(projectDataValues);
+    const project = createProjectWithUniqueId(projectData);
     addProjectToProjectsArray(project);
   }
 
   function editProject() {
-    chosenProject.edit(projectDataValues);
+    chosenProject.edit(projectData);
   }
 
   function handleAddTaskButtonClick(e, popup, classForVisibleState) {
