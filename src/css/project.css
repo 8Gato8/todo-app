@@ -69,3 +69,11 @@
 .project-task-item__checkbox:hover > .project-task-item__checkmark {
   opacity: 1;
 }
+
+.project__add-task-button {
+  display: none;
+}
+
+.project__add-task-button_visible {
+  display: flex;
+}
