@@ -2,6 +2,7 @@
 
 .editor {
   border-radius: 6px;
+  background-color: var(--white);
 }
 
 .editor_popup {

@@ -5,6 +5,7 @@
   box-shadow: var(--other-actions-popup-box-shadow);
   border-color: var(--other-actions-popup-border-color);
   border-radius: 10px;
+  background-color: var(--white);
 }
 
 .other-actions-list {
