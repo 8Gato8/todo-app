@@ -11,9 +11,12 @@ import {
   inboxProject,
   taskEditor,
   projectEditor,
+  projectArea,
   deleteProjectFromProjectsArray,
   chosenProject,
   setChosenProject,
+  openedProject,
+  setOpenedProject,
 } from '../../..';
 
 import { openPopup, closePopup } from '../commonUtils';
@@ -39,7 +42,6 @@ export default function createProjectNavigation() {
 
   /* variables */
 
-  let openedProject = inboxProject;
   let chevronOpen = true;
 
   /* utils */
@@ -101,7 +103,11 @@ export default function createProjectNavigation() {
       }
 
       projectNavigationListItem.addEventListener('click', () =>
-        handleProjectNavigationListItemClick(projectNavigationButton, projectNavigationButtons),
+        handleProjectNavigationListItemClick(
+          projectNavigationButton,
+          projectNavigationButtons,
+          project,
+        ),
       );
 
       projectNavigationList.append(projectNavigationListItem);
@@ -161,7 +167,13 @@ export default function createProjectNavigation() {
 
   /* event's handlers */
 
-  function handleProjectNavigationListItemClick(projectNavigationButton, projectNavigationButtons) {
+  function handleProjectNavigationListItemClick(
+    projectNavigationButton,
+    projectNavigationButtons,
+    project,
+  ) {
+    setOpenedProject(project);
+    projectArea.updateProjectArea();
     removeHighlighterFromPrevioslySelectedProjectNavigationButton(projectNavigationButtons);
     highlightProjectNavigationButton(projectNavigationButton);
   }
@@ -237,7 +249,10 @@ export default function createProjectNavigation() {
   function handleEditProjectButtonClick() {
     closePopup(otherActionsOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
 
-    projectEditor.updateEditor('Изменить', 'Сохранить', chosenProject);
+    const { title, color } = chosenProject;
+    const updatedProjectData = { title, color };
+
+    projectEditor.updateEditor('Изменить', 'Сохранить', updatedProjectData);
 
     openPopup(projectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
   }
