@@ -3,6 +3,7 @@ import './style.css';
 import createProjectNavigation from './js/dom/createProjectNavigation/createProjectNavigation';
 import createProjectEditor from './js/dom/createProjectEditor/createProjectEditor';
 import createTaskEditor from './js/dom/createTaskEditor/createTaskEditor';
+import createProjectArea from './js/dom/createProjectArea/createProjectArea';
 
 import createProjectWithUniqueId from './js/utils/createProjectWithUniqueId';
 
@@ -40,15 +41,35 @@ export const priorities = [
     },
   },
 ];
+
+export const inboxProject = createProjectWithUniqueId({
+  title: 'Входящие',
+  color: { title: 'Аспидно-серый', hexCode: '#808080' },
+});
+
 export let projects = [];
+
+export let openedProject = inboxProject;
+export function setOpenedProject(newProject) {
+  openedProject = newProject;
+}
 
 export let chosenProject = null;
 export function setChosenProject(newProject) {
   chosenProject = newProject;
 }
 
-export function deleteProjectFromProjectsArray(chosenProject) {
-  projects = projects.filter((p) => p !== chosenProject);
+export function deleteProjectFromProjectsArray(project) {
+  projects = projects.filter((p) => p !== project);
+}
+
+export function addProjectToProjectsArray(project) {
+  projects.push(project);
+}
+
+/* Спорное решение */
+export function deleteTaskFromProjectArea(task) {
+  openedProject.removeTaskById(task.id);
 }
 
 export const colors = [
@@ -134,17 +155,14 @@ export const colors = [
   },
 ];
 
-export const inboxProject = createProjectWithUniqueId({
-  title: 'Входящие',
-  color: { title: 'Аспидно-серый', hexCode: '#808080' },
-});
-
 projects.push(inboxProject);
 
 export const projectNavigation = createProjectNavigation();
 export const projectEditor = createProjectEditor();
 export const taskEditor = createTaskEditor();
+export const projectArea = createProjectArea();
 
 projectNavigation.render();
 projectEditor.renderListItems();
 taskEditor.render();
+projectArea.updateProjectArea();
