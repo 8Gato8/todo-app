@@ -5,7 +5,15 @@ import {
   CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
 } from './variables';
 
-import { projects, projectNavigation, inboxProject, priorities } from '../../..';
+import {
+  projects,
+  projectNavigation,
+  projectArea,
+  inboxProject,
+  priorities,
+  setOpenedProject,
+  openedProject,
+} from '../../..';
 import createTaskWithUniqueId from '../../utils/createTaskWithUniqueId';
 
 import {
@@ -16,7 +24,6 @@ import {
   handleClickOutsidePopup,
   showTick,
   hideTicks,
-  handlePopupItemClick,
   handleEditorOverlayClick,
   isFormValid,
   toggleAddButtonDisabledState,
@@ -204,12 +211,8 @@ export default function createTaskEditor() {
           choicePopupDataItem,
           choicePopupButtonTextElement,
           choicePopupButtonIconElement,
-          updatePopupButtonTextElement,
-          updatePopupButtonIconElement,
-          updateNewDataValues,
           choicePopupItemTicks,
           choicePopupItemTick,
-          tickItemClassForVisibleState,
         ),
       );
 
@@ -261,6 +264,23 @@ export default function createTaskEditor() {
 
   /* event listener handlers */
 
+  function handlePopupItemClick(
+    valueName,
+    newValue,
+    choicePopupButtonTextElement,
+    choicePopupButtonIconElement,
+    ticks,
+    currentTick,
+  ) {
+    updateNewDataValues(valueName, newValue);
+
+    updatePopupButtonTextElement(choicePopupButtonTextElement, valueName);
+    updatePopupButtonIconElement(choicePopupButtonIconElement, valueName);
+
+    hideTicks(ticks, CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE);
+    showTick(currentTick, CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+  }
+
   function handleCancelButtonClick(popup, classForVisibleState) {
     closePopup(popup, classForVisibleState);
 
@@ -275,6 +295,10 @@ export default function createTaskEditor() {
 
     projectNavigation.clear();
     projectNavigation.render();
+
+    if (openedProject === newTaskDataValues.project) {
+      projectArea.updateProjectArea();
+    }
 
     closePopup(popup, classForVisibleState);
 
