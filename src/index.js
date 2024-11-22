@@ -55,8 +55,13 @@ export function setOpenedProject(newProject) {
 }
 
 export let chosenProject = null;
-export function setChosenProject(newProject) {
-  chosenProject = newProject;
+export function setChosenProject(newValue) {
+  chosenProject = newValue;
+}
+
+export let chosenTask = null;
+export function setChosenTask(newValue) {
+  chosenTask = newValue;
 }
 
 export function deleteProjectFromProjectsArray(project) {
@@ -68,7 +73,7 @@ export function addProjectToProjectsArray(project) {
 }
 
 /* Спорное решение */
-export function deleteTaskFromProjectArea(task) {
+export function deleteTaskFromOpenedProject(task) {
   openedProject.removeTaskById(task.id);
 }
 
