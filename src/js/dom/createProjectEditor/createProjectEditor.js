@@ -9,6 +9,7 @@ import {
   projects,
   projectNavigation,
   taskEditor,
+  projectArea,
   colors,
   chosenProject,
   addProjectToProjectsArray,
@@ -268,6 +269,8 @@ export default function createProjectEditor() {
 
     projectNavigation.clear();
     projectNavigation.render();
+
+    projectArea.updateProjectArea();
 
     taskEditor.clear();
     taskEditor.render();
