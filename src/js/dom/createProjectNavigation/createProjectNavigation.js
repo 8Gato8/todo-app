@@ -8,6 +8,7 @@ import {
 
 import {
   projects,
+  priorities,
   inboxProject,
   taskEditor,
   projectEditor,
@@ -236,12 +237,14 @@ export default function createProjectNavigation() {
     deleteProjectFromProjectsArray(chosenProject);
 
     setChosenProject(null);
+    setOpenedProject(inboxProject);
+    projectArea.updateProjectArea();
 
     clearProjectNavigationList();
     renderProjectNavigationListItems();
 
     taskEditor.clear();
-    taskEditor.render();
+    taskEditor.render(projects, priorities);
 
     closePopup(otherActionsOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
   }

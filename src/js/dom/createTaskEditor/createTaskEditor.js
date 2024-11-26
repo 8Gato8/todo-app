@@ -11,8 +11,7 @@ import {
   projectArea,
   inboxProject,
   priorities,
-  setOpenedProject,
-  openedProject,
+  chosenTask,
 } from '../../..';
 import createTaskWithUniqueId from '../../utils/createTaskWithUniqueId';
 
@@ -87,7 +86,7 @@ export default function createTaskEditor() {
     priority: defaultPriority,
   };
 
-  let newTaskDataValues = {
+  let taskData = {
     title: '',
     description: '',
     dueTime: '',
@@ -95,57 +94,101 @@ export default function createTaskEditor() {
     priority: defaultPriority,
   };
 
-  const allTicks = {
+  let allTicks = {
     project: [],
     priority: [],
   };
   /* utils */
 
-  function updateNewDataValues(valueName, dataValue) {
-    newTaskDataValues[valueName] = dataValue;
+  function updateTaskData(valueName, dataValue) {
+    taskData[valueName] = dataValue;
   }
 
-  function updateSelectButtonUI(defaultChoicePopupData, popupButtonTitle, popupButtonIcon) {
-    popupButtonIcon.style.fill = defaultChoicePopupData.color.hexCode;
-    popupButtonTitle.textContent = defaultChoicePopupData.title;
+  function updateSelectButtonUI(choicePopupData, popupButtonTitle, popupButtonIcon) {
+    popupButtonIcon.style.fill = choicePopupData.color.hexCode;
+    popupButtonTitle.textContent = choicePopupData.title;
   }
 
-  function resetNewTaskDataValues() {
-    newTaskDataValues = {
-      title: '',
-      description: '',
-      dueTime: '',
-      project: inboxProject,
-      priority: defaultPriority,
-    };
+  function updateEditorSubmitButton(editorSubmitText) {
+    addTaskButton.textContent = editorSubmitText;
   }
 
-  function clearAllInputsValues() {
+  function updateInputsValues(task) {
     inputs.forEach((input) => {
-      input.value = '';
+      input.value = task[input.name];
     });
   }
 
   function updatePopupButtonTextElements() {
     choicePopupButtonsTexts.forEach((choicePopupButtonsText) => {
       const valueName = choicePopupButtonsText.dataset.name;
-      choicePopupButtonsText.textContent = newTaskDataValues[valueName].title;
+      choicePopupButtonsText.textContent = taskData[valueName].title;
     });
   }
 
   function updatePopupButtonIconElements() {
     choicePopupButtonsIcons.forEach((choicePopupButtonsIcon) => {
       const valueName = choicePopupButtonsIcon.dataset.name;
-      choicePopupButtonsIcon.style.fill = newTaskDataValues[valueName].color.hexCode;
+      choicePopupButtonsIcon.style.fill = taskData[valueName].color.hexCode;
     });
   }
 
   function updatePopupButtonTextElement(popupButtonTextElement, valueName) {
-    popupButtonTextElement.textContent = newTaskDataValues[valueName].title;
+    popupButtonTextElement.textContent = taskData[valueName].title;
   }
 
   function updatePopupButtonIconElement(choicePopupButtonIcon, valueName) {
-    choicePopupButtonIcon.style.fill = newTaskDataValues[valueName].color.hexCode;
+    choicePopupButtonIcon.style.fill = taskData[valueName].color.hexCode;
+  }
+
+  function clearSpecificTicks(valueName) {
+    allTicks[valueName] = [];
+  }
+
+  function updateEditor(editorSubmitText, options) {
+    /* Нужен серьезный рефактор */
+
+    clearChoicePopupLists();
+
+    const { updatedTaskData, currentProject, projects } = options;
+
+    let projectsToRender = null;
+
+    if (updatedTaskData) {
+      taskData = updatedTaskData;
+      projectsToRender = [updatedTaskData.project];
+
+      renderChoicePopupsElements(projectsToRender, priorities);
+
+      for (let ticks in allTicks) {
+        hideTicks(allTicks[ticks], CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+      }
+
+      const projectTick = document.querySelector(`[project="${updatedTaskData.project.id}"]`);
+      const priorityTick = document.querySelector(`[priority="${updatedTaskData.priority.id}"]`);
+
+      showTick(projectTick, CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+      showTick(priorityTick, CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+    }
+
+    if (currentProject) {
+      resetTaskData();
+      taskData = { ...taskData, project: currentProject };
+      projectsToRender = [currentProject];
+      renderChoicePopupsElements(projectsToRender, priorities);
+    }
+
+    if (projects) {
+      resetTaskData();
+      projectsToRender = projects;
+      renderChoicePopupsElements(projectsToRender, priorities);
+    }
+
+    updateEditorSubmitButton(editorSubmitText);
+    updateInputsValues(taskData);
+    toggleAddButtonDisabledState(isFormValid(inputs), addTaskButton);
+    updatePopupButtonTextElements();
+    updatePopupButtonIconElements();
   }
 
   function renderChoicePopupElements(
@@ -157,7 +200,7 @@ export default function createTaskEditor() {
   ) {
     const choiceValueName = choicePopupListElement.dataset.name;
 
-    resetAllTicks(allTicks, choiceValueName);
+    clearSpecificTicks(choiceValueName);
 
     const choicePopupItemTicks = allTicks[choiceValueName];
 
@@ -194,6 +237,8 @@ export default function createTaskEditor() {
         '.choice-popup-list__item-tick',
       );
 
+      choicePopupItemTick.setAttribute(choiceValueName, choicePopupDataItem.id);
+
       choicePopupItemTicks.push(choicePopupItemTick);
 
       if (index === 0) {
@@ -220,7 +265,7 @@ export default function createTaskEditor() {
     });
   }
 
-  function renderChoicePopupsElements() {
+  function renderChoicePopupsElements(projects, priorities) {
     renderChoicePopupElements(
       projectChoicePopupList,
       chooseProjectButton,
@@ -245,8 +290,24 @@ export default function createTaskEditor() {
     });
   }
 
+  function clearAllInputsValues() {
+    inputs.forEach((input) => {
+      input.value = '';
+    });
+  }
+
+  function resetTaskData() {
+    taskData = {
+      title: '',
+      description: '',
+      dueTime: '',
+      project: inboxProject,
+      priority: defaultPriority,
+    };
+  }
+
   function reset() {
-    resetNewTaskDataValues();
+    resetTaskData();
     clearAllInputsValues();
     disableAddButton(addTaskButton);
 
@@ -272,12 +333,12 @@ export default function createTaskEditor() {
     ticks,
     currentTick,
   ) {
-    updateNewDataValues(valueName, newValue);
+    updateTaskData(valueName, newValue);
 
     updatePopupButtonTextElement(choicePopupButtonTextElement, valueName);
     updatePopupButtonIconElement(choicePopupButtonIconElement, valueName);
 
-    hideTicks(ticks, CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE);
+    hideTicks(ticks, CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
     showTick(currentTick, CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
   }
 
@@ -287,18 +348,30 @@ export default function createTaskEditor() {
     reset();
   }
 
+  function addTask() {
+    const newTask = createTaskWithUniqueId(taskData);
+    newTask.project.addTask(newTask);
+  }
+
+  function editTask() {
+    for (let propName in taskData) {
+      chosenTask[propName] = taskData[propName];
+    }
+  }
+
   function handleAddTaskButtonClick(e, popup, classForVisibleState) {
     e.preventDefault();
 
-    const newTask = createTaskWithUniqueId(newTaskDataValues);
-    newTaskDataValues.project.addTask(newTask);
+    if (addTaskButton.textContent.trim() === 'Добавить задачу') {
+      addTask();
+    } else {
+      editTask();
+    }
 
     projectNavigation.clear();
     projectNavigation.render();
 
-    if (openedProject === newTaskDataValues.project) {
-      projectArea.updateProjectArea();
-    }
+    projectArea.updateProjectArea();
 
     closePopup(popup, classForVisibleState);
 
@@ -308,15 +381,21 @@ export default function createTaskEditor() {
   function handleInputChange(e, addButton, inputs) {
     const input = e.currentTarget;
     const valueName = input.name;
-    newTaskDataValues[valueName] = input.value;
+    taskData[valueName] = input.value;
 
     toggleAddButtonDisabledState(isFormValid(inputs), addButton);
+  }
+
+  function handleSidebarOpenTaskEditorButtonClick() {
+    updateEditor('Добавить задачу', { projects });
+
+    openPopup(taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
   }
 
   /* event listeners */
 
   sidebarOpenTaskEditorButton.addEventListener('click', () =>
-    openPopup(taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
+    handleSidebarOpenTaskEditorButtonClick(taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
   );
 
   taskEditorOverlay.addEventListener('mousedown', (e) =>
@@ -370,5 +449,5 @@ export default function createTaskEditor() {
     handleAddTaskButtonClick(e, taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
   });
 
-  return { render: renderChoicePopupsElements, clear: clearChoicePopupLists };
+  return { render: renderChoicePopupsElements, clear: clearChoicePopupLists, updateEditor };
 }

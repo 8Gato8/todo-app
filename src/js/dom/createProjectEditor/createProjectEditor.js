@@ -7,6 +7,7 @@ import {
 
 import {
   projects,
+  priorities,
   projectNavigation,
   taskEditor,
   projectArea,
@@ -255,13 +256,15 @@ export default function createProjectEditor() {
   }
 
   function editProject() {
-    chosenProject.edit(projectData);
+    for (let propName in projectData) {
+      chosenProject[propName] = projectData[propName];
+    }
   }
 
   function handleAddTaskButtonClick(e, popup, classForVisibleState) {
     e.preventDefault();
 
-    if (addTaskButton.textContent === 'Добавить') {
+    if (addTaskButton.textContent.trim() === 'Добавить') {
       addProject();
     } else {
       editProject();
@@ -273,7 +276,7 @@ export default function createProjectEditor() {
     projectArea.updateProjectArea();
 
     taskEditor.clear();
-    taskEditor.render();
+    taskEditor.render(projects, priorities);
 
     closePopup(popup, classForVisibleState);
 
@@ -289,11 +292,11 @@ export default function createProjectEditor() {
   );
 
   addTaskButton.addEventListener('submit', (e) => {
-    handleAddTaskButtonClick(e, projectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE, projects);
+    handleAddTaskButtonClick(e, projectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
   });
 
   projectEditorForm.addEventListener('submit', (e) =>
-    handleAddTaskButtonClick(e, projectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE, projects),
+    handleAddTaskButtonClick(e, projectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
   );
 
   projectEditorOverlay.addEventListener('mousedown', (e) =>
