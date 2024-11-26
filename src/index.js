@@ -6,8 +6,9 @@ import createTaskEditor from './js/dom/createTaskEditor/createTaskEditor';
 import createProjectArea from './js/dom/createProjectArea/createProjectArea';
 
 import createProjectWithUniqueId from './js/utils/createProjectWithUniqueId';
+import createPriorityWithUniqueId from './js/utils/createPriorityWithUniqueId';
 
-export const priorities = [
+const prioritiesData = [
   {
     title: 'Приоритет 1',
     number: 1,
@@ -41,6 +42,10 @@ export const priorities = [
     },
   },
 ];
+
+export const priorities = prioritiesData.map((data) => {
+  return createPriorityWithUniqueId(data);
+});
 
 export const inboxProject = createProjectWithUniqueId({
   title: 'Входящие',
@@ -169,5 +174,5 @@ export const projectArea = createProjectArea();
 
 projectNavigation.render();
 projectEditor.renderListItems();
-taskEditor.render();
+taskEditor.render(projects, priorities);
 projectArea.updateProjectArea();
