@@ -1,7 +1,7 @@
 .main {
   display: grid;
   grid-template:
-    'sidebar header' auto
+    'sidebar project' auto
     'sidebar project' 1fr
     / 280px 1fr;
 }
