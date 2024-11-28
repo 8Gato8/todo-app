@@ -27,9 +27,9 @@
 
 .project__task-item {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   align-items: center;
-  padding: 5px 0;
+  padding: 5px 0 8px 0;
   border-bottom: 1px solid var(--other-actions-popup-border-color);
 }
 
@@ -37,9 +37,38 @@
   cursor: pointer;
 }
 
-.project-task-item__title {
+.project-task-item__text-block {
+  min-height: 40px;
+  max-width: 85%;
   margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.project-task-item__title {
   font-size: 14px;
+  order: 1;
+  text-overflow: ellipsis;
+}
+
+.project-task-item__description {
+  display: none;
+  font-size: 13px;
+  color: var(--p4-color);
+  order: 2;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.project-task-item__description_visible {
+  display: block;
+}
+
+.project-task-item__description_visible + .project-task-item__title {
+  padding-top: 20px;
 }
 
 .project-task-item__buttons {
