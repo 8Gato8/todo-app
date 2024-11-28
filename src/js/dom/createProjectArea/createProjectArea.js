@@ -63,6 +63,10 @@ export default function createProjectArea() {
       const taskEditButton = taskItem.querySelector('#project-task-item-edit-button');
       const taskDeleteButton = taskItem.querySelector('#project-task-item-delete-button');
       const taskCheckboxButton = taskItem.querySelector('.project-task-item__checkmark-button');
+      const taskCheckmark = taskCheckboxButton.querySelector('.project-task-item__checkmark');
+
+      taskCheckboxButton.style.borderColor = task.priority.color.hexCode;
+      taskCheckmark.style.fill = task.priority.color.hexCode;
 
       taskCheckboxButton.addEventListener('click', () => handleDeleteTaskButtonClick(task));
       taskEditButton.addEventListener('click', () => handleEditTaskButtonClick(task));
