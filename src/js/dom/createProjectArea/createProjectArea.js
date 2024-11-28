@@ -49,12 +49,22 @@ export default function createProjectArea() {
       const taskItemTemplateClone = projectTaskListItemTemplate.content.cloneNode(true);
       const taskItem = taskItemTemplateClone.querySelector('.project-task-item');
 
-      const taskItemTitle = taskItem.querySelector('.project-task-item__title');
-      taskItemTitle.textContent = task.title;
+      const taskTitle = taskItem.querySelector('.project-task-item__title');
+      const taskDescription = taskItem.querySelector('.project-task-item__description');
+
+      taskTitle.textContent = task.title;
+
+      if (task.description) {
+        taskDescription.textContent = task.description;
+        taskDescription.classList.add('project-task-item__description_visible');
+        taskItem.classList.add('project__task-item_two-rows');
+      }
 
       const taskEditButton = taskItem.querySelector('#project-task-item-edit-button');
       const taskDeleteButton = taskItem.querySelector('#project-task-item-delete-button');
+      const taskCheckboxButton = taskItem.querySelector('.project-task-item__checkmark-button');
 
+      taskCheckboxButton.addEventListener('click', () => handleDeleteTaskButtonClick(task));
       taskEditButton.addEventListener('click', () => handleEditTaskButtonClick(task));
       taskDeleteButton.addEventListener('click', () => handleDeleteTaskButtonClick(task));
 
