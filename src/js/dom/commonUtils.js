@@ -93,7 +93,3 @@ export function hideTicks(ticks, tickItemClassForVisibleState) {
     tick.classList.remove(tickItemClassForVisibleState);
   });
 }
-
-export function resetAllTicks(allTicks, valueName) {
-  allTicks[valueName] = [];
-}
