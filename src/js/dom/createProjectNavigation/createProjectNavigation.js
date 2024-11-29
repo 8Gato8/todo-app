@@ -7,9 +7,6 @@ import {
 } from './variables';
 
 import {
-  projects,
-  priorities,
-  inboxProject,
   taskEditor,
   projectEditor,
   projectArea,
@@ -22,7 +19,7 @@ import {
 
 import { openPopup, closePopup } from '../commonUtils';
 
-export default function createProjectNavigation() {
+export default function createProjectNavigation(projects, priorities, inboxProject) {
   /* project-navigation-block */
 
   /* query selectors */
@@ -238,6 +235,7 @@ export default function createProjectNavigation() {
 
     setChosenProject(null);
     setOpenedProject(inboxProject);
+
     projectArea.updateProjectArea();
 
     clearProjectNavigationList();

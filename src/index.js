@@ -5,84 +5,32 @@ import createProjectEditor from './js/dom/createProjectEditor/createProjectEdito
 import createTaskEditor from './js/dom/createTaskEditor/createTaskEditor';
 import createProjectArea from './js/dom/createProjectArea/createProjectArea';
 
-import createProjectWithUniqueId from './js/utils/createProjectWithUniqueId';
-import createPriorityWithUniqueId from './js/utils/createPriorityWithUniqueId';
+import createProject from './js/utils/createProject';
+import createDataObject from './js/utils/createDataObject';
 
-const prioritiesData = [
-  {
-    title: 'Приоритет 1',
-    number: 1,
-    color: {
-      title: 'Красный',
-      hexCode: '#d1453b',
-    },
-  },
-  {
-    title: 'Приоритет 2',
-    number: 2,
-    color: {
-      title: 'Оранжевый',
-      hexCode: '#eb8909',
-    },
-  },
-  {
-    title: 'Приоритет 3',
-    number: 3,
-    color: {
-      title: 'Синий',
-      hexCode: '#246fe0',
-    },
-  },
-  {
-    title: 'Приоритет 4',
-    number: 4,
-    color: {
-      title: 'Серый',
-      hexCode: '#666',
-    },
-  },
-];
-
-export const priorities = prioritiesData.map((data) => {
-  return createPriorityWithUniqueId(data);
-});
-
-export const inboxProject = createProjectWithUniqueId({
-  title: 'Входящие',
-  color: { title: 'Аспидно-серый', hexCode: '#808080' },
-});
-
-export let projects = [];
-
-export let openedProject = inboxProject;
-export function setOpenedProject(newProject) {
-  openedProject = newProject;
+export function addTask(tasks, newTask) {
+  tasks.push(newTask);
 }
 
-export let chosenProject = null;
-export function setChosenProject(newValue) {
-  chosenProject = newValue;
+export function removeTask(tasks, task) {
+  const taskIndex = tasks.indexOf(task);
+  tasks.splice(taskIndex, 1);
 }
 
-export let chosenTask = null;
-export function setChosenTask(newValue) {
-  chosenTask = newValue;
+/* TODO: Решить, будет ли создаваться и использоваться функционал чекбоксов внутри task */
+
+function addItemsToChecklist(checklist, newItems) {
+  checklist.push(newItems);
 }
 
-export function deleteProjectFromProjectsArray(project) {
-  projects = projects.filter((p) => p !== project);
+function removeItemFromChecklist(checklist, item) {
+  const itemIndex = checklist.indexOf(item);
+  checklist.splice(itemIndex, 1);
 }
 
-export function addProjectToProjectsArray(project) {
-  projects.push(project);
-}
+/* TODO: создать универсальную функцию для colors и priorities */
 
-/* Спорное решение */
-export function deleteTaskFromOpenedProject(task) {
-  openedProject.removeTaskById(task.id);
-}
-
-export const colors = [
+const colorsData = [
   {
     title: 'Ягодно-красный',
     hexCode: '#b8255f',
@@ -165,12 +113,115 @@ export const colors = [
   },
 ];
 
-projects.push(inboxProject);
+let colors = null;
 
-export const projectNavigation = createProjectNavigation();
-export const projectEditor = createProjectEditor();
-export const taskEditor = createTaskEditor();
-export const projectArea = createProjectArea();
+if (JSON.parse(localStorage.getItem('colors'))) {
+  colors = JSON.parse(localStorage.getItem('colors'));
+} else {
+  colors = colorsData.map((data) => createDataObject(data));
+  localStorage.setItem('colors', JSON.stringify(colors));
+}
+
+const prioritiesData = [
+  {
+    title: 'Приоритет 1',
+    number: 1,
+    color: {
+      title: 'Красный',
+      hexCode: '#d1453b',
+    },
+  },
+  {
+    title: 'Приоритет 2',
+    number: 2,
+    color: {
+      title: 'Оранжевый',
+      hexCode: '#eb8909',
+    },
+  },
+  {
+    title: 'Приоритет 3',
+    number: 3,
+    color: {
+      title: 'Синий',
+      hexCode: '#246fe0',
+    },
+  },
+  {
+    title: 'Приоритет 4',
+    number: 4,
+    color: {
+      title: 'Серый',
+      hexCode: '#666',
+    },
+  },
+];
+
+let priorities = null;
+
+if (JSON.parse(localStorage.getItem('priorities'))) {
+  priorities = JSON.parse(localStorage.getItem('priorities'));
+} else {
+  priorities = prioritiesData.map((data) => createDataObject(data));
+  localStorage.setItem('priorities', JSON.stringify(priorities));
+}
+
+let projects = null;
+
+if (JSON.parse(localStorage.getItem('projects'))) {
+  projects = JSON.parse(localStorage.getItem('projects'));
+} else {
+  const inboxProject = createProject({
+    title: 'Входящие',
+    defaultProject: true,
+    color: { title: 'Аспидно-серый', hexCode: '#808080' },
+  });
+
+  projects = [inboxProject];
+  localStorage.setItem('projects', JSON.stringify(projects));
+}
+
+const inboxProject = projects.find((p) => p.defaultProject);
+
+export let openedProject = inboxProject;
+export function setOpenedProject(newProject) {
+  openedProject = newProject;
+}
+
+export let chosenProject = null;
+export function setChosenProject(newValue) {
+  chosenProject = newValue;
+}
+
+export let chosenTask = null;
+export function setChosenTask(newValue) {
+  chosenTask = newValue;
+}
+
+export function deleteProjectFromProjectsArray(project) {
+  const projectIndex = projects.indexOf(project);
+  projects.splice(projectIndex, 1);
+
+  localStorage.setItem('projects', JSON.stringify(projects));
+}
+
+export function addProjectToProjectsArray(project) {
+  projects.push(project);
+
+  localStorage.setItem('projects', JSON.stringify(projects));
+}
+
+/* Спорное решение */
+export function deleteTaskFromOpenedProject(task) {
+  removeTask(openedProject.tasks, task);
+
+  localStorage.setItem('projects', JSON.stringify(projects));
+}
+
+export const projectNavigation = createProjectNavigation(projects, priorities, inboxProject);
+export const projectEditor = createProjectEditor(projects, priorities, colors);
+export const taskEditor = createTaskEditor(projects, priorities, inboxProject);
+export const projectArea = createProjectArea(projects, priorities);
 
 projectNavigation.render();
 projectEditor.renderListItems();

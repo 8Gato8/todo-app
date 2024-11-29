@@ -5,15 +5,9 @@ import {
   CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
 } from './variables';
 
-import {
-  projects,
-  projectNavigation,
-  projectArea,
-  inboxProject,
-  priorities,
-  chosenTask,
-} from '../../..';
-import createTaskWithUniqueId from '../../utils/createTaskWithUniqueId';
+import { projectNavigation, projectArea, chosenTask, addTask } from '../../..';
+
+import createTask from '../../utils/createTask';
 
 import {
   openPopup,
@@ -27,10 +21,9 @@ import {
   isFormValid,
   toggleAddButtonDisabledState,
   disableAddButton,
-  resetAllTicks,
 } from '../commonUtils';
 
-export default function createTaskEditor() {
+export default function createTaskEditor(projects, priorities, inboxProject) {
   /* query selectors */
 
   const sidebarOpenTaskEditorButton = document.querySelector('.sidebar__open-task-editor-button');
@@ -90,7 +83,11 @@ export default function createTaskEditor() {
     title: '',
     description: '',
     dueTime: '',
-    project: inboxProject,
+    project: {
+      title: inboxProject.title,
+      id: inboxProject.id,
+      color: inboxProject.color,
+    },
     priority: defaultPriority,
   };
 
@@ -156,6 +153,7 @@ export default function createTaskEditor() {
 
     if (updatedTaskData) {
       taskData = updatedTaskData;
+
       projectsToRender = [updatedTaskData.project];
 
       renderChoicePopupsElements(projectsToRender, priorities);
@@ -301,7 +299,11 @@ export default function createTaskEditor() {
       title: '',
       description: '',
       dueTime: '',
-      project: inboxProject,
+      project: {
+        id: inboxProject.id,
+        title: inboxProject.title,
+        color: inboxProject.color,
+      },
       priority: defaultPriority,
     };
   }
@@ -348,22 +350,28 @@ export default function createTaskEditor() {
     reset();
   }
 
-  function addTask() {
-    const newTask = createTaskWithUniqueId(taskData);
-    newTask.project.addTask(newTask);
+  function addTaskToProject() {
+    const newTask = createTask(taskData);
+    const project = projects.find((p) => p.id === taskData.project.id);
+
+    addTask(project.tasks, newTask);
+
+    localStorage.setItem('projects', JSON.stringify(projects));
   }
 
   function editTask() {
     for (let propName in taskData) {
       chosenTask[propName] = taskData[propName];
     }
+
+    localStorage.setItem('projects', JSON.stringify(projects));
   }
 
   function handleAddTaskButtonClick(e, popup, classForVisibleState) {
     e.preventDefault();
 
     if (addTaskButton.textContent.trim() === 'Добавить задачу') {
-      addTask();
+      addTaskToProject();
     } else {
       editTask();
     }

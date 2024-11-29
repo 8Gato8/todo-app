@@ -85,7 +85,8 @@ export default function createProjectArea() {
   /* event's handlers */
 
   function handleAddTaskButtonClick() {
-    const currentProject = openedProject;
+    const { id, title, color } = openedProject;
+    const currentProject = { id, title, color };
 
     taskEditor.clear();
     taskEditor.updateEditor('Добавить задачу', { currentProject });
@@ -96,8 +97,7 @@ export default function createProjectArea() {
   function handleEditTaskButtonClick(task) {
     setChosenTask(task);
 
-    const { title, description, dueTime, project, priority } = task;
-    const updatedTaskData = { title, description, dueTime, project, priority };
+    const updatedTaskData = task;
 
     taskEditor.updateEditor('Сохранить', { updatedTaskData });
 

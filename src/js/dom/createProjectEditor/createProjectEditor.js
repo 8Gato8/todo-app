@@ -6,17 +6,14 @@ import {
 } from './variables';
 
 import {
-  projects,
-  priorities,
   projectNavigation,
   taskEditor,
   projectArea,
-  colors,
   chosenProject,
   addProjectToProjectsArray,
 } from '../../..';
 
-import createProjectWithUniqueId from '../../utils/createProjectWithUniqueId';
+import createProject from '../../utils/createProject';
 
 import {
   closePopup,
@@ -29,10 +26,9 @@ import {
   isFormValid,
   toggleAddButtonDisabledState,
   disableAddButton,
-  resetAllTicks,
 } from '../commonUtils';
 
-export default function createProjectEditor() {
+export default function createProjectEditor(projects, priorities, colors) {
   /* query selectors */
 
   const projectEditorForm = document.querySelector('.project-editor');
@@ -144,8 +140,19 @@ export default function createProjectEditor() {
   }
 
   function updateEditor(editorTitleText, editorSubmitText, updatedProjectData) {
-    if (!updatedProjectData) resetProjectData();
-    else projectData = updatedProjectData;
+    if (updatedProjectData) {
+      projectData = updatedProjectData;
+
+      for (let ticks in allTicks) {
+        hideTicks(allTicks[ticks], SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+      }
+
+      const colorTick = document.querySelector(`[color="${projectData.color.id}"]`);
+
+      showTick(colorTick, SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+    } else {
+      resetProjectData();
+    }
 
     updateEditorTitle(editorTitleText);
     updateEditorSubmitButton(editorSubmitText);
@@ -153,6 +160,10 @@ export default function createProjectEditor() {
     updateSelectButtonTextElement(selectButtonTitleElement, valueName);
     updateSelectButtonIconElement(selectButtonIconElement, valueName);
     toggleAddButtonDisabledState(isFormValid(inputs), addTaskButton);
+  }
+
+  function clearSpecificTicks(valueName) {
+    allTicks[valueName] = [];
   }
 
   function resetProjectData() {
@@ -186,10 +197,11 @@ export default function createProjectEditor() {
   }
 
   function renderSelectListItems() {
+    clearSpecificTicks(valueName);
+
     const selectPopupTicks = allTicks[valueName];
 
     updateSelectButtonUI(defaultColor, selectButtonTitleElement, selectButtonIconElement);
-    /* resetAllTicks(allTicks, valueName); */
 
     colors.forEach((color, index) => {
       const selectListItemClone = projectEditorSelectListItemTemplate.content.cloneNode(true);
@@ -198,6 +210,8 @@ export default function createProjectEditor() {
       selectListItem.setAttribute('data-hexCode', color.hexCode);
 
       const selectListItemTick = selectListItem.querySelector('.project-editor-select-item__tick');
+
+      selectListItemTick.setAttribute(valueName, color.id);
 
       selectPopupTicks.push(selectListItemTick);
 
@@ -251,7 +265,7 @@ export default function createProjectEditor() {
   }
 
   function addProject() {
-    const project = createProjectWithUniqueId(projectData);
+    const project = createProject(projectData);
     addProjectToProjectsArray(project);
   }
 
@@ -259,6 +273,15 @@ export default function createProjectEditor() {
     for (let propName in projectData) {
       chosenProject[propName] = projectData[propName];
     }
+
+    const { title, color } = chosenProject;
+
+    chosenProject.tasks.forEach((task) => {
+      task.project.title = title;
+      task.project.color = color;
+    });
+
+    localStorage.setItem('projects', JSON.stringify(projects));
   }
 
   function handleAddTaskButtonClick(e, popup, classForVisibleState) {
@@ -322,13 +345,6 @@ export default function createProjectEditor() {
   );
 
   /* render functions */
-
-  renderSelectListItems(
-    projectEditorSelectColorList,
-    projectEditorSelectColorButton,
-    SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
-    colors,
-  );
 
   return {
     renderListItems: renderSelectListItems,
