@@ -86,17 +86,18 @@
               name="title"
               class="editing-area__title editing-area-input"
               type="text"
+              required
               placeholder="Название задачи" />
-            <textarea
+            <input
               name="description"
               class="editing-area__description editing-area-input"
-              placeholder="Описание"
-              rows="1"></textarea>
+              placeholder="Описание" />
             <input
-              name="dueTime"
               class="editing-area__due-time editing-area-input"
-              type="text"
-              placeholder="Срок выполнения" />
+              name="dueTime"
+              type="date"
+              min="2024-01-01"
+              max="2028-12-31" />
           </div>
           <div class="task-editor__footer task-editor-footer">
             <div class="task-editor-footer__selects">

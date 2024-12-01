@@ -1,6 +1,8 @@
 import { PROJECT_TASK_LIST_VISIBLE } from './variables';
 import { OVERLAY_CLASS_FOR_VISIBLE_STATE } from '../commonVariables';
 
+import { isYesterday, isToday, isTomorrow } from 'date-fns';
+
 import {
   deleteTaskFromOpenedProject,
   openedProject,

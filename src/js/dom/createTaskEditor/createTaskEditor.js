@@ -5,6 +5,8 @@ import {
   CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
 } from './variables';
 
+import { format } from 'date-fns';
+
 import { projectNavigation, projectArea, chosenTask, addTask } from '../../..';
 
 import createTask from '../../utils/createTask';
@@ -68,7 +70,6 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
   const addTaskButton = document.querySelector('#add-task-button');
 
   const inputs = document.querySelectorAll('.editing-area-input');
-  const dueTime = document.querySelector('.editing-area__due-time');
 
   /* variables */
 
@@ -85,7 +86,7 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
   let taskData = {
     title: '',
     description: '',
-    dueTime: '',
+    dueTime: null,
     project: {
       title: inboxProject.title,
       id: inboxProject.id,
@@ -141,6 +142,14 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
     choicePopupButtonIcon.style.fill = taskData[valueName].color.hexCode;
   }
 
+  function updateDueTime() {
+    if (!taskData.dueTime) {
+      taskData.dueTime = format(new Date(), 'yyyy-MM-dd');
+    } else {
+      taskData.dueTime = format(taskData.dueTime, 'yyyy-MM-dd');
+    }
+  }
+
   function clearSpecificTicks(valueName) {
     allTicks[valueName] = [];
   }
@@ -185,6 +194,7 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
       renderChoicePopupsElements(projectsToRender, priorities);
     }
 
+    updateDueTime(updateDueTime);
     updateEditorSubmitButton(editorSubmitText);
     updateInputsValues(taskData);
     toggleAddButtonDisabledState(isFormValid(inputs), addTaskButton);
@@ -301,7 +311,7 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
     taskData = {
       title: '',
       description: '',
-      dueTime: '',
+      dueTime: null,
       project: {
         id: inboxProject.id,
         title: inboxProject.title,
