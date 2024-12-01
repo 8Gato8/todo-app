@@ -68,6 +68,7 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
   const addTaskButton = document.querySelector('#add-task-button');
 
   const inputs = document.querySelectorAll('.editing-area-input');
+  const dueTime = document.querySelector('.editing-area__due-time');
 
   /* variables */
 
@@ -149,14 +150,14 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
 
     clearChoicePopupLists();
 
-    const { updatedTaskData, currentProject, projects } = options;
+    const { task, currentProject, projects } = options;
 
     let projectsToRender = null;
 
-    if (updatedTaskData) {
-      taskData = updatedTaskData;
+    if (task) {
+      taskData = task;
 
-      projectsToRender = [updatedTaskData.project];
+      projectsToRender = [task.project];
 
       renderChoicePopupsElements(projectsToRender, priorities);
 
@@ -164,8 +165,8 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
         hideTicks(allTicks[ticks], CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
       }
 
-      const projectTick = document.querySelector(`[project="${updatedTaskData.project.id}"]`);
-      const priorityTick = document.querySelector(`[priority="${updatedTaskData.priority.id}"]`);
+      const projectTick = document.querySelector(`[project="${task.project.id}"]`);
+      const priorityTick = document.querySelector(`[priority="${task.priority.id}"]`);
 
       showTick(projectTick, CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
       showTick(priorityTick, CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);

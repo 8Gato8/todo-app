@@ -97,9 +97,7 @@ export default function createProjectArea() {
   function handleEditTaskButtonClick(task) {
     setChosenTask(task);
 
-    const updatedTaskData = task;
-
-    taskEditor.updateEditor('Сохранить', { updatedTaskData });
+    taskEditor.updateEditor('Сохранить', { task });
 
     openPopup(taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
   }
