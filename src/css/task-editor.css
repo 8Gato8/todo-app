@@ -30,6 +30,10 @@
   outline: none;
 }
 
+.editing-area__due-time {
+  align-self: flex-start;
+}
+
 .task-editor__select-button {
   position: relative;
 }
