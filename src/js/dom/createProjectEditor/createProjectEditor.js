@@ -28,7 +28,9 @@ import {
   disableAddButton,
 } from '../commonUtils';
 
-export default function createProjectEditor(projects, priorities, colors) {
+import addItemToLocalStorage from '../../utils/addItemToLocalStorage';
+
+export default function createProjectEditor(projects, priorities, colors, defaultColor) {
   /* query selectors */
 
   const projectEditorForm = document.querySelector('.project-editor');
@@ -78,8 +80,6 @@ export default function createProjectEditor(projects, priorities, colors) {
   /* variables */
 
   const selectColorContainerChildrenList = makeElementChildrenList(projectSelectColorContainer);
-
-  const defaultColor = colors[0];
 
   let projectData = {
     title: '',
@@ -140,18 +140,21 @@ export default function createProjectEditor(projects, priorities, colors) {
   }
 
   function updateEditor(editorTitleText, editorSubmitText, updatedProjectData) {
+    for (let ticks in allTicks) {
+      hideTicks(allTicks[ticks], SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+    }
+
     if (updatedProjectData) {
       projectData = updatedProjectData;
-
-      for (let ticks in allTicks) {
-        hideTicks(allTicks[ticks], SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
-      }
 
       const colorTick = document.querySelector(`[color="${projectData.color.id}"]`);
 
       showTick(colorTick, SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
     } else {
       resetProjectData();
+
+      const colorTick = document.querySelector(`[color="${defaultColor.id}"]`);
+      showTick(colorTick, SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
     }
 
     updateEditorTitle(editorTitleText);
@@ -203,7 +206,7 @@ export default function createProjectEditor(projects, priorities, colors) {
 
     updateSelectButtonUI(defaultColor, selectButtonTitleElement, selectButtonIconElement);
 
-    colors.forEach((color, index) => {
+    colors.forEach((color) => {
       const selectListItemClone = projectEditorSelectListItemTemplate.content.cloneNode(true);
       const selectListItem = selectListItemClone.querySelector('.project-editor__select-item');
 
@@ -215,7 +218,7 @@ export default function createProjectEditor(projects, priorities, colors) {
 
       selectPopupTicks.push(selectListItemTick);
 
-      if (index === 0) {
+      if (color === defaultColor) {
         showTick(selectListItemTick, SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
       }
 
@@ -281,7 +284,7 @@ export default function createProjectEditor(projects, priorities, colors) {
       task.project.color = color;
     });
 
-    localStorage.setItem('projects', JSON.stringify(projects));
+    addItemToLocalStorage('projects', projects);
   }
 
   function handleAddTaskButtonClick(e, popup, classForVisibleState) {

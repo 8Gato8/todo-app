@@ -23,6 +23,8 @@ import {
   disableAddButton,
 } from '../commonUtils';
 
+import addItemToLocalStorage from '../../utils/addItemToLocalStorage';
+
 export default function createTaskEditor(projects, priorities, inboxProject) {
   /* query selectors */
 
@@ -356,7 +358,7 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
 
     addTask(project.tasks, newTask);
 
-    localStorage.setItem('projects', JSON.stringify(projects));
+    addItemToLocalStorage('projects', projects);
   }
 
   function editTask() {
@@ -364,7 +366,7 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
       chosenTask[propName] = taskData[propName];
     }
 
-    localStorage.setItem('projects', JSON.stringify(projects));
+    addItemToLocalStorage('projects', projects);
   }
 
   function handleAddTaskButtonClick(e, popup, classForVisibleState) {
