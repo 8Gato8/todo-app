@@ -143,11 +143,13 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
   }
 
   function updateDueTime() {
+    let result = '';
     if (!taskData.dueTime) {
-      taskData.dueTime = format(new Date(), 'yyyy-MM-dd');
+      result = format(new Date(), 'yyyy-MM-dd HH:mm').replace(' ', 'T');
     } else {
-      taskData.dueTime = format(taskData.dueTime, 'yyyy-MM-dd');
+      result = format(taskData.dueTime, 'yyyy-MM-dd HH:mm').replace(' ', 'T');
     }
+    taskData.dueTime = result;
   }
 
   function clearSpecificTicks(valueName) {
