@@ -1,7 +1,7 @@
 import { PROJECT_TASK_LIST_VISIBLE } from './variables';
 import { OVERLAY_CLASS_FOR_VISIBLE_STATE } from '../commonVariables';
 
-import { isYesterday, isToday, isTomorrow } from 'date-fns';
+import { isPast, isToday, isTomorrow, isThisYear, getDate, getYear, format } from 'date-fns';
 
 import {
   deleteTaskFromOpenedProject,
@@ -32,6 +32,46 @@ export default function createProjectArea() {
     projectTitle.textContent = openedProject.title;
   }
 
+  function updateTaskDueTimeUI(task, textElement, iconElement) {
+    const { dueDate, dueTime } = task;
+    const bodyStyles = getComputedStyle(document.body);
+
+    let color = null;
+    let finalString = '';
+
+    const day = getDate(dueDate);
+    const month = format(dueDate, 'MMMM');
+    const year = getYear(dueDate);
+
+    const today = isToday(dueDate);
+    const past = dueTime ? isPast(format(`${dueDate} ${dueTime}`, 'yyyy-MM-dd HH:mm')) : false;
+
+    const tommorow = isTomorrow(dueDate);
+
+    let startOfString = `${day} ${month}`;
+    let middleOfString = isThisYear(dueDate) ? '' : ` ${year}`;
+    let endOfString = dueTime || '';
+
+    if (today) {
+      color = bodyStyles.getPropertyValue('--dueItem-shedule-today-color');
+      startOfString = 'Сегодня';
+    }
+
+    if (past) {
+      color = bodyStyles.getPropertyValue('--dueItem-shedule-overdue-color');
+    }
+
+    if (tommorow) {
+      color = bodyStyles.getPropertyValue('--dueItem-shedule-tomorrow-color');
+      startOfString = 'Завтра';
+    }
+
+    finalString = `${startOfString} ${middleOfString} ${endOfString}`;
+    textElement.textContent = finalString;
+    textElement.style.setProperty('color', color);
+    iconElement.style.setProperty('fill', color);
+  }
+
   function clearTaskList() {
     while (projectTaskList.firstChild) {
       projectTaskList.removeChild(projectTaskList.firstChild);
@@ -52,15 +92,28 @@ export default function createProjectArea() {
       const taskItem = taskItemTemplateClone.querySelector('.project-task-item');
 
       const taskTitle = taskItem.querySelector('.project-task-item__title');
-      const taskDescription = taskItem.querySelector('.project-task-item__description');
-
       taskTitle.textContent = task.title;
+
+      const taskDescription = taskItem.querySelector('.project-task-item__description');
+      const dueTimeContainer = taskItem.querySelector('.project-task-item__due-time-container');
+
+      if (task.description || task.dueDate || task.dueTime) {
+        taskItem.classList.add('project__task-item_two-rows');
+      }
 
       if (task.description) {
         taskDescription.textContent = task.description;
         taskDescription.classList.add('project-task-item__description_visible');
-        taskItem.classList.add('project__task-item_two-rows');
       }
+
+      if (task.dueDate || task.dueTime) {
+        dueTimeContainer.classList.add('project-task-item__due-time-container_visible');
+      }
+
+      const taskDueTimeText = taskItem.querySelector('.project-task-item__due-time-text');
+      const taskDueTimeIcon = taskItem.querySelector('.project-task-item__due-time-icon');
+
+      updateTaskDueTimeUI(task, taskDueTimeText, taskDueTimeIcon);
 
       const taskEditButton = taskItem.querySelector('#project-task-item-edit-button');
       const taskDeleteButton = taskItem.querySelector('#project-task-item-delete-button');

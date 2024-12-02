@@ -33,4 +33,9 @@
   --p2-color: #eb8909;
   --p3-color: #246fe0;
   --p4-color: #666;
+
+  --dueItem-shedule-overdue-color: var(--p1-color);
+  --dueItem-shedule-today-color: #058527;
+  --dueItem-shedule-color: #808080;
+  --dueItem-shedule-tomorrow-color: #ad6200;
 }

@@ -25,12 +25,12 @@
 
 .editing-area__title,
 .editing-area__description,
-.editing-area__due-time {
+.editing-area__due-item {
   border: none;
   outline: none;
 }
 
-.editing-area__due-time {
+.editing-area__due-item {
   align-self: flex-start;
 }
 

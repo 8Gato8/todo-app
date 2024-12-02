@@ -86,7 +86,8 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
   let taskData = {
     title: '',
     description: '',
-    dueTime: null,
+    dueDate: '',
+    dueTime: '',
     project: {
       title: inboxProject.title,
       id: inboxProject.id,
@@ -142,14 +143,14 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
     choicePopupButtonIcon.style.fill = taskData[valueName].color.hexCode;
   }
 
-  function updateDueTime() {
+  function updateDueDate() {
     let result = '';
-    if (!taskData.dueTime) {
-      result = format(new Date(), 'yyyy-MM-dd HH:mm').replace(' ', 'T');
+    if (!taskData.dueDate) {
+      result = format(new Date(), 'yyyy-MM-dd');
     } else {
-      result = format(taskData.dueTime, 'yyyy-MM-dd HH:mm').replace(' ', 'T');
+      result = format(taskData.dueDate, 'yyyy-MM-dd');
     }
-    taskData.dueTime = result;
+    taskData.dueDate = result;
   }
 
   function clearSpecificTicks(valueName) {
@@ -196,7 +197,7 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
       renderChoicePopupsElements(projectsToRender, priorities);
     }
 
-    updateDueTime(updateDueTime);
+    updateDueDate();
     updateEditorSubmitButton(editorSubmitText);
     updateInputsValues(taskData);
     toggleAddButtonDisabledState(isFormValid(inputs), addTaskButton);
@@ -313,7 +314,8 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
     taskData = {
       title: '',
       description: '',
-      dueTime: null,
+      dueTime: '',
+      dueDate: '',
       project: {
         id: inboxProject.id,
         title: inboxProject.title,

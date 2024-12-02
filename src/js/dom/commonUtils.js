@@ -71,7 +71,9 @@ export function isFormValid(inputs) {
 
   const inputsArray = Array.from(inputs);
 
-  const filteredInputsArray = inputsArray.filter((input) => input.name !== 'description');
+  const filteredInputsArray = inputsArray.filter(
+    (input) => input.name !== 'description' && input.name !== 'dueTime',
+  );
 
   return filteredInputsArray.every((input) => input.value !== '');
 }
