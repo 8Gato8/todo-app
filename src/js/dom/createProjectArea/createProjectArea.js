@@ -34,22 +34,33 @@ export default function createProjectArea() {
 
   function updateTaskDueTimeUI(task, textElement, iconElement) {
     const { dueDate, dueTime } = task;
+
+    let date = null;
+
+    if (!dueDate && !dueTime) return;
+
+    if (!dueDate) {
+      date = format(new Date(), 'yyyy-MM-dd');
+    } else {
+      date = dueDate;
+    }
+
     const bodyStyles = getComputedStyle(document.body);
 
     let color = null;
     let finalString = '';
 
-    const day = getDate(dueDate);
-    const month = format(dueDate, 'MMMM');
-    const year = getYear(dueDate);
+    const day = getDate(date);
+    const month = format(date, 'MMMM');
+    const year = getYear(date);
 
-    const today = isToday(dueDate);
-    const past = dueTime ? isPast(format(`${dueDate} ${dueTime}`, 'yyyy-MM-dd HH:mm')) : false;
+    const today = isToday(date);
+    const past = dueTime ? isPast(format(`${date} ${dueTime}`, 'yyyy-MM-dd HH:mm')) : false;
 
-    const tommorow = isTomorrow(dueDate);
+    const tommorow = isTomorrow(date);
 
     let startOfString = `${day} ${month}`;
-    let middleOfString = isThisYear(dueDate) ? '' : ` ${year}`;
+    let middleOfString = isThisYear(date) ? '' : ` ${year}`;
     let endOfString = dueTime || '';
 
     if (today) {
