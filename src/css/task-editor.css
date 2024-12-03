@@ -23,9 +23,7 @@
   font-size: 13px;
 }
 
-.editing-area__title,
-.editing-area__description,
-.editing-area__due-item-input {
+.editing-area-input {
   border: none;
   outline: none;
 }
