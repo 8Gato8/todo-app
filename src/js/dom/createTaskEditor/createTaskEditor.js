@@ -144,13 +144,9 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
   }
 
   function updateDueDate() {
-    let result = '';
-    if (!taskData.dueDate) {
-      result = format(new Date(), 'yyyy-MM-dd');
-    } else {
-      result = format(taskData.dueDate, 'yyyy-MM-dd');
-    }
-    taskData.dueDate = result;
+    if (!taskData.dueDate) return;
+
+    taskData.dueDate = format(taskData.dueDate, 'yyyy-MM-dd');
   }
 
   function clearSpecificTicks(valueName) {
