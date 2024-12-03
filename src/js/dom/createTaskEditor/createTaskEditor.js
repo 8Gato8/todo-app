@@ -71,6 +71,8 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
 
   const inputs = document.querySelectorAll('.editing-area-input');
 
+  const description = document.querySelector('.editing-area__description');
+
   const dueDate = document.querySelector('#due-date');
   const dueTime = document.querySelector('#due-time');
 
@@ -367,8 +369,13 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
     showTick(currentTick, CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
   }
 
+  function resetTextareaResize() {
+    description.style.height = '';
+  }
+
   function handleCancelButtonClick(popup, classForVisibleState) {
     closePopup(popup, classForVisibleState);
+    resetTextareaResize();
 
     reset();
   }
@@ -405,6 +412,7 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
     projectArea.updateProjectArea();
 
     closePopup(popup, classForVisibleState);
+    resetTextareaResize();
 
     reset();
   }
@@ -443,14 +451,16 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
     handleSidebarOpenTaskEditorButtonClick(taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
   );
 
-  taskEditorOverlay.addEventListener('mousedown', (e) =>
+  taskEditorOverlay.addEventListener('mousedown', (e) => {
     handleEditorOverlayClick(
       e,
       choicePopupsNodeList,
       OVERLAY_CLASS_FOR_VISIBLE_STATE,
       CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE,
-    ),
-  );
+    );
+
+    resetTextareaResize();
+  });
 
   document.addEventListener('click', (e) =>
     handleClickOutsidePopup(
