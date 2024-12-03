@@ -93,8 +93,26 @@
               name="description"
               class="editing-area__description editing-area-input"
               placeholder="Описание"></textarea>
+
             <label class="due-item" for="due-date">
-              <span class="due-item__text">Срок</span>
+              <div class="due-item-container">
+                <span class="due-item__text">Срок</span>
+                <button
+                  type="button"
+                  id="due-date-reset-button"
+                  class="due-item__reset-button pressed-button">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16px"
+                    height="16px"
+                    viewBox="0 0 16 16">
+                    <path
+                      fill-rule="evenodd"
+                      d="M11.854 11.854a.5.5 0 0 0 0-.707L8.707 8l3.147-3.146a.5.5 0 0 0-.708-.707L8 7.293 4.854 4.147a.5.5 0 1 0-.708.707L7.293 8l-3.147 3.147a.5.5 0 1 0 .708.707L8 8.708l3.146 3.146a.5.5 0 0 0 .708 0Z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                </button>
+              </div>
               <input
                 id="due-date"
                 class="editing-area-input due-item__input"
@@ -103,8 +121,26 @@
                 min="2024-01-01"
                 max="2028-12-31" />
             </label>
+
             <label class="due-item" for="due-time">
-              <span class="due-item__text">Время</span>
+              <div class="due-item-container">
+                <span class="due-item__text">Время</span>
+                <button
+                  type="button"
+                  id="due-time-reset-button"
+                  class="due-item__reset-button pressed-button">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16px"
+                    height="16px"
+                    viewBox="0 0 16 16">
+                    <path
+                      fill-rule="evenodd"
+                      d="M11.854 11.854a.5.5 0 0 0 0-.707L8.707 8l3.147-3.146a.5.5 0 0 0-.708-.707L8 7.293 4.854 4.147a.5.5 0 1 0-.708.707L7.293 8l-3.147 3.147a.5.5 0 1 0 .708.707L8 8.708l3.146 3.146a.5.5 0 0 0 .708 0Z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                </button>
+              </div>
               <input
                 id="due-time"
                 class="editing-area-input due-item__input"

@@ -28,17 +28,46 @@
   outline: none;
 }
 
+.due-item-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
 .due-item {
   display: flex;
   flex-direction: column;
-
-  align-items: flex-start;
   gap: 5px;
+
+  align-self: flex-start;
 }
 
 .due-item__text {
+  position: relative;
+  top: -1px;
   font-size: 13px;
   color: var(--editor-button-color);
+
+  min-width: 40px;
+}
+
+.due-item__reset-button {
+  font-size: 13px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+
+  background-color: var(--editor-cancel-button-background-color);
+}
+
+.due-item__reset-button:hover {
+  background-color: var(--editor-cancel-button-background-color-hover);
+  transition: all ease-out 0.2s;
 }
 
 .task-editor__select-button {
