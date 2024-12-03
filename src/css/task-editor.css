@@ -3,9 +3,19 @@
 .task-editor__editing-area {
   display: flex;
   flex-direction: column;
-  gap: 15px;
   border-bottom: 1px solid var(--editor-border-idle-tint);
+}
+
+.task-editor__text-inputs,
+.task-editor__due-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
   padding: 15px;
+}
+
+.task-editor__text-inputs {
+  border-bottom: 1px solid var(--editor-border-idle-tint);
 }
 
 .editing-area__title {
