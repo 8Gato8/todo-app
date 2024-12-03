@@ -86,7 +86,7 @@
   gap: 3px;
 }
 
-.project-task-item__due-time-container {
+.project-task-item__due-time-container_visible {
   display: flex;
 }
 
