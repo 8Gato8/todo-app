@@ -427,6 +427,16 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
     openPopup(taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
   }
 
+  function handleDueDateResetButtonClick() {
+    clearInputValue(dueDate);
+    addInputValueToTaskData(dueDate);
+  }
+
+  function handleDueTimeResetButtonClick() {
+    clearInputValue(dueTime);
+    addInputValueToTaskData(dueTime);
+  }
+
   /* event listeners */
 
   sidebarOpenTaskEditorButton.addEventListener('click', () =>
@@ -476,15 +486,9 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
     input.addEventListener('input', (e) => handleInputChange(e, addTaskButton, inputs));
   });
 
-  dueDateResetButton.addEventListener('click', () => {
-    clearInputValue(dueDate);
-    addInputValueToTaskData(dueDate);
-  });
+  dueDateResetButton.addEventListener('click', handleDueDateResetButtonClick);
 
-  dueTimeResetButton.addEventListener('click', () => {
-    clearInputValue(dueTime);
-    addInputValueToTaskData(dueTime);
-  });
+  dueTimeResetButton.addEventListener('click', handleDueTimeResetButtonClick);
 
   addTaskButton.addEventListener('submit', (e) =>
     handleAddTaskButtonClick(e, taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
