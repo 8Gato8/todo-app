@@ -71,6 +71,12 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
 
   const inputs = document.querySelectorAll('.editing-area-input');
 
+  const dueDate = document.querySelector('#due-date');
+  const dueTime = document.querySelector('#due-time');
+
+  const dueDateResetButton = document.querySelector('#due-date-reset-button');
+  const dueTimeResetButton = document.querySelector('#due-time-reset-button');
+
   /* variables */
 
   const projectPopupContainerChildrenList = makeElementChildrenList(projectChoiceContainer);
@@ -300,9 +306,13 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
     });
   }
 
+  function clearInputValue(input) {
+    input.value = '';
+  }
+
   function clearAllInputsValues() {
     inputs.forEach((input) => {
-      input.value = '';
+      clearInputValue(input);
     });
   }
 
@@ -399,10 +409,14 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
     reset();
   }
 
-  function handleInputChange(e, addButton, inputs) {
-    const input = e.currentTarget;
+  function addInputValueToTaskData(input) {
     const valueName = input.name;
     taskData[valueName] = input.value;
+  }
+
+  function handleInputChange(e, addButton, inputs) {
+    const input = e.currentTarget;
+    addInputValueToTaskData(input);
 
     toggleAddButtonDisabledState(isFormValid(inputs), addButton);
   }
@@ -460,6 +474,16 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
 
   inputs.forEach((input) => {
     input.addEventListener('input', (e) => handleInputChange(e, addTaskButton, inputs));
+  });
+
+  dueDateResetButton.addEventListener('click', () => {
+    clearInputValue(dueDate);
+    addInputValueToTaskData(dueDate);
+  });
+
+  dueTimeResetButton.addEventListener('click', () => {
+    clearInputValue(dueTime);
+    addInputValueToTaskData(dueTime);
   });
 
   addTaskButton.addEventListener('submit', (e) =>
