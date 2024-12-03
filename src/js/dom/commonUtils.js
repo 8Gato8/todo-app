@@ -71,11 +71,9 @@ export function isFormValid(inputs) {
 
   const inputsArray = Array.from(inputs);
 
-  const filteredInputsArray = inputsArray.filter(
-    (input) => input.name !== 'description' && input.name !== 'dueTime',
-  );
+  const title = inputsArray.find((input) => input.name === 'title');
 
-  return filteredInputsArray.every((input) => input.value !== '');
+  return title.value !== '';
 }
 
 export function toggleAddButtonDisabledState(formValid, addButton) {
