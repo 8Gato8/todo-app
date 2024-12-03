@@ -25,13 +25,22 @@
 
 .editing-area__title,
 .editing-area__description,
-.editing-area__due-item {
+.editing-area__due-item-input {
   border: none;
   outline: none;
 }
 
-.editing-area__due-item {
-  align-self: flex-start;
+.due-item {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.due-item__text {
+  font-size: 13px;
+  color: var(--editor-button-color);
 }
 
 .task-editor__select-button {

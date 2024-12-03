@@ -93,18 +93,24 @@
               name="description"
               class="editing-area__description editing-area-input"
               placeholder="Описание"></textarea>
-            <input
-              id="due-date"
-              class="editing-area__due-item editing-area-input"
-              name="dueDate"
-              type="date"
-              min="2024-01-01"
-              max="2028-12-31" />
-            <input
-              id="due-time"
-              class="editing-area__due-item editing-area-input"
-              name="dueTime"
-              type="time" />
+            <label class="due-item" for="due-date">
+              <span class="due-item__text">Срок</span>
+              <input
+                id="due-date"
+                class="editing-area__due-item-input due-item__input"
+                name="dueDate"
+                type="date"
+                min="2024-01-01"
+                max="2028-12-31" />
+            </label>
+            <label class="due-item" for="due-time">
+              <span class="due-item__text">Время</span>
+              <input
+                id="due-time"
+                class="editing-area__due-item-input due-item__input"
+                name="dueTime"
+                type="time" />
+            </label>
           </div>
           <div class="task-editor__footer task-editor-footer">
             <div class="task-editor-footer__selects">
