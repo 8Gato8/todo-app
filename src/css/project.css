@@ -1,15 +1,16 @@
 .project-container {
-  margin-top: 100px;
   grid-area: project;
 }
 
 .project {
   margin: auto;
-  max-width: 700px;
+  max-width: 750px;
   display: flex;
   flex-direction: column;
   gap: 25px;
   align-items: flex-start;
+
+  padding: 40px;
 }
 
 .project__title {
@@ -73,6 +74,8 @@
   font-size: 13px;
   color: var(--p4-color);
 
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
@@ -93,10 +96,16 @@
 .project-task-item__due-time-text {
   font-size: 12px;
   color: var(--dueTime-shedule-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .project-task-item__due-time-icon {
   fill: var(--dueTime-shedule-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .project-task-item__buttons {

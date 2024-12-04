@@ -22,6 +22,12 @@
   align-self: flex-end;
 }
 
+@media (max-width: 375px) {
+  .project-editor__buttons {
+    align-self: center;
+  }
+}
+
 .project-editor__field-container {
   display: flex;
   flex-direction: column;

@@ -6,8 +6,11 @@
 }
 
 .editor_popup {
-  margin-top: 150px;
-  width: min(580px, 50%);
+  flex: 1;
+
+  margin: 150px 40px 0 40px;
+  min-width: 240px;
+  max-width: 580px;
   box-shadow: 0 15px 50px 0 rgba(0, 0, 0, 0.35);
 }
 
@@ -29,4 +32,35 @@
   padding: 10px 12px;
   border-radius: 6px;
   transition: all ease-out 0.2s;
+}
+
+.editor__cancel-button {
+  background-color: var(--editor-cancel-button-background-color);
+}
+
+.editor__cancel-button:hover {
+  background-color: var(--editor-cancel-button-background-color-hover);
+  color: var(--editor-cancel-button-color-hover);
+}
+
+.editor__add-task-button {
+  background-color: var(--editor-add-button-background-color);
+  color: var(--white);
+}
+
+.editor__add-task-button:disabled {
+  background-color: var(--editor-add-button-background-color-disabled);
+  cursor: not-allowed;
+}
+
+.editor__add-task-button:disabled:active {
+  transform: none;
+}
+
+.editor__add-task-button:disabled:hover {
+  background-color: var(--editor-add-button-background-color-disabled);
+}
+
+.editor__add-task-button:hover {
+  background-color: var(--editor-add-button-background-color-hover);
 }
