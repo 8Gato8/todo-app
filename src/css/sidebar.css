@@ -1,17 +1,60 @@
 @import url('./variables.css');
 
+.sidebar-overlay {
+  grid-area: sidebar-overlay;
+}
+
+.sidebar-overlay_expanded {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  z-index: 2;
+
+  grid-area: none;
+}
+
 .sidebar {
-  grid-area: sidebar;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
+  display: grid;
+  grid-template:
+    'add-button toggle-button' min-content
+    'project-navigation project-navigation' auto
+    / 1fr auto;
+  row-gap: 30px;
   background-color: var(--sidebar-background);
   min-height: 100vh;
   padding: 10px;
+}
+
+.sidebar_minified {
+  background-color: var(--white);
+
+  grid-template:
+    'toggle-button' min-content
+    / auto;
+}
+
+.sidebar_minified > :not(.sidebar__toggle-button) {
+  display: none;
+}
+
+@media (max-width: 750px) {
+  .sidebar:not(.sidebar_minified) {
+    width: 280px;
+  }
 }
 
 .sidebar__open-task-editor-button {
   align-self: flex-start;
   font-weight: 600;
   width: 100%;
+
+  grid-area: add-button;
+}
+
+.sidebar__toggle-button {
+  grid-area: toggle-button;
 }

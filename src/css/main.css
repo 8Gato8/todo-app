@@ -1,7 +1,20 @@
 .main {
   display: grid;
   grid-template:
-    'sidebar project' auto
-    'sidebar project' 1fr
+    'sidebar-overlay project' auto
     / 280px 1fr;
+  position: relative;
+  min-height: 100vh;
+}
+
+.main_sidebar_minified {
+  grid-template:
+    'sidebar-overlay project' auto
+    / auto 1fr;
+}
+
+.main_sidebar_hidden {
+  grid-template:
+    'project' auto
+    / auto;
 }

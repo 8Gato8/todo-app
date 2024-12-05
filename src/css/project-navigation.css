@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  grid-area: project-navigation;
 }
 
 .project-navigation__list-title-container {

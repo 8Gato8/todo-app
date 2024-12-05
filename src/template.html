@@ -7,56 +7,71 @@
   </head>
   <body>
     <main class="main">
-      <div class="sidebar">
-        <button type="button" class="sidebar__open-task-editor-button button-with-icon">
-          <svg
-            class="add"
-            xmlns="http://www.w3.org/2000/svg"
-            height="24px"
-            viewBox="0 -960 960 960"
-            width="24px"
-            fill="#000">
-            <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
-          </svg>
-          <span class="button-with-icon__text">Добавить задачу</span>
-        </button>
+      <div class="sidebar-overlay">
+        <div class="sidebar">
+          <button type="button" class="sidebar__open-task-editor-button button-with-icon">
+            <svg
+              class="add"
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="#000">
+              <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
+            </svg>
+            <span class="button-with-icon__text">Добавить задачу</span>
+          </button>
 
-        <nav class="project-navigation">
-          <div class="project-navigation__list-title-container">
-            <h2 class="project-navigation__list-title">Мои проекты</h2>
+          <button id="toggle-sidebar-button" class="sidebar__toggle-button button-with-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="toggle-sidebar-button__icon"
+              width="24px"
+              height="24px"
+              viewBox="0 0 24 24">
+              <path
+                fill-rule="evenodd"
+                d="M19 4.001H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-12a2 2 0 0 0-2-2Zm-15 2a1 1 0 0 1 1-1h4v14H5a1 1 0 0 1-1-1v-12Zm6 13h9a1 1 0 0 0 1-1v-12a1 1 0 0 0-1-1h-9v14Z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </button>
 
-            <div class="popup-navigation__buttons-container">
-              <button
-                type="button"
-                class="project-navigation__open-project-popup-button project-navigation-title-button">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24px"
-                  viewBox="0 -960 960 960"
-                  width="24px"
-                  fill="#000">
-                  <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
-                </svg>
-              </button>
-              <button
-                type="button"
-                class="project-navigation__chevron-button project-navigation__chevron-button_open project-navigation-title-button">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24px"
-                  viewBox="0 -960 960 960"
-                  width="24px"
-                  fill="#000">
-                  <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
-                </svg>
-              </button>
+          <nav class="project-navigation">
+            <div class="project-navigation__list-title-container">
+              <h2 class="project-navigation__list-title">Мои проекты</h2>
+
+              <div class="popup-navigation__buttons-container">
+                <button
+                  type="button"
+                  class="project-navigation__open-project-popup-button project-navigation-title-button">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 -960 960 960"
+                    width="24px"
+                    fill="#000">
+                    <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  class="project-navigation__chevron-button project-navigation__chevron-button_open project-navigation-title-button">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 -960 960 960"
+                    width="24px"
+                    fill="#000">
+                    <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
+                  </svg>
+                </button>
+              </div>
             </div>
-          </div>
 
-          <ul class="project-navigation__list project-navigation-list"></ul>
-        </nav>
+            <ul class="project-navigation__list project-navigation-list"></ul>
+          </nav>
+        </div>
       </div>
-
       <div class="project-container">
         <section class="project">
           <h2 class="project__title"></h2>
@@ -231,19 +246,41 @@
                 </div>
               </div>
             </div>
-            <div class="editor-footer__buttons">
+            <div class="task-editor-footer__buttons editor-footer__buttons">
               <button
                 id="cancel-button"
                 type="button"
-                class="editor__popup-button cancel-task-edition-button pressed-button">
-                Отмена
+                class="editor__popup-button editor__cancel-button task-editor__cancel-button task-editor-cancel-button pressed-button">
+                <span class="task-editor-cancel-button__text">Отмена</span>
+
+                <svg
+                  viewBox="0 0 24 24"
+                  class="task-editor-cancel-button__icon"
+                  width="24px"
+                  height="24px">
+                  <path
+                    fill="currentColor"
+                    fill-rule="nonzero"
+                    d="M5.146 5.146a.5.5 0 0 1 .708 0L12 11.293l6.146-6.147a.5.5 0 0 1 .638-.057l.07.057a.5.5 0 0 1 0 .708L12.707 12l6.147 6.146a.5.5 0 0 1 .057.638l-.057.07a.5.5 0 0 1-.708 0L12 12.707l-6.146 6.147a.5.5 0 0 1-.638.057l-.07-.057a.5.5 0 0 1 0-.708L11.293 12 5.146 5.854a.5.5 0 0 1-.057-.638z"></path>
+                </svg>
               </button>
               <button
                 disabled
                 id="add-task-button"
                 type="submit"
-                class="editor__popup-button add-task-button pressed-button">
-                Добавить задачу
+                class="editor__popup-button editor__add-task-button task-editor__add-task-button task-editor-add-task-button pressed-button">
+                <span class="task-editor-add-task-button__text">Добавить задачу</span>
+                <svg
+                  class="task-editor-add-task-button__icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="24px"
+                  height="24px"
+                  fill="#fff">
+                  <path
+                    d="M7.18 6.396C7 6.642 7 7.054 7 7.878V11l6.715.674c.38.038.38.614 0 .652L7 13v3.122c0 .824 0 1.236.18 1.482.157.214.4.356.669.39.308.041.687-.15 1.444-.531l8.183-4.122c.861-.434 1.292-.651 1.432-.942a.915.915 0 0 0 0-.798c-.14-.29-.57-.508-1.433-.942l-8.18-4.122c-.758-.381-1.137-.572-1.445-.532a.986.986 0 0 0-.67.391Z"
+                    clip-rule="evenodd"></path>
+                </svg>
               </button>
             </div>
           </div>
@@ -304,14 +341,14 @@
             <button
               id="project-editor-cancel-button"
               type="button"
-              class="editor__popup-button cancel-task-edition-button pressed-button">
+              class="editor__popup-button editor__cancel-button pressed-button">
               Отмена
             </button>
             <button
               disabled
               id="project-editor-add-project-button"
               type="submit"
-              class="editor__popup-button add-task-button pressed-button"></button>
+              class="editor__popup-button editor__add-task-button pressed-button"></button>
           </div>
         </form>
       </div>
