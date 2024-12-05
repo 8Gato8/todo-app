@@ -1,5 +1,6 @@
 import './style.css';
 
+import createSidebarToggle from './js/dom/createSidebarToggle/createSidebarToggle';
 import createProjectNavigation from './js/dom/createProjectNavigation/createProjectNavigation';
 import createProjectEditor from './js/dom/createProjectEditor/createProjectEditor';
 import createTaskEditor from './js/dom/createTaskEditor/createTaskEditor';
@@ -11,15 +12,6 @@ import createDataArray from './js/utils/createDataArray';
 import createProjectsArray from './js/utils/createProjectsArray';
 
 import { colorsData, prioritiesData } from './js/data';
-
-function addItemsToChecklist(checklist, newItems) {
-  checklist.push(newItems);
-}
-
-function removeItemFromChecklist(checklist, item) {
-  const itemIndex = checklist.indexOf(item);
-  checklist.splice(itemIndex, 1);
-}
 
 export function addTask(tasks, newTask) {
   tasks.push(newTask);
@@ -75,6 +67,7 @@ export function deleteTaskFromOpenedProject(task) {
   addItemToLocalStorage('projects', projects);
 }
 
+createSidebarToggle();
 export const projectNavigation = createProjectNavigation(projects, priorities, inboxProject);
 export const projectEditor = createProjectEditor(projects, priorities, colors, defaultColor);
 export const taskEditor = createTaskEditor(projects, priorities, inboxProject);
