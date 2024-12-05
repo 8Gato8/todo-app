@@ -69,6 +69,10 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
   const cancelButton = document.querySelector('#cancel-button');
   const addTaskButton = document.querySelector('#add-task-button');
 
+  const addTaskButtonTextElement = addTaskButton.querySelector(
+    '.task-editor-add-task-button__text',
+  );
+
   const inputs = document.querySelectorAll('.editing-area-input');
 
   const description = document.querySelector('.editing-area__description');
@@ -120,7 +124,7 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
   }
 
   function updateEditorSubmitButton(editorSubmitText) {
-    addTaskButton.textContent = editorSubmitText;
+    addTaskButtonTextElement.textContent = editorSubmitText;
   }
 
   function updateInputsValues(task) {
