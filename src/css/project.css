@@ -58,15 +58,18 @@
   grid-area: title;
 }
 
-.project-task__additional-info {
+.project__task-item_two-rows .project-task__additional-info {
   display: flex;
+  grid-area: additional-info;
+}
+
+.project-task__additional-info {
+  display: none;
   flex-direction: column;
   gap: 8px;
 
   overflow: hidden;
   white-space: nowrap;
-
-  grid-area: additional-info;
 }
 
 .project-task-item__description {
