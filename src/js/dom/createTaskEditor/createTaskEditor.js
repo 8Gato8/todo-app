@@ -166,8 +166,6 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
   }
 
   function updateEditor(editorSubmitText, options) {
-    /* Нужен серьезный рефактор */
-
     clearChoicePopupLists();
 
     const { task, currentProject, projects } = options;
