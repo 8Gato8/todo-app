@@ -30,56 +30,71 @@ import {
 
 import addItemToLocalStorage from '../../utils/addItemToLocalStorage';
 
-export default function createProjectEditor(projects, priorities, colors, defaultColor) {
+export default function createProjectEditor(
+  projects,
+  priorities,
+  colors,
+  defaultColor
+) {
   /* query selectors */
 
   const projectEditorForm = document.querySelector('.project-editor');
 
-  const projectEditorOverlay = document.querySelector('#project-editor-overlay');
+  const projectEditorOverlay = document.querySelector(
+    '#project-editor-overlay'
+  );
 
   const projectEditorTitle = document.querySelector('.project-editor__title');
 
   const projectTitle = document.querySelector('#project-title');
 
   const projectEditorSelectColorButton = document.querySelector(
-    '#project-editor-select-color-button',
+    '#project-editor-select-color-button'
   );
 
   const selectButtonIcons = document.querySelectorAll('.select-button-circle');
-  const selectButtonTitles = document.querySelectorAll('.project-editor-select-button__title');
+  const selectButtonTitles = document.querySelectorAll(
+    '.project-editor-select-button__title'
+  );
 
   const projectSelectColorContainer = document.querySelector(
-    '#project-editor-select-color-container',
+    '#project-editor-select-color-container'
   );
 
   const projectEditorSelectColorPopup = document.querySelector(
-    '#project-editor-select-color-popup',
+    '#project-editor-select-color-popup'
   );
 
   const projectEditorSelectPopupsNodeList = document.querySelectorAll(
-    '.project-editor__select-popup',
+    '.project-editor__select-popup'
   );
 
-  const projectEditorSelectColorList = document.querySelector('#project-editor-select-color-list');
+  const projectEditorSelectColorList = document.querySelector(
+    '#project-editor-select-color-list'
+  );
   const projectEditorSelectListItemTemplate = document.querySelector(
-    '#project-editor-select-item-template',
+    '#project-editor-select-item-template'
   );
 
   const selectButtonTitleElement = projectEditorSelectColorButton.querySelector(
-    '.project-editor-select-button__title',
+    '.project-editor-select-button__title'
   );
   const selectButtonIconElement = projectEditorSelectColorButton.querySelector(
-    '.project-editor__color-circle',
+    '.project-editor__color-circle'
   );
 
   const inputs = document.querySelectorAll('.project-editor__input');
 
   const cancelButton = document.querySelector('#project-editor-cancel-button');
-  const addTaskButton = document.querySelector('#project-editor-add-project-button');
+  const addTaskButton = document.querySelector(
+    '#project-editor-add-project-button'
+  );
 
   /* variables */
 
-  const selectColorContainerChildrenList = makeElementChildrenList(projectSelectColorContainer);
+  const selectColorContainerChildrenList = makeElementChildrenList(
+    projectSelectColorContainer
+  );
 
   let projectData = {
     title: '',
@@ -98,7 +113,11 @@ export default function createProjectEditor(projects, priorities, colors, defaul
     projectData[valueName] = dataValue;
   }
 
-  function updateSelectButtonUI(color, selectColorButtonTitle, selectColorButtonIcon) {
+  function updateSelectButtonUI(
+    color,
+    selectColorButtonTitle,
+    selectColorButtonIcon
+  ) {
     selectColorButtonIcon.style.backgroundColor = color.hexCode;
     selectColorButtonTitle.textContent = color.title;
   }
@@ -147,7 +166,9 @@ export default function createProjectEditor(projects, priorities, colors, defaul
     if (updatedProjectData) {
       projectData = updatedProjectData;
 
-      const colorTick = document.querySelector(`[color="${projectData.color.id}"]`);
+      const colorTick = document.querySelector(
+        `[color="${projectData.color.id}"]`
+      );
 
       showTick(colorTick, SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
     } else {
@@ -188,11 +209,17 @@ export default function createProjectEditor(projects, priorities, colors, defaul
     disableAddButton(addTaskButton);
 
     for (let tickNodeList in allTicks) {
-      hideTicks(allTicks[tickNodeList], SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+      hideTicks(
+        allTicks[tickNodeList],
+        SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE
+      );
     }
 
     for (let tickNodeList in allTicks) {
-      showTick(allTicks[tickNodeList][0], SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+      showTick(
+        allTicks[tickNodeList][0],
+        SELECT_ITEM_TICK_CLASS_FOR_VISIBLE_STATE
+      );
     }
 
     updateSelectButtonTextElements();
@@ -204,15 +231,24 @@ export default function createProjectEditor(projects, priorities, colors, defaul
 
     const selectPopupTicks = allTicks[valueName];
 
-    updateSelectButtonUI(defaultColor, selectButtonTitleElement, selectButtonIconElement);
+    updateSelectButtonUI(
+      defaultColor,
+      selectButtonTitleElement,
+      selectButtonIconElement
+    );
 
     colors.forEach((color) => {
-      const selectListItemClone = projectEditorSelectListItemTemplate.content.cloneNode(true);
-      const selectListItem = selectListItemClone.querySelector('.project-editor__select-item');
+      const selectListItemClone =
+        projectEditorSelectListItemTemplate.content.cloneNode(true);
+      const selectListItem = selectListItemClone.querySelector(
+        '.project-editor__select-item'
+      );
 
       selectListItem.setAttribute('data-hexCode', color.hexCode);
 
-      const selectListItemTick = selectListItem.querySelector('.project-editor-select-item__tick');
+      const selectListItemTick = selectListItem.querySelector(
+        '.project-editor-select-item__tick'
+      );
 
       selectListItemTick.setAttribute(valueName, color.id);
 
@@ -223,18 +259,23 @@ export default function createProjectEditor(projects, priorities, colors, defaul
       }
 
       const selectListItemColorCircle = selectListItem.querySelector(
-        '.project-editor__color-circle',
+        '.project-editor__color-circle'
       );
       selectListItemColorCircle.style.backgroundColor = color.hexCode;
 
       const selectListItemTitle = selectListItem.querySelector(
-        '.project-editor-select-item__title',
+        '.project-editor-select-item__title'
       );
 
       selectListItemTitle.textContent = color.title;
 
       selectListItem.addEventListener('click', () =>
-        handlePopupItemClick(valueName, color, selectPopupTicks, selectListItemTick),
+        handlePopupItemClick(
+          valueName,
+          color,
+          selectPopupTicks,
+          selectListItemTick
+        )
       );
 
       projectEditorSelectColorList.append(selectListItem);
@@ -311,18 +352,31 @@ export default function createProjectEditor(projects, priorities, colors, defaul
 
   /* event's listeners */
 
-  projectTitle.addEventListener('input', (e) => handleInputChange(e, addTaskButton, projectTitle));
+  projectTitle.addEventListener('input', (e) =>
+    handleInputChange(e, addTaskButton, projectTitle)
+  );
 
   projectEditorSelectColorButton.addEventListener('click', () =>
-    togglePopup(projectEditorSelectColorPopup, SELECT_POPUP_CLASS_FOR_VISIBLE_STATE),
+    togglePopup(
+      projectEditorSelectColorPopup,
+      SELECT_POPUP_CLASS_FOR_VISIBLE_STATE
+    )
   );
 
   addTaskButton.addEventListener('submit', (e) => {
-    handleAddTaskButtonClick(e, projectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
+    handleAddTaskButtonClick(
+      e,
+      projectEditorOverlay,
+      OVERLAY_CLASS_FOR_VISIBLE_STATE
+    );
   });
 
   projectEditorForm.addEventListener('submit', (e) =>
-    handleAddTaskButtonClick(e, projectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
+    handleAddTaskButtonClick(
+      e,
+      projectEditorOverlay,
+      OVERLAY_CLASS_FOR_VISIBLE_STATE
+    )
   );
 
   projectEditorOverlay.addEventListener('mousedown', (e) =>
@@ -330,8 +384,8 @@ export default function createProjectEditor(projects, priorities, colors, defaul
       e,
       projectEditorSelectPopupsNodeList,
       OVERLAY_CLASS_FOR_VISIBLE_STATE,
-      SELECT_POPUP_CLASS_FOR_VISIBLE_STATE,
-    ),
+      SELECT_POPUP_CLASS_FOR_VISIBLE_STATE
+    )
   );
 
   document.addEventListener('click', (e) =>
@@ -339,12 +393,15 @@ export default function createProjectEditor(projects, priorities, colors, defaul
       e,
       projectEditorSelectColorPopup,
       selectColorContainerChildrenList,
-      SELECT_POPUP_CLASS_FOR_VISIBLE_STATE,
-    ),
+      SELECT_POPUP_CLASS_FOR_VISIBLE_STATE
+    )
   );
 
   cancelButton.addEventListener('click', () =>
-    handleCancelButtonClick(projectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
+    handleCancelButtonClick(
+      projectEditorOverlay,
+      OVERLAY_CLASS_FOR_VISIBLE_STATE
+    )
   );
 
   /* render functions */

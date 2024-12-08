@@ -68,8 +68,17 @@ export function deleteTaskFromOpenedProject(task) {
 }
 
 createSidebarToggle();
-export const projectNavigation = createProjectNavigation(projects, priorities, inboxProject);
-export const projectEditor = createProjectEditor(projects, priorities, colors, defaultColor);
+export const projectNavigation = createProjectNavigation(
+  projects,
+  priorities,
+  inboxProject
+);
+export const projectEditor = createProjectEditor(
+  projects,
+  priorities,
+  colors,
+  defaultColor
+);
 export const taskEditor = createTaskEditor(projects, priorities, inboxProject);
 export const projectArea = createProjectArea(projects, priorities);
 

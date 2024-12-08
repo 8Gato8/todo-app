@@ -30,47 +30,72 @@ import addItemToLocalStorage from '../../utils/addItemToLocalStorage';
 export default function createTaskEditor(projects, priorities, inboxProject) {
   /* query selectors */
 
-  const sidebarOpenTaskEditorButton = document.querySelector('.sidebar__open-task-editor-button');
+  const sidebarOpenTaskEditorButton = document.querySelector(
+    '.sidebar__open-task-editor-button'
+  );
 
   const taskEditorForm = document.querySelector('.task-editor');
 
   const taskEditorOverlay = document.querySelector('#task-editor-overlay');
 
-  const choicePopupItemTemplate = document.querySelector('#choice-popup-item-template');
+  const choicePopupItemTemplate = document.querySelector(
+    '#choice-popup-item-template'
+  );
   const projectIconTemplate = document.querySelector('#project-icon-template');
-  const priorityIconTemplate = document.querySelector('#priority-icon-template');
+  const priorityIconTemplate = document.querySelector(
+    '#priority-icon-template'
+  );
   const iconTemplatesObject = {
     project: projectIconTemplate,
     priority: priorityIconTemplate,
   };
 
-  const projectChoiceContainer = document.querySelector('#project-choice-container');
-  const chooseProjectButton = document.querySelector('#choose-project-popup-button');
+  const projectChoiceContainer = document.querySelector(
+    '#project-choice-container'
+  );
+  const chooseProjectButton = document.querySelector(
+    '#choose-project-popup-button'
+  );
   const projectButtonText = document.querySelector('#project-button-text');
   const projectChoicePopup = document.querySelector('#project-choice-popup');
 
-  const priorityChoiceContainer = document.querySelector('#priority-choice-container');
-  const choosePriorityButton = document.querySelector('#choose-priority-popup-button');
+  const priorityChoiceContainer = document.querySelector(
+    '#priority-choice-container'
+  );
+  const choosePriorityButton = document.querySelector(
+    '#choose-priority-popup-button'
+  );
   const priorityButtonText = document.querySelector('#priority-button-text');
   const priorityChoicePopup = document.querySelector('#priority-choice-popup');
 
-  const choicePopupButtonsTextsObject = { projectButtonText, priorityButtonText };
+  const choicePopupButtonsTextsObject = {
+    projectButtonText,
+    priorityButtonText,
+  };
 
-  const projectChoicePopupList = document.querySelector('#project-choice-popup-list');
-  const priorityChoicePopupList = document.querySelector('#priority-choice-popup-list');
+  const projectChoicePopupList = document.querySelector(
+    '#project-choice-popup-list'
+  );
+  const priorityChoicePopupList = document.querySelector(
+    '#priority-choice-popup-list'
+  );
 
   const choicePopupLists = document.querySelectorAll('.choice-popup-list');
 
   const choicePopupsNodeList = document.querySelectorAll('.choice-popup');
 
-  const choicePopupButtonsTexts = document.querySelectorAll('.choice-popup-button__text');
-  const choicePopupButtonsIcons = document.querySelectorAll('.icon_offset_medium');
+  const choicePopupButtonsTexts = document.querySelectorAll(
+    '.choice-popup-button__text'
+  );
+  const choicePopupButtonsIcons = document.querySelectorAll(
+    '.icon_offset_medium'
+  );
 
   const cancelButton = document.querySelector('#cancel-button');
   const addTaskButton = document.querySelector('#add-task-button');
 
   const addTaskButtonTextElement = addTaskButton.querySelector(
-    '.task-editor-add-task-button__text',
+    '.task-editor-add-task-button__text'
   );
 
   const inputs = document.querySelectorAll('.editing-area-input');
@@ -85,8 +110,12 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
 
   /* variables */
 
-  const projectPopupContainerChildrenList = makeElementChildrenList(projectChoiceContainer);
-  const priorityPopupContainerChildrenList = makeElementChildrenList(priorityChoiceContainer);
+  const projectPopupContainerChildrenList = makeElementChildrenList(
+    projectChoiceContainer
+  );
+  const priorityPopupContainerChildrenList = makeElementChildrenList(
+    priorityChoiceContainer
+  );
 
   const defaultPriority = priorities.find((priority) => priority.number === 1);
 
@@ -118,7 +147,11 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
     taskData[valueName] = dataValue;
   }
 
-  function updateSelectButtonUI(choicePopupData, popupButtonTitle, popupButtonIcon) {
+  function updateSelectButtonUI(
+    choicePopupData,
+    popupButtonTitle,
+    popupButtonIcon
+  ) {
     popupButtonIcon.style.fill = choicePopupData.color.hexCode;
     popupButtonTitle.textContent = choicePopupData.title;
   }
@@ -180,14 +213,27 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
       renderChoicePopupsElements(projectsToRender, priorities);
 
       for (let ticks in allTicks) {
-        hideTicks(allTicks[ticks], CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+        hideTicks(
+          allTicks[ticks],
+          CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE
+        );
       }
 
-      const projectTick = document.querySelector(`[project="${task.project.id}"]`);
-      const priorityTick = document.querySelector(`[priority="${task.priority.id}"]`);
+      const projectTick = document.querySelector(
+        `[project="${task.project.id}"]`
+      );
+      const priorityTick = document.querySelector(
+        `[priority="${task.priority.id}"]`
+      );
 
-      showTick(projectTick, CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
-      showTick(priorityTick, CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+      showTick(
+        projectTick,
+        CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE
+      );
+      showTick(
+        priorityTick,
+        CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE
+      );
     }
 
     if (currentProject) {
@@ -216,7 +262,7 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
     popupButton,
     tickItemClassForVisibleState,
     choicePopupItemTemplate,
-    choicePopupData,
+    choicePopupData
   ) {
     const choiceValueName = choicePopupListElement.dataset.name;
 
@@ -224,7 +270,9 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
 
     const choicePopupItemTicks = allTicks[choiceValueName];
 
-    const choicePopupButtonTitleElement = popupButton.querySelector('.choice-popup-button__text');
+    const choicePopupButtonTitleElement = popupButton.querySelector(
+      '.choice-popup-button__text'
+    );
     const choicePopupButtonIconElement = popupButton.querySelector('.icon');
 
     const defaultChoicePopupData = defaultChoicePopupsData[choiceValueName];
@@ -232,29 +280,33 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
     updateSelectButtonUI(
       defaultChoicePopupData,
       choicePopupButtonTitleElement,
-      choicePopupButtonIconElement,
+      choicePopupButtonIconElement
     );
 
     choicePopupData.forEach((choicePopupDataItem, index) => {
-      const choicePopupItemElementTemplateClone = choicePopupItemTemplate.content.cloneNode(true);
-      const iconTemplateClone = iconTemplatesObject[choiceValueName].content.cloneNode(true);
+      const choicePopupItemElementTemplateClone =
+        choicePopupItemTemplate.content.cloneNode(true);
+      const iconTemplateClone =
+        iconTemplatesObject[choiceValueName].content.cloneNode(true);
 
       const choicePopupItemIcon = iconTemplateClone.querySelector('.icon');
 
       choicePopupItemIcon.style.fill = choicePopupDataItem.color.hexCode;
 
-      const choicePopupItemContainerElement = choicePopupItemElementTemplateClone.querySelector(
-        '.choice-popup-list__item-container',
-      );
+      const choicePopupItemContainerElement =
+        choicePopupItemElementTemplateClone.querySelector(
+          '.choice-popup-list__item-container'
+        );
 
       choicePopupItemContainerElement.prepend(choicePopupItemIcon);
 
-      const choicePopupItemElement = choicePopupItemContainerElement.querySelector(
-        '.choice-popup-list__item',
-      );
+      const choicePopupItemElement =
+        choicePopupItemContainerElement.querySelector(
+          '.choice-popup-list__item'
+        );
 
       const choicePopupItemTick = choicePopupItemContainerElement.querySelector(
-        '.choice-popup-list__item-tick',
+        '.choice-popup-list__item-tick'
       );
 
       choicePopupItemTick.setAttribute(choiceValueName, choicePopupDataItem.id);
@@ -277,8 +329,8 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
           choicePopupButtonTextElement,
           choicePopupButtonIconElement,
           choicePopupItemTicks,
-          choicePopupItemTick,
-        ),
+          choicePopupItemTick
+        )
       );
 
       choicePopupListElement.append(choicePopupItemContainerElement);
@@ -291,14 +343,14 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
       chooseProjectButton,
       CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
       choicePopupItemTemplate,
-      projects,
+      projects
     );
     renderChoicePopupElements(
       priorityChoicePopupList,
       choosePriorityButton,
       CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE,
       choicePopupItemTemplate,
-      priorities,
+      priorities
     );
   }
 
@@ -341,11 +393,17 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
     disableAddButton(addTaskButton);
 
     for (let tickNodeList in allTicks) {
-      hideTicks(allTicks[tickNodeList], CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+      hideTicks(
+        allTicks[tickNodeList],
+        CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE
+      );
     }
 
     for (let tickNodeList in allTicks) {
-      showTick(allTicks[tickNodeList][0], CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE);
+      showTick(
+        allTicks[tickNodeList][0],
+        CHOICE_POPUP_LIST_ITEM_TICK_CLASS_FOR_VISIBLE_STATE
+      );
     }
 
     updatePopupButtonTextElements();
@@ -360,7 +418,7 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
     choicePopupButtonTextElement,
     choicePopupButtonIconElement,
     ticks,
-    currentTick,
+    currentTick
   ) {
     updateTaskData(valueName, newValue);
 
@@ -450,7 +508,10 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
   /* event listeners */
 
   sidebarOpenTaskEditorButton.addEventListener('click', () =>
-    handleSidebarOpenTaskEditorButtonClick(taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
+    handleSidebarOpenTaskEditorButtonClick(
+      taskEditorOverlay,
+      OVERLAY_CLASS_FOR_VISIBLE_STATE
+    )
   );
 
   taskEditorOverlay.addEventListener('mousedown', (e) => {
@@ -458,7 +519,7 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
       e,
       choicePopupsNodeList,
       OVERLAY_CLASS_FOR_VISIBLE_STATE,
-      CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE,
+      CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE
     );
 
     resetTextareaResize();
@@ -469,8 +530,8 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
       e,
       projectChoicePopup,
       projectPopupContainerChildrenList,
-      CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE,
-    ),
+      CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE
+    )
   );
 
   document.addEventListener('click', (e) =>
@@ -478,24 +539,26 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
       e,
       priorityChoicePopup,
       priorityPopupContainerChildrenList,
-      CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE,
-    ),
+      CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE
+    )
   );
 
   chooseProjectButton.addEventListener('click', () =>
-    togglePopup(projectChoicePopup, CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE),
+    togglePopup(projectChoicePopup, CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE)
   );
 
   choosePriorityButton.addEventListener('click', () =>
-    togglePopup(priorityChoicePopup, CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE),
+    togglePopup(priorityChoicePopup, CHOICE_POPUP_CLASS_FOR_VISIBLE_STATE)
   );
 
   cancelButton.addEventListener('click', () =>
-    handleCancelButtonClick(taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
+    handleCancelButtonClick(taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE)
   );
 
   inputs.forEach((input) => {
-    input.addEventListener('input', (e) => handleInputChange(e, addTaskButton, inputs));
+    input.addEventListener('input', (e) =>
+      handleInputChange(e, addTaskButton, inputs)
+    );
   });
 
   dueDateResetButton.addEventListener('click', handleDueDateResetButtonClick);
@@ -503,12 +566,24 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
   dueTimeResetButton.addEventListener('click', handleDueTimeResetButtonClick);
 
   addTaskButton.addEventListener('submit', (e) =>
-    handleAddTaskButtonClick(e, taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
+    handleAddTaskButtonClick(
+      e,
+      taskEditorOverlay,
+      OVERLAY_CLASS_FOR_VISIBLE_STATE
+    )
   );
 
   taskEditorForm.addEventListener('submit', (e) => {
-    handleAddTaskButtonClick(e, taskEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE);
+    handleAddTaskButtonClick(
+      e,
+      taskEditorOverlay,
+      OVERLAY_CLASS_FOR_VISIBLE_STATE
+    );
   });
 
-  return { render: renderChoicePopupsElements, clear: clearChoicePopupLists, updateEditor };
+  return {
+    render: renderChoicePopupsElements,
+    clear: clearChoicePopupLists,
+    updateEditor,
+  };
 }

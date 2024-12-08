@@ -19,23 +19,33 @@ import {
 
 import { openPopup, closePopup } from '../commonUtils';
 
-export default function createProjectNavigation(projects, priorities, inboxProject) {
+export default function createProjectNavigation(
+  projects,
+  priorities,
+  inboxProject
+) {
   /* project-navigation-block */
 
   /* query selectors */
 
-  const addProjectButton = document.querySelector('.project-navigation__open-project-popup-button');
-
-  const projectEditorOverlay = document.querySelector('#project-editor-overlay');
-
-  const projectNavigationChevronButton = document.querySelector(
-    '.project-navigation__chevron-button',
+  const addProjectButton = document.querySelector(
+    '.project-navigation__open-project-popup-button'
   );
 
-  const projectNavigationList = document.querySelector('.project-navigation-list');
+  const projectEditorOverlay = document.querySelector(
+    '#project-editor-overlay'
+  );
+
+  const projectNavigationChevronButton = document.querySelector(
+    '.project-navigation__chevron-button'
+  );
+
+  const projectNavigationList = document.querySelector(
+    '.project-navigation-list'
+  );
 
   const projectNavigationListItemTemplate = document.querySelector(
-    '#project-navigation-list-item-template',
+    '#project-navigation-list-item-template'
   );
 
   /* variables */
@@ -44,21 +54,26 @@ export default function createProjectNavigation(projects, priorities, inboxProje
 
   /* utils */
 
-  function highlightInitialOpenedProjectNavigationButton(projectNavigationButtons) {
+  function highlightInitialOpenedProjectNavigationButton(
+    projectNavigationButtons
+  ) {
     projectNavigationButtons.forEach((projectNavigationButton) => {
-      const buttonText =
-        projectNavigationButton.querySelector('.button-with-icon__text').textContent;
+      const buttonText = projectNavigationButton.querySelector(
+        '.button-with-icon__text'
+      ).textContent;
 
       if (openedProject.title === buttonText) {
         projectNavigationButton.classList.add(
-          PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE,
+          PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE
         );
       }
     });
   }
 
   function highlightProjectNavigationButton(projectNavigationButton) {
-    projectNavigationButton.classList.add(PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE);
+    projectNavigationButton.classList.add(
+      PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE
+    );
   }
 
   function renderProjectNavigationListItems() {
@@ -68,16 +83,17 @@ export default function createProjectNavigation(projects, priorities, inboxProje
       const projectNavigationListItemTemplateClone =
         projectNavigationListItemTemplate.content.cloneNode(true);
 
-      const projectNavigationListItem = projectNavigationListItemTemplateClone.querySelector(
-        '.project-navigation-list__item',
-      );
+      const projectNavigationListItem =
+        projectNavigationListItemTemplateClone.querySelector(
+          '.project-navigation-list__item'
+        );
 
       const projectNavigationButton = projectNavigationListItem.querySelector(
-        '.project-navigation__button',
+        '.project-navigation__button'
       );
 
       const openPopupButton = projectNavigationListItem.querySelector(
-        '.project-navigation-button__open-popup',
+        '.project-navigation-button__open-popup'
       );
 
       const projectIcon = projectNavigationButton.querySelector('.icon');
@@ -86,33 +102,41 @@ export default function createProjectNavigation(projects, priorities, inboxProje
 
       projectNavigationButtons.push(projectNavigationButton);
 
-      const buttonWithIconText = projectNavigationListItem.querySelector('.button-with-icon__text');
+      const buttonWithIconText = projectNavigationListItem.querySelector(
+        '.button-with-icon__text'
+      );
       buttonWithIconText.textContent = project.title;
 
-      const projectNavigationTaskCount = projectNavigationListItem.querySelector(
-        '.project-navigation-button__task-count',
-      );
+      const projectNavigationTaskCount =
+        projectNavigationListItem.querySelector(
+          '.project-navigation-button__task-count'
+        );
 
       projectNavigationTaskCount.textContent = project.tasks.length || '';
 
       if (project === inboxProject) {
-        projectNavigationListItem.classList.add('project-navigation-list__item_always_visible');
-        openPopupButton.classList.add('project-navigation-button__open-popup_hidden');
+        projectNavigationListItem.classList.add(
+          'project-navigation-list__item_always_visible'
+        );
+        openPopupButton.classList.add(
+          'project-navigation-button__open-popup_hidden'
+        );
       }
 
       projectNavigationListItem.addEventListener('click', () =>
         handleProjectNavigationListItemClick(
           projectNavigationButton,
           projectNavigationButtons,
-          project,
-        ),
+          project
+        )
       );
 
       projectNavigationList.append(projectNavigationListItem);
 
-      const listItemCoordinates = projectNavigationListItem.getBoundingClientRect();
+      const listItemCoordinates =
+        projectNavigationListItem.getBoundingClientRect();
       openPopupButton.addEventListener('click', () =>
-        handleOpenPopupClick(project, listItemCoordinates),
+        handleOpenPopupClick(project, listItemCoordinates)
       );
     });
 
@@ -125,15 +149,17 @@ export default function createProjectNavigation(projects, priorities, inboxProje
     }
   }
 
-  function removeHighlighterFromPrevioslySelectedProjectNavigationButton(projectNavigationButtons) {
+  function removeHighlighterFromPrevioslySelectedProjectNavigationButton(
+    projectNavigationButtons
+  ) {
     projectNavigationButtons.forEach((projectNavigationButton) => {
       if (
         projectNavigationButton.classList.contains(
-          PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE,
+          PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE
         )
       ) {
         projectNavigationButton.classList.remove(
-          PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE,
+          PROJECT_NAVIGATION_BUTTON_CLASS_FOR_HIGHLIGHTED_STATE
         );
       }
     });
@@ -143,22 +169,30 @@ export default function createProjectNavigation(projects, priorities, inboxProje
 
   function toggleChevronButtonStyles() {
     if (chevronOpen) {
-      projectNavigationChevronButton.classList.add(PROJECT_NAVIGATION_CHEVRON_BUTTON_OPEN);
+      projectNavigationChevronButton.classList.add(
+        PROJECT_NAVIGATION_CHEVRON_BUTTON_OPEN
+      );
     } else {
-      projectNavigationChevronButton.classList.remove(PROJECT_NAVIGATION_CHEVRON_BUTTON_OPEN);
+      projectNavigationChevronButton.classList.remove(
+        PROJECT_NAVIGATION_CHEVRON_BUTTON_OPEN
+      );
     }
   }
 
   function toggleListItemsVisibilityState() {
     const projectNavigationListItems = projectNavigationList.querySelectorAll(
-      '.project-navigation-list__item',
+      '.project-navigation-list__item'
     );
 
     projectNavigationListItems.forEach((projectNavigationListItem) => {
       if (chevronOpen) {
-        projectNavigationListItem.classList.remove(PROJECT_NAVIGATION_LIST_ITEM_HIDDEN);
+        projectNavigationListItem.classList.remove(
+          PROJECT_NAVIGATION_LIST_ITEM_HIDDEN
+        );
       } else {
-        projectNavigationListItem.classList.add(PROJECT_NAVIGATION_LIST_ITEM_HIDDEN);
+        projectNavigationListItem.classList.add(
+          PROJECT_NAVIGATION_LIST_ITEM_HIDDEN
+        );
       }
     });
   }
@@ -168,11 +202,13 @@ export default function createProjectNavigation(projects, priorities, inboxProje
   function handleProjectNavigationListItemClick(
     projectNavigationButton,
     projectNavigationButtons,
-    project,
+    project
   ) {
     setOpenedProject(project);
     projectArea.updateProjectArea();
-    removeHighlighterFromPrevioslySelectedProjectNavigationButton(projectNavigationButtons);
+    removeHighlighterFromPrevioslySelectedProjectNavigationButton(
+      projectNavigationButtons
+    );
     highlightProjectNavigationButton(projectNavigationButton);
   }
 
@@ -191,18 +227,23 @@ export default function createProjectNavigation(projects, priorities, inboxProje
   /* event's listeners */
 
   projectNavigationChevronButton.addEventListener('click', () =>
-    handleProjectNavigationChevronButton(),
+    handleProjectNavigationChevronButton()
   );
 
   addProjectButton.addEventListener('click', () =>
-    handleAddProjectButtonClick(projectEditorOverlay, OVERLAY_CLASS_FOR_VISIBLE_STATE),
+    handleAddProjectButtonClick(
+      projectEditorOverlay,
+      OVERLAY_CLASS_FOR_VISIBLE_STATE
+    )
   );
 
   /* other-actions-with-project-block */
 
   /* query selectors */
 
-  const otherActionsOverlay = document.querySelector('#other-actions-with-project-overlay');
+  const otherActionsOverlay = document.querySelector(
+    '#other-actions-with-project-overlay'
+  );
   const otherActionsPopup = document.querySelector('.other-actions-popup');
 
   const deleteProjectButton = document.querySelector('#delete-project-button');
@@ -261,11 +302,18 @@ export default function createProjectNavigation(projects, priorities, inboxProje
   /* event's listeners */
 
   otherActionsOverlay.addEventListener('click', (e) =>
-    handleOverlayClick(e, OVERLAY_CLASS_FOR_VISIBLE_STATE),
+    handleOverlayClick(e, OVERLAY_CLASS_FOR_VISIBLE_STATE)
   );
 
-  deleteProjectButton.addEventListener('click', () => handleDeleteProjectButtonClick());
-  editProjectButton.addEventListener('click', () => handleEditProjectButtonClick());
+  deleteProjectButton.addEventListener('click', () =>
+    handleDeleteProjectButtonClick()
+  );
+  editProjectButton.addEventListener('click', () =>
+    handleEditProjectButtonClick()
+  );
 
-  return { render: renderProjectNavigationListItems, clear: clearProjectNavigationList };
+  return {
+    render: renderProjectNavigationListItems,
+    clear: clearProjectNavigationList,
+  };
 }

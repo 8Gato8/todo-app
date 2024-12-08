@@ -29,7 +29,7 @@ export function handleClickOutsidePopup(
   e,
   popup,
   popupContainerChildrenList,
-  classForVisibleState,
+  classForVisibleState
 ) {
   if (!isPopupOpen(popup, classForVisibleState)) return;
 
@@ -42,18 +42,23 @@ export function handleClickOutsidePopup(
 
 function anyPopupOpen(popupsNodeList, popupClassForVisibleState) {
   const popupsArray = Array.from(popupsNodeList);
-  return popupsArray.some((popup) => isPopupOpen(popup, popupClassForVisibleState));
+  return popupsArray.some((popup) =>
+    isPopupOpen(popup, popupClassForVisibleState)
+  );
 }
 
 export function handleEditorOverlayClick(
   e,
   popupsNodeList,
   editorClassForVisibleState,
-  popupClassForVisibleState,
+  popupClassForVisibleState
 ) {
   const { target, currentTarget: overlay } = e;
 
-  if (target === overlay && !anyPopupOpen(popupsNodeList, popupClassForVisibleState)) {
+  if (
+    target === overlay &&
+    !anyPopupOpen(popupsNodeList, popupClassForVisibleState)
+  ) {
     closePopup(overlay, editorClassForVisibleState);
   }
 }
