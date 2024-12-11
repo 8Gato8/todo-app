@@ -2,7 +2,10 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
     <title>Todo App</title>
   </head>
   <body>
@@ -117,7 +120,10 @@
         </section>
       </div>
 
-      <div id="task-editor-overlay" class="overlay overlay_align">
+      <div
+        id="task-editor-overlay"
+        class="overlay overlay_align"
+      >
         <form class="task-editor editor editor_popup">
           <div class="task-editor__editing-area editing-area">
             <fieldset class="task-editor__text-inputs">
@@ -138,7 +144,10 @@
             </fieldset>
 
             <fieldset class="task-editor__due-items">
-              <label class="due-item" for="due-date">
+              <label
+                class="due-item"
+                for="due-date"
+              >
                 <div class="due-item-container">
                   <span class="due-item__text">Срок</span>
                   <button
@@ -169,7 +178,10 @@
                   max="2028-12-31"
                 />
               </label>
-              <label class="due-item" for="due-time">
+              <label
+                class="due-item"
+                for="due-time"
+              >
                 <div class="due-item-container">
                   <span class="due-item__text">Время</span>
                   <button
@@ -353,13 +365,18 @@
         </form>
       </div>
 
-      <div id="project-editor-overlay" class="overlay overlay_align">
+      <div
+        id="project-editor-overlay"
+        class="overlay overlay_align"
+      >
         <form class="project-editor editor editor_popup">
           <h2 class="project-editor__title"></h2>
 
           <fieldset class="project-editor__fields">
             <div class="project-editor__field-container">
-              <label for="project-title" class="project-editor__field-title"
+              <label
+                for="project-title"
+                class="project-editor__field-title"
                 >Имя</label
               >
               <input
@@ -437,11 +454,17 @@
         </form>
       </div>
 
-      <div id="other-actions-with-project-overlay" class="overlay">
+      <div
+        id="other-actions-with-project-overlay"
+        class="overlay"
+      >
         <div class="other-actions-popup">
           <ul class="other-actions-list">
             <li class="other-actions-list__item">
-              <button id="edit-project-button" class="other-actions-button">
+              <button
+                id="edit-project-button"
+                class="other-actions-button"
+              >
                 <svg
                   class="other-actions-button__icon"
                   xmlns="http://www.w3.org/2000/svg"
@@ -457,7 +480,10 @@
                 <span class="other-actions-button__text">Изменить</span>
               </button>
             </li>
-            <li id="delete-project-button" class="other-actions-list__item">
+            <li
+              id="delete-project-button"
+              class="other-actions-list__item"
+            >
               <button class="other-actions-button">
                 <svg
                   class="other-actions-button__icon"
@@ -505,7 +531,11 @@
           ></span>
           <div class="project-navigation-button__container">
             <span class="project-navigation-button__open-popup">
-              <svg width="15" height="3" aria-hidden="true">
+              <svg
+                width="15"
+                height="3"
+                aria-hidden="true"
+              >
                 <path
                   fill-rule="evenodd"
                   d="M1.5 3a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm6 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm6 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"
@@ -605,7 +635,10 @@
 
     <template id="project-task-item-template">
       <li class="project__task-item project-task-item">
-        <button type="button" class="project-task-item__checkmark-button">
+        <button
+          type="button"
+          class="project-task-item__checkmark-button"
+        >
           <svg
             width="24"
             height="24"
