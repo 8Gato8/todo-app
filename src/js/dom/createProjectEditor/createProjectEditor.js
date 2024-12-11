@@ -46,7 +46,7 @@ export default function createProjectEditor(
 
   const projectEditorTitle = document.querySelector('.project-editor__title');
 
-  const projectTitle = document.querySelector('#project-title');
+  /* const projectTitle = document.querySelector('#project-title'); */
 
   const projectEditorSelectColorButton = document.querySelector(
     '#project-editor-select-color-button'
@@ -181,9 +181,9 @@ export default function createProjectEditor(
     updateEditorTitle(editorTitleText);
     updateEditorSubmitButton(editorSubmitText);
     updateInputsValues(projectData);
+    toggleAddButtonDisabledState(isFormValid(inputs), addTaskButton);
     updateSelectButtonTextElement(selectButtonTitleElement, valueName);
     updateSelectButtonIconElement(selectButtonIconElement, valueName);
-    toggleAddButtonDisabledState(isFormValid(inputs), addTaskButton);
   }
 
   function clearSpecificTicks(valueName) {
@@ -352,9 +352,11 @@ export default function createProjectEditor(
 
   /* event's listeners */
 
-  projectTitle.addEventListener('input', (e) =>
-    handleInputChange(e, addTaskButton, projectTitle)
-  );
+  inputs.forEach((input) => {
+    input.addEventListener('input', (e) =>
+      handleInputChange(e, addTaskButton, inputs)
+    );
+  });
 
   projectEditorSelectColorButton.addEventListener('click', () =>
     togglePopup(
