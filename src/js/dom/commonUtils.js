@@ -72,13 +72,9 @@ function enableAddButton(addButton) {
 }
 
 export function isFormValid(inputs) {
-  if (!inputs.length) return inputs.value !== '';
-
   const inputsArray = Array.from(inputs);
 
-  const title = inputsArray.find((input) => input.name === 'title');
-
-  return title.value !== '';
+  return inputsArray.every((input) => input.validity.valid);
 }
 
 export function toggleAddButtonDisabledState(formValid, addButton) {
