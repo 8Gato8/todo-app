@@ -120,12 +120,13 @@
       <div id="task-editor-overlay" class="overlay overlay_align">
         <form class="task-editor editor editor_popup">
           <div class="task-editor__editing-area editing-area">
-            <div class="task-editor__text-inputs">
+            <fieldset class="task-editor__text-inputs">
               <input
                 name="title"
                 class="editing-area__title editing-area-input"
                 type="text"
                 required
+                minlength="2"
                 placeholder="Название задачи"
               />
               <textarea
@@ -134,9 +135,9 @@
                 class="editing-area__description editing-area-input"
                 placeholder="Описание"
               ></textarea>
-            </div>
+            </fieldset>
 
-            <div class="task-editor__due-items">
+            <fieldset class="task-editor__due-items">
               <label class="due-item" for="due-date">
                 <div class="due-item-container">
                   <span class="due-item__text">Срок</span>
@@ -197,11 +198,11 @@
                   type="time"
                 />
               </label>
-            </div>
+            </fieldset>
           </div>
 
           <div class="task-editor__footer task-editor-footer">
-            <div class="task-editor-footer__selects">
+            <fieldset class="task-editor-footer__selects">
               <div
                 id="project-choice-container"
                 class="choice-container select-popup-container"
@@ -302,7 +303,7 @@
                   ></ul>
                 </div>
               </div>
-            </div>
+            </fieldset>
             <div class="task-editor-footer__buttons editor-footer__buttons">
               <button
                 id="cancel-button"
@@ -356,7 +357,7 @@
         <form class="project-editor editor editor_popup">
           <h2 class="project-editor__title"></h2>
 
-          <div class="project-editor__fields">
+          <fieldset class="project-editor__fields">
             <div class="project-editor__field-container">
               <label
                 for="project-editor-title"
@@ -368,6 +369,9 @@
                 class="project-editor__field project-editor__input"
                 type="text"
                 name="title"
+                required
+                minlength="2"
+                maxlength="30"
               />
             </div>
             <div class="project-editor__field-container">
@@ -415,7 +419,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </fieldset>
 
           <div class="project-editor__buttons editor-footer__buttons">
             <button
