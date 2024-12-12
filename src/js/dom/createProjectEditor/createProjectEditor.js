@@ -181,7 +181,7 @@ export default function createProjectEditor(
     updateEditorTitle(editorTitleText);
     updateEditorSubmitButton(editorSubmitText);
     updateInputsValues(projectData);
-    toggleAddButtonDisabledState(isFormValid(inputs), addTaskButton);
+    toggleAddButtonDisabledState(isFormValid(projectEditorForm), addTaskButton);
     updateSelectButtonTextElement(selectButtonTitleElement, valueName);
     updateSelectButtonIconElement(selectButtonIconElement, valueName);
   }
@@ -300,12 +300,12 @@ export default function createProjectEditor(
     reset();
   }
 
-  function handleInputChange(e, addButton, inputs) {
+  function handleInputChange(e, addButton) {
     const input = e.currentTarget;
     const valueName = input.name;
     projectData[valueName] = input.value;
 
-    toggleAddButtonDisabledState(isFormValid(inputs), addButton);
+    toggleAddButtonDisabledState(isFormValid(projectEditorForm), addButton);
   }
 
   function addProject() {
@@ -353,9 +353,7 @@ export default function createProjectEditor(
   /* event's listeners */
 
   inputs.forEach((input) => {
-    input.addEventListener('input', (e) =>
-      handleInputChange(e, addTaskButton, inputs)
-    );
+    input.addEventListener('input', (e) => handleInputChange(e, addTaskButton));
   });
 
   projectEditorSelectColorButton.addEventListener('click', () =>

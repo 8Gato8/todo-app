@@ -71,10 +71,8 @@ function enableAddButton(addButton) {
   addButton.removeAttribute('disabled');
 }
 
-export function isFormValid(inputs) {
-  const inputsArray = Array.from(inputs);
-
-  return inputsArray.every((input) => input.validity.valid);
+export function isFormValid(form) {
+  return form.checkValidity();
 }
 
 export function toggleAddButtonDisabledState(formValid, addButton) {

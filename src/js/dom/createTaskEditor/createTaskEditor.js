@@ -252,7 +252,7 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
     updateDueDate();
     updateEditorSubmitButton(editorSubmitText);
     updateInputsValues(taskData);
-    toggleAddButtonDisabledState(isFormValid(inputs), addTaskButton);
+    toggleAddButtonDisabledState(isFormValid(taskEditorForm), addTaskButton);
     updatePopupButtonTextElements();
     updatePopupButtonIconElements();
   }
@@ -482,11 +482,11 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
     taskData[valueName] = input.value;
   }
 
-  function handleInputChange(e, addButton, inputs) {
+  function handleInputChange(e, addButton) {
     const input = e.currentTarget;
     addInputValueToTaskData(input);
 
-    toggleAddButtonDisabledState(isFormValid(inputs), addButton);
+    toggleAddButtonDisabledState(isFormValid(taskEditorForm), addButton);
   }
 
   function handleSidebarOpenTaskEditorButtonClick() {
@@ -556,9 +556,7 @@ export default function createTaskEditor(projects, priorities, inboxProject) {
   );
 
   inputs.forEach((input) => {
-    input.addEventListener('input', (e) =>
-      handleInputChange(e, addTaskButton, inputs)
-    );
+    input.addEventListener('input', (e) => handleInputChange(e, addTaskButton));
   });
 
   dueDateResetButton.addEventListener('click', handleDueDateResetButtonClick);
