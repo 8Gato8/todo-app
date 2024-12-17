@@ -60,7 +60,6 @@ export function addProjectToProjectsArray(project) {
   addItemToLocalStorage('projects', projects);
 }
 
-/* Спорное решение */
 export function deleteTaskFromOpenedProject(task) {
   removeTask(openedProject.tasks, task);
 
