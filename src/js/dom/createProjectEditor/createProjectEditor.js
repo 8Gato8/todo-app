@@ -46,8 +46,6 @@ export default function createProjectEditor(
 
   const projectEditorTitle = document.querySelector('.project-editor__title');
 
-  /* const projectTitle = document.querySelector('#project-title'); */
-
   const projectEditorSelectColorButton = document.querySelector(
     '#project-editor-select-color-button'
   );
