@@ -6,4 +6,4 @@
   <img src="./src/assets/img/todo-app.png">
 </div>
 
-Ссылка: https://8gato8.github.io/todo-app/
+https://8gato8.github.io/todo-app/
