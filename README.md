@@ -6,8 +6,6 @@
   <img src="./src/assets/img/todo-app.png">
 </div>
 
-https://8gato8.github.io/todo-app/
-
 **Функционал:**
 
 - Добавлять проекты и назначать в них задачи, задавать срок их исполнения
